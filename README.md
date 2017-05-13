@@ -13,7 +13,7 @@ I tried to take the best from two greats existed gem:
 - [administrate](https://github.com/thoughtbot/administrate)
 
 Design inspired from the awesome metronic admin theme:
-[keenthemes]http://keenthemes.com/preview/metronic/
+- [keenthemes](http://keenthemes.com/preview/metronic/)
 
 #### Screenshots
 
