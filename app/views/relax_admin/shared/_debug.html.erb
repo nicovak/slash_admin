@@ -1,0 +1,19 @@
+<h2>Params</h2>
+<pre>
+  <%= debug params.inspect %>
+</pre>
+
+<h2>Belongs to</h2>
+<pre>
+  <%= debug @belongs_to_fields.inspect %>
+</pre>
+
+<h2>Has_many</h2>
+<pre>
+  <%= debug @has_many_fields.inspect %>
+</pre>
+
+<h2>Nested</h2>
+<pre>
+  <%= debug @model_class.nested_attributes_options.keys %>
+</pre>

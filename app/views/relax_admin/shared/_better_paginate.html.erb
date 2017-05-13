@@ -1,0 +1,32 @@
+<% if @models.total_pages >= 1 %>
+  <form method="GET" class="admin-pagination" url="">
+    <div class="pagination-panel">
+      Page
+      <a class="btn btn-sm btn-prev prev-page
+        <% if @models.current_page == 1 %>disabled
+        <% end %>">
+        <i class="fa fa-angle-left"></i>
+      </a>
+      <input type="text" value="<%= @models.current_page %>" class="integer" name="page"/>
+      <a href="<%= request.fullpath %>" class="btn btn-sm btn-next btn-sm  next-page
+        <% if @models.current_page == @models.total_pages %>disabled
+        <% end %>">
+        <i class="fa fa-angle-right"></i>
+      </a>
+      sur
+      <span class="pagination-panel-total"><%= @models.total_pages %></span>|
+
+      Voir par
+      <select class="form-input input-sm form-control" name="per">
+        <% @per_values.each do |per| %>
+          <option value="<%= per %>"
+                  <% if params[:per].to_i == per %>selected
+                  <% end %>><%= per %></option>
+        <% end %>
+      </select>
+      Total de
+      <span class="pagination-panel-total-count"><%= @models.total_count %></span>
+      résultats trouvé(s)
+    </div>
+  </form>
+<% end %>

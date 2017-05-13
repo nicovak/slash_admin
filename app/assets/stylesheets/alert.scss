@@ -1,0 +1,29 @@
+.alert {
+  z-index: 9999;
+  top: 0;
+  position: fixed;
+  border-radius: 0;
+  border: 0;
+  color: #fff;
+  width: 100%;
+}
+
+.alert-info {
+  background-color: #3498db;
+  border-bottom: 1px solid darken(#2980b9, 10%)
+}
+
+.alert-warning {
+  background-color: #f1c40f;
+  border-bottom: 1px solid darken(#f39c12, 10%)
+}
+
+.alert-success {
+  background-color: #2ecc71;
+  border-bottom: 1px solid darken(#27ae60, 10%)
+}
+
+.alert-danger {
+  background-color: #e74c3c;
+  border-bottom: 1px solid darken(#c0392b, 10%)
+}

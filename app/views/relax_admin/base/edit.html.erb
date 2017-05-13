@@ -1,0 +1,28 @@
+<% page_title(@model_name.pluralize) %>
+<% page_sub_title(@sub_title) %>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="portlet">
+      <div class="portlet-title">
+        <div class="caption">
+          Édition: <%= @model_name.pluralize %>
+        </div>
+        <div class="actions">
+          <%= link_to(polymorphic_path([:admin, @model_class]), class: 'btn btn-circle btn-primary btn-sm') do %>
+            <i class="icon-action-undo"></i> Retour à la liste
+          <% end %>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="datatable_wrapper">
+          <div class="row">
+            <div class="col-sm-12">
+              <%= render 'data_new', params: update_params %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

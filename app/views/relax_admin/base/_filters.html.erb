@@ -1,0 +1,42 @@
+<tr role="row" class="filters">
+  <%= form_for :filters, url: '', method: 'GET', html: {id: 'filters'} do |form| %>
+    <td>&nbsp;</td>
+    <td class="fit">
+      <input type="text" name="filters[id]" value="<%= params[:filters]['id'] rescue nil %>" class="form-control form-control-sm fix-id-search"/>
+    </td>
+    <% list_params.each do |attr| %>
+      <% if !attr.is_a?(Hash) && sortable?(attr, @model_class) %>
+        <td>
+          <% case guess_field_type(attr, @model_class)
+               when 'string', 'text' %>
+            <input type="text" name="filters[<%= attr %>]" value="<%= params[:filters][attr] rescue nil %>" class="form-control form-control-sm"/>
+          <% when 'integer', 'number', 'decimal' %>
+            <input type="text" name="filters[<%= attr %>][from]" value="<%= params[:filters][attr]['from'] rescue nil %>" class="form-control form-control-sm" placeholder="De"/>
+            <input type="text" name="filters[<%= attr %>][to]" value="<%= params[:filters][attr]['to'] rescue nil %>" class="form-control form-control-sm" placeholder="À"/>
+          <% when 'date', 'datetime' %>
+            <div class="input-group">
+              <input type="text" name="filters[<%= attr %>][from]" value="<%= params[:filters][attr]['from'] rescue nil %>" class="form-control form-control-sm bootstrap-datepicker" placeholder="Du"/>
+              <span class="input-group-addon"><i class="icon-calendar"></i></span>
+            </div>
+            <div class="input-group">
+              <input type="text" name="filters[<%= attr %>][to]" value="<%= params[:filters][attr]['to'] rescue nil %>" class="form-control form-control-sm bootstrap-datepicker" placeholder="Au"/>
+              <span class="input-group-addon"><i class="icon-calendar"></i></span>
+            </div>
+          <% when 'boolean' %>
+            <select name="filters[<%= attr %>]" class="form-control form-control-sm">
+              <option value="" <%= params[:filters][attr] == '' ? 'selected' : nil rescue nil %>></option>
+              <option value="true" <%= params[:filters][attr] == 'true' ? 'selected' : nil rescue nil %>>Oui</option>
+              <option value="false" <%= params[:filters][attr] == 'false' ? 'selected' : nil rescue nil %>>Non</option>
+            </select>
+          <% end %>
+        </td>
+      <% else %>
+        <td>&nbsp;</td>
+      <% end %>
+    <% end %>
+    <td>
+      <button type="submit" class="btn btn-sm btn-block btn-primary"><i class='fa fa-filter'></i> Filtrer</button>
+      <button id="reset-filters" class="btn btn-sm btn-block btn-secondary"><i class='fa fa-times'></i> Réinitialiser</button>
+    </td>
+  <% end %>
+</tr>

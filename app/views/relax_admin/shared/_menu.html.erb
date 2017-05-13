@@ -1,0 +1,39 @@
+<div class="page-sidebar">
+  <ul class="nav nav-pills flex-column">
+    <% menu_entries.each do |s| %>
+      <li class="nav-item
+        <% if s[:path] %>
+          <% if s[:model] %>
+            <% if controller.controller_name == s[:model].name.tableize %>active<% end %>
+          <% else %>
+            <% if request.fullpath == s[:path] %>active
+            <% end %>
+          <% end %>
+        <% end %>">
+        <a class="nav-link" href="
+          <% if s[:path] %><%= s[:path] %>
+          <% else %>#
+          <% end %>">
+          <% if s[:icon] %><i class="<%= s[:icon] %>"></i>
+          <% end %>
+          <span class="title"><%= s[:title] %></span>
+        </a>
+        <% if s[:sub_menu] %>
+          <ul class="sub-menu">
+            <% s[:sub_menu].each do |sub| %>
+              <li class="nav-item">
+                <a class="nav-link
+                  <% if controller.controller_name == sub[:model].name.tableize %>active
+                  <% end %>" href="<%= polymorphic_path([:admin, sub[:model]]) %>">
+                  <% if sub[:icon] %><i class="<%= sub[:icon] %>"></i><% end %>
+                  <span class="title"><%= sub[:model].model_name.human.pluralize %></span>
+                  <%# <span class="badge badge-pill badge-success">1</span> %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,26 @@
+<div class="container-fluid container-fluid-admin bckg-dark">
+  <div class="login-form centered">
+    <div class="row">
+      <div class="col-sm-12 content bckg-dark-light">
+        <h2 class="text-center title-login">Administration</h2>
+        <%= form_for(:admin, url: '') do |f| %>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-user"></i>
+            </span>
+            <%= f.text_field :login, required: false, autofocus: true, label: false, placeholder: "Adresse e-mail ou nom d'utilisateur", class: 'form-control' %>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-lock"></i>
+            </span>
+            <%= f.password_field :password, required: false, label: false, placeholder: 'Mot de passe', class: 'form-control' %>
+          </div>
+          <div class="form-actions">
+            <%= f.submit 'SE CONNECTER' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

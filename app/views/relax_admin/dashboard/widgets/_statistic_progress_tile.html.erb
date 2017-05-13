@@ -1,0 +1,29 @@
+<div class="dashboard-stat">
+  <div class="display">
+    <div class="number">
+      <h3 class="font-green-sharp">
+        <span data-counter="counterup" data-value="<%= options[:number] %>"></span><!--
+        --><% if options[:currency].present? %><small><%= options[:currency] %></small><% end %>
+      </h3>
+      <small><%= options[:title] %></small>
+    </div>
+    <div class="icon">
+      <i class="<%= options[:icon] %>"></i>
+    </div>
+  </div>
+  <div class="progress-info">
+    <div class="progress">
+      <span style="width: <%= options[:percent] %>%;" class="progress-bar bg-<%= options[:status] %>">
+        <span class="sr-only"><%= options[:percent] %>% progress</span>
+      </span>
+    </div>
+    <div class="status">
+      <div class="status-title">
+        <%= options[:progress_label] %>
+      </div>
+      <div class="status-number">
+        <%= options[:percent] %>%
+      </div>
+    </div>
+  </div>
+</div>

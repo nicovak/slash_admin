@@ -1,0 +1,18 @@
+<% nested_params.each do |association| %>
+  <% if association.has_key?(model_ref) %>
+    <% association[model_ref].each do |attribute| %>
+      <div class="form-group nested-fields
+        <% if errors?(@model, attribute.to_sym) %>has-danger<% end %>">
+          <%= admin_field(f, attribute, model_ref.to_s.singularize.classify.constantize) %>
+        <div class="form-control-feedback">
+          <% show_errors(@model, attribute.to_sym).each do |msg| %>
+            - <%= msg %><br/>
+          <% end %>
+        </div>
+        <%= link_to_remove_association f, class: 'btn btn-danger btn-sm btn-remove'  do %>
+          <i class="icon-trash"></i> Supprimer
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

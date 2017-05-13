@@ -1,0 +1,41 @@
+<% page_title(@model_name.pluralize) %>
+<% page_sub_title(@sub_title) %>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="portlet">
+      <div class="portlet-title">
+        <div class="caption">
+          Liste des <%= @model_name.pluralize %>
+        </div>
+        <div class="actions">
+          <%= link_to(new_polymorphic_path([:admin, @model_class]), class: 'btn btn-circle btn-primary btn-sm') do %>
+            <i class="fa fa-plus"></i> Nouveau
+          <% end rescue nil %>
+          <div class="dropdown">
+            <a class="btn btn-circle btn-secondary btn-sm dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-share"></i>
+              <span class="">Outils</span>
+              <i class="fa fa-angle-down fix-dropdown"></i>
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="<%= polymorphic_path([:admin, @model_class], format: 'csv') %>">Export
+                CSV</a>
+              <a class="dropdown-item" href="<%= polymorphic_path([:admin, @model_class], format: 'xls') %>">Export
+                XLS</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="datatable_wrapper">
+          <div class="row">
+            <div class="col-sm-12">
+              <%= render 'data_list' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

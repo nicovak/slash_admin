@@ -1,0 +1,12 @@
+<div class="form-group
+  <% if errors?(@model, a.to_sym) %>has-danger<% end %>">
+    <%= admin_field(f, a, @model_class) %>
+    <% if defined?(help) %>
+      <small class="form-text text-muted"><%= help %></small>
+    <% end %>
+  <div class="form-control-feedback">
+    <% show_errors(@model, a.to_sym).each do |msg| %>
+      - <%= msg %><br/>
+    <% end %>
+  </div>
+</div>

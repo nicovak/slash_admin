@@ -1,0 +1,11 @@
+<h1 class="page-title">
+  <% if content_for?(:page_title) %>
+    <%= yield(:page_title) %>
+  <% else %>
+    -
+  <% end %>
+
+  <% if content_for?(:page_sub_title) %>
+    <small><%= yield(:page_sub_title) %></small>
+  <% end %>
+</h1>

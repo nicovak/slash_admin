@@ -1,0 +1,10 @@
+<%= form_for [:admin, @model] do |f| %>
+  <%#= render 'admin/shared/debug', params: params %>
+
+  <% params.each do |a| %>
+    <%# <strong><%= @model_class.type_for_attribute(a).type.to_s </strong><br /> %>
+    <%= render 'fields/form_group', f: f, a: a %>
+  <% end %>
+
+  <%= render 'shared/new_form_buttons' %>
+<% end %>

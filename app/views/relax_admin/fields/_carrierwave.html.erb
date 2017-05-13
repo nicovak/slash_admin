@@ -1,0 +1,14 @@
+<% if required?(f.object, a.to_sym) %>
+  <%= f.label a.to_sym, class: 'form-control-label required' %>
+<% else %>
+  <%= f.label a.to_sym, class: 'form-control-label' %>
+<% end %>
+
+<div class="image-field">
+  <%# TODO handle file that are not image eg pdf %>
+  <% if f.object.send(a).url.present? %>
+    <img src="<%= f.object.send(a) %>" class="image"/>
+  <% end %>
+  <%= f.hidden_field (a + '_cache').to_sym %>
+  <%= f.file_field a.to_sym %>
+</div>
