@@ -70,9 +70,11 @@ RelaxAdmin::Admin.create!(
 - [X] Easy widget system
 - [ ] I18n
 - [ ] Global search
+- [ ] Integration of roles and permission with cancancan
 
 ### Create / Edit
 - [X] WYSIWYG
+- [X] Image and file upload with carrierwave
 - [X] Default params for create
 - [X] Nested relations with `nested_attributes`
 
