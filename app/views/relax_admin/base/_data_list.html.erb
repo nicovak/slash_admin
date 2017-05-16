@@ -1,7 +1,7 @@
 <div class="block head-data-list">
   <div class="fix-block-head"></div>
-  <%= render 'admin/shared/better_paginate' %>
-  <%= render 'admin/shared/batch_actions' %>
+  <%= render 'relax_admin/shared/better_paginate' %>
+  <%= render 'relax_admin/shared/batch_actions' %>
 </div>
 
 <form name="order" id="order" method="GET">
@@ -77,13 +77,13 @@
       <% end %>
       <td class="actions fit">
         <div class="btn-group">
-          <%= link_to(polymorphic_path([:admin, m]), class: 'btn btn-primary btn-sm') do %>
+          <%= link_to(polymorphic_url([:relax_admin, m]), class: 'btn btn-primary btn-sm') do %>
             <i class="icon-magnifier"></i>
           <% end rescue nil %>
-          <%= link_to(edit_polymorphic_path([:admin, m]), class: 'btn btn-warning btn-sm') do %>
+          <%= link_to(edit_polymorphic_url([:relax_admin, m]), class: 'btn btn-warning btn-sm') do %>
             <i class="icon-note"></i>
           <% end rescue nil %>
-          <%= link_to(polymorphic_path([:admin, m]), class: 'single-delete btn btn-danger btn-sm') do %>
+          <%= link_to(polymorphic_url([:relax_admin, m]), class: 'single-delete btn btn-danger btn-sm') do %>
             <i class="icon-trash"></i>
           <% end rescue nil %>
         </div>
@@ -93,7 +93,7 @@
   </tbody>
 </table>
 
-<%= render 'admin/shared/better_paginate' %>
+<%= render 'relax_admin/shared/better_paginate' %>
 
 <script type="text/javascript">
   $('.bootstrap-datepicker').datepicker({

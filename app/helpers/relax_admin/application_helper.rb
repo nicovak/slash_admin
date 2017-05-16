@@ -1,16 +1,6 @@
 # frozen_string_literal: true
 module RelaxAdmin
   module ApplicationHelper
-    def menu_entries
-      [
-        {
-          title: 'Dashboard',
-          path: dashboard_path,
-          icon: 'icon-home',
-        },
-      ]
-    end
-
     def page_title(content)
       content_for :page_title, content
     end
@@ -82,31 +72,31 @@ module RelaxAdmin
     def admin_field(form, attribute, model_class)
       # Handle specific field first and default after
       if @belongs_to_fields.include?(attribute.to_sym)
-        render partial: 'fields/belongs_to', locals: {f: form, a: attribute}
+        render partial: 'relax_admin/fields/belongs_to', locals: {f: form, a: attribute}
       elsif @has_many_fields.include?(attribute.to_sym)
         # if has nested_attributes_options for has_many field
         if model_class.nested_attributes_options.key?(attribute.to_sym)
-          render partial: 'fields/nested_has_many', locals: {f: form, a: attribute}
+          render partial: 'relax_admin/fields/nested_has_many', locals: {f: form, a: attribute}
         else
-          render partial: 'fields/has_many', locals: {f: form, a: attribute}
+          render partial: 'relax_admin/fields/has_many', locals: {f: form, a: attribute}
         end
       elsif model_class&.uploaders&.key?(attribute.to_sym)
-        render partial: 'fields/carrierwave', locals: {f: form, a: attribute}
+        render partial: 'relax_admin/fields/carrierwave', locals: {f: form, a: attribute}
       else
         # Default fields
         case guess_field_type(attribute, model_class)
         when 'string'
-          render partial: 'fields/string', locals: {f: form, a: attribute}
+          render partial: 'relax_admin/fields/string', locals: {f: form, a: attribute}
         when 'text'
-          render partial: 'fields/text', locals: {f: form, a: attribute}
+          render partial: 'relax_admin/fields/text', locals: {f: form, a: attribute}
         when 'integer'
-          render partial: 'fields/integer', locals: {f: form, a: attribute}
+          render partial: 'relax_admin/fields/integer', locals: {f: form, a: attribute}
         when 'number', 'decimal'
-          render partial: 'fields/number', locals: {f: form, a: attribute}
+          render partial: 'relax_admin/fields/number', locals: {f: form, a: attribute}
         when 'boolean'
-          render partial: 'fields/boolean', locals: {f: form, a: attribute}
+          render partial: 'relax_admin/fields/boolean', locals: {f: form, a: attribute}
         when 'date', 'datetime'
-          render partial: 'fields/date', locals: {f: form, a: attribute}
+          render partial: 'relax_admin/fields/date', locals: {f: form, a: attribute}
         end
       end
     end

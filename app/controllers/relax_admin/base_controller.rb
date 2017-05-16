@@ -40,12 +40,12 @@ module RelaxAdmin
       if @model.valid?
         if @model.save
           flash[:success] = "#{@model_name} créé(e)."
-          redirect_to(action: :index) && return if params[:submit_redirect]
-          redirect_to(action: :new) && return if params[:submit_add]
-          redirect_to edit_polymorphic_path([:admin, @model])
+          redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) if params[:submit_redirect]
+          redirect_to main_app.new_polymorphic_url([:relax_admin, @model_class]) if params[:submit_add]
+          redirect_to main_app.edit_polymorphic_url([:relax_admin, @model])
         end
       else
-        render action: 'new'
+        redirect_to main_app.new_polymorphic_url([:relax_admin, @model_class]) if params[:submit_add]
       end
     end
 
@@ -58,20 +58,20 @@ module RelaxAdmin
     end
 
     def update
-      if @model_class.find(params[:id]).update(permit_params)
+      @model = @model_class.find(params[:id])
+      if @model.update(permit_params)
         flash[:success] = "#{@model_name} mis(e) à jour."
-        redirect_to(action: :index) && return if params[:submit_redirect]
-        redirect_to action: :edit
-      else
-        render action: :edit
+        redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) and return if params[:submit_redirect]
+        redirect_to main_app.new_polymorphic_url([:relax_admin, @model_class]) and return if params[:submit_add]
       end
+      redirect_to main_app.edit_polymorphic_url([:relax_admin, @model])
     end
 
     def destroy
       @model_class.find(params[:id]).destroy!
 
       flash[:success] = "#{@model_name} supprimé(e)."
-      redirect_to action: :index, flash: {notice: "#{@model_name} supprimé(e)."}
+      redirect_to main_app.polymorphic_url([:relax_admin, @model_class])
     end
 
     def object_label_methods

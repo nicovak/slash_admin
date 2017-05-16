@@ -9,7 +9,7 @@
           Affichage: <%= @model_name.pluralize %>
         </div>
         <div class="actions">
-          <%= link_to(polymorphic_path([:admin, @model_class]), class: 'btn btn-circle btn-primary btn-sm') do %>
+          <%= link_to(polymorphic_url([:relax_admin, @model_class]), class: 'btn btn-circle btn-primary btn-sm') do %>
             <i class="icon-action-undo"></i> Retour à la liste
           <% end %>
         </div>

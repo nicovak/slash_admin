@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module RelaxAdmin
   class Security::SessionsController < ActionController::Base
-    layout 'admin_user'
+    layout 'relax_admin/admin_user'
 
     def new
     end

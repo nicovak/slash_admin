@@ -22,7 +22,6 @@ PATH
       selectize-rails
       sweetalert-rails
       tether-rails
-      wysiwyg-rails
 
 GEM
   remote: https://rubygems.org/
@@ -89,8 +88,6 @@ GEM
     execjs (2.7.0)
     font-awesome-rails (4.7.0.2)
       railties (>= 3.2, < 5.2)
-    font-awesome-sass (4.7.0)
-      sass (>= 3.2)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     groupdate (3.2.0)
@@ -187,9 +184,6 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    wysiwyg-rails (2.6.0)
-      font-awesome-sass (~> 4.4, >= 4.4.0)
-      railties (>= 3.2, < 6.0)
 
 PLATFORMS
   ruby

@@ -40,9 +40,11 @@ $ gem install relax_admin
 
 ```ruby
 Rails.application.routes.draw do
-  mount RelaxAdmin::Engine => "/admin"
+  mount RelaxAdmin::Engine => "/"
 end
 ```
+
+Mounted as '/' but prefixed in the gem and in routes definition of models admin. See below.
 
 Then execute:
 
@@ -95,7 +97,7 @@ RelaxAdmin::Admin.create!(
 ### Generators (for overriding)
 
 - [ ] Install & Initial setup
-- [ ] Controllers
+- [X] Controllers
 - [ ] Views
 
 Icons available:
@@ -105,34 +107,35 @@ Icons available:
 Exemple of process to add a new 'page' model:
 
 ````ruby
-module RelaxAdmin::DashboardHelper
-  def menu_entries
-    [
-      {
-        title: 'Dashboard',
-        path: admin_dashboard_path,
-        icon: 'icon-home',
-      },
-      {
-        title: 'Content',
-        icon: 'icon-crop',
-        sub_menu: [
-          {model: Page, icon: 'icon-book-open'},
-        ],
-      }
-    ]
+module RelaxAdmin
+  class MenuHelper
+    def menu_entries
+      [
+        {
+          title: 'Dashboard',
+          path: relax_admin.dashboard_path,
+          icon: 'icon-home',
+        },
+        {
+          title: 'Content',
+          icon: 'icon-crop',
+          sub_menu: [
+            {model: Page, icon: 'icon-book-open'},
+          ],
+        }
+      ]
+    end
   end
 end
 ````
 
-## routes
+## Routes
 
 No role or acccess security right now.
 You can define `except` and `only` on ressources
 
 ````ruby
-namespace :relax_admin do
-  ...
+namespace :relax_admin, path: 'admin' do
   scope module: 'models' do
     resources :pages
   end
@@ -143,21 +146,31 @@ end
 For references see: app/controllers/admin/base_controller.rb
 Everything is overridable for each controller and each model (params, views, field, etc)
 
-**def list_params; end is mandatory**
+**def list_params method is mandatory**
+
+You can generate an admin controller (e.g for page model):
+
+````bash
+rails g relax_admin:controllers pages
+````
 
 ````ruby
-class AdsController < RelaxAdmin::BaseController
-  def list_params
-    [
-      {attr: :image, type: 'image'},
-      :title,
-    ]
-  end
+module RelaxAdmin
+  module Models
+    class PagesController < RelaxAdmin::BaseController
+      def list_params
+        [
+          {attr: :image, type: 'image'},
+          :title,
+        ]
+      end
 
-  def export_params
-    [
-      :title,
-    ]
+      def export_params
+        [
+          :title,
+        ]
+      end
+    end
   end
 end
 ````

@@ -9,7 +9,7 @@
           Liste des <%= @model_name.pluralize %>
         </div>
         <div class="actions">
-          <%= link_to(new_polymorphic_path([:admin, @model_class]), class: 'btn btn-circle btn-primary btn-sm') do %>
+          <%= link_to(new_polymorphic_url([:relax_admin, @model_class]), class: 'btn btn-circle btn-primary btn-sm') do %>
             <i class="fa fa-plus"></i> Nouveau
           <% end rescue nil %>
           <div class="dropdown">
@@ -19,9 +19,9 @@
               <i class="fa fa-angle-down fix-dropdown"></i>
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="<%= polymorphic_path([:admin, @model_class], format: 'csv') %>">Export
+              <a class="dropdown-item" href="<%= polymorphic_url([:relax_admin, @model_class], format: 'csv') %>">Export
                 CSV</a>
-              <a class="dropdown-item" href="<%= polymorphic_path([:admin, @model_class], format: 'xls') %>">Export
+              <a class="dropdown-item" href="<%= polymorphic_url([:relax_admin, @model_class], format: 'xls') %>">Export
                 XLS</a>
             </div>
           </div>
