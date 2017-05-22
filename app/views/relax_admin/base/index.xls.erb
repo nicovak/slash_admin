@@ -9,7 +9,7 @@
       <Row>
         <% @fields.each do |f| %>
           <Cell>
-            <Data ss:Type="String"><%= @model.human_attribute_name(f) %></Data>
+            <Data ss:Type="String"><%= @model_class.human_attribute_name(f) %></Data>
           </Cell>
         <% end %>
       </Row>

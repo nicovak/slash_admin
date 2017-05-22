@@ -1,3 +1,5 @@
+require 'csv'
+
 module RelaxAdmin
   class BaseController < RelaxAdmin::ApplicationController
     before_action :authenticate_admin!
@@ -40,13 +42,10 @@ module RelaxAdmin
       if @model.valid?
         if @model.save
           flash[:success] = "#{@model_name} créé(e)."
-          redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) if params[:submit_redirect]
-          redirect_to main_app.new_polymorphic_url([:relax_admin, @model_class]) if params[:submit_add]
-          redirect_to main_app.edit_polymorphic_url([:relax_admin, @model])
+          handle_redirect_after_submit
         end
-      else
-        redirect_to main_app.new_polymorphic_url([:relax_admin, @model_class]) if params[:submit_add]
       end
+      render :new and return
     end
 
     def edit
@@ -61,10 +60,9 @@ module RelaxAdmin
       @model = @model_class.find(params[:id])
       if @model.update(permit_params)
         flash[:success] = "#{@model_name} mis(e) à jour."
-        redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) and return if params[:submit_redirect]
-        redirect_to main_app.new_polymorphic_url([:relax_admin, @model_class]) and return if params[:submit_add]
+        handle_redirect_after_submit
       end
-      redirect_to main_app.edit_polymorphic_url([:relax_admin, @model])
+      render :edit and return
     end
 
     def destroy
@@ -128,6 +126,12 @@ module RelaxAdmin
     end
 
   protected
+
+    def handle_redirect_after_submit
+      redirect_to main_app.polymorphic_url(['relax_admin', @model_class]) and return if params.key?(:submit_redirect)
+      redirect_to main_app.new_polymorphic_url(['relax_admin', @model_class]) and return if params.key?(:submit_add)
+      redirect_to main_app.edit_polymorphic_url(['relax_admin', @model]) and return
+    end
 
     def permit_params
       params[@model_class.model_name.to_s.underscore].permit!
