@@ -4,6 +4,9 @@
       <div class="col-sm-12 content bckg-dark-light">
         <h2 class="text-center title-login">Administration</h2>
         <%= form_for(:admin, url: '') do |f| %>
+          <span class="failed-login">
+            <%= @error_messages %>
+          </span>
           <div class="input-group">
             <span class="input-group-addon">
               <i class="fa fa-user"></i>

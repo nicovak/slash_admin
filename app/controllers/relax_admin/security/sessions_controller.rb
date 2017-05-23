@@ -13,14 +13,15 @@ module RelaxAdmin
         flash[:notice] = 'Vous êtes à présent connecté.'
         redirect_to relax_admin.dashboard_path
       else
-        render :new && return
+        @error_messages = 'Merci de vérifier vos identifiants'
+        render :new and return
       end
     end
 
     def destroy
       session[:admin_id] = nil
       flash[:notice] = 'Déconnecté avec succès.'
-      render :new
+      redirect_to relax_admin.login_url
     end
   end
 end

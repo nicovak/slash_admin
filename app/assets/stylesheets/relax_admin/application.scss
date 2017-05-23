@@ -1197,6 +1197,13 @@ h6 {
     -webkit-text-fill-color: #fff !important;
   }
 
+  .failed-login {
+    color: $red;
+    text-align: center;
+    display: block;
+    font-size: .9em;
+  }
+
   height: 100vh;
 
   .container-fluid-admin {
