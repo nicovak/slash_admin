@@ -35,6 +35,8 @@ module RelaxAdmin
     validates_format_of :email, with: EMAIL_REGEX, multiline: true
     validates_format_of :username, with: USERNAME_REGEX, multiline: true
 
+    serialize :roles, Array
+
     def login=(login)
       @login = login
     end

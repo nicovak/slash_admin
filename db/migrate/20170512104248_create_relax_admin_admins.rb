@@ -7,6 +7,7 @@ class CreateRelaxAdminAdmins < ActiveRecord::Migration[5.0]
       t.string :email,              null: false, default: ''
       t.string :password_digest,    null: false, default: ''
       t.string :avatar
+      t.string :roles
 
       ## Recoverable
       t.string   :reset_password_token

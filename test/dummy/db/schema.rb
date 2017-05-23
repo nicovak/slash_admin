@@ -13,14 +13,14 @@
 ActiveRecord::Schema.define(version: 20170512104248) do
 
   create_table "relax_admin_admins", force: :cascade do |t|
-    t.string   "username",               default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "password_digest",        default: "", null: false
-    t.string   "avatar"
-    t.string   "reset_password_token"
+    t.string "username", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "password_digest", default: "", null: false
+    t.string "avatar"
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

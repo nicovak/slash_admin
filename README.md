@@ -66,6 +66,7 @@ RelaxAdmin::Admin.create!(
 
 - Rails 5
 - Bootstrap 4
+- Ruby 2.4.0
 
 ### Dashboard
 - [X] Charts

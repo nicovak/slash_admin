@@ -27,17 +27,18 @@
         <% if access_model?(sub) %>
         <li class="nav-item">
           <a class="nav-link
-                  <% if controller.controller_name == sub[:model].name.tableize %>active
-                  <% end %>" href="<%= polymorphic_url([:relax_admin, sub[:model]]) %>">
+                      <% if controller.controller_name == sub[:model].name.tableize %>active
+                      <% end %>" href="<%= polymorphic_url([:relax_admin, sub[:model]]) %>">
             <% if sub[:icon] %>
-            <i class="<%= sub[:icon] %>"></i><% end %>
+            <i class="<%= sub[:icon] %>"></i>
+            <% end %>
             <span class="title"><%= sub[:model].model_name.human.pluralize %></span>
             <%# <span class="badge badge-pill badge-success">1</span> %>
           </a>
         </li>
         <% end %>
+        <% end %>
       </ul>
-      <% end %>
       <% end %>
     </li>
     <% end %>

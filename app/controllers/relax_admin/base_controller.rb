@@ -2,8 +2,6 @@ require 'csv'
 
 module RelaxAdmin
   class BaseController < RelaxAdmin::ApplicationController
-    load_and_authorize_resource
-
     before_action :authenticate_admin!
     before_action :handle_default
     before_action :handle_default_mode
@@ -14,6 +12,7 @@ module RelaxAdmin
     helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :current_admin, :object_label
 
     def index
+      authorize! :index, @model_class
       @models_export = if params[:filters].present?
                          handle_filtered_search
                        else
@@ -36,35 +35,40 @@ module RelaxAdmin
     end
 
     def new
+      authorize! :new, @model_class
       @model = @model_class.new
     end
 
     def create
+      authorize! :new, @model_class
       @model = @model_class.new(permit_params)
       if @model.valid?
         if @model.save
           flash[:success] = "#{@model_name} créé(e)."
-          handle_redirect_after_submit
+          return handle_redirect_after_submit
         end
       end
       render :new and return
     end
 
     def edit
-      @model = @model_class.find(params[:id])
-    end
-
-    def show
+      authorize! :edit, @model_class
       @model = @model_class.find(params[:id])
     end
 
     def update
+      authorize! :edit, @model_class
       @model = @model_class.find(params[:id])
       if @model.update(permit_params)
         flash[:success] = "#{@model_name} mis(e) à jour."
-        handle_redirect_after_submit
+        return handle_redirect_after_submit
       end
       render :edit and return
+    end
+
+    def show
+      authorize! :show, @model_class
+      @model = @model_class.find(params[:id])
     end
 
     def destroy
@@ -136,7 +140,7 @@ module RelaxAdmin
     end
 
     def permit_params
-      params[@model_class.model_name.to_s.underscore].permit!
+      params[@model_class.name.split('::').last.underscore].permit!
     end
 
     def handle_default
@@ -164,8 +168,13 @@ module RelaxAdmin
       @has_many_fields = @model_class.reflect_on_all_associations(:has_many).map(&:name)
     end
 
+    # By default we are looking in RelaxAdmin:: namespace
     def model
-      controller_name.classify.constantize
+      begin
+        return controller_name.classify.constantize
+      rescue
+        return ('RelaxAdmin::' + controller_name.classify).constantize
+      end
     end
 
     def handle_default_mode
@@ -180,7 +189,7 @@ module RelaxAdmin
     end
 
     def current_admin
-      @current_admin ||= Admin.find(session[:admin_id]) if session[:admin_id]
+      @current_admin ||= RelaxAdmin::Admin.find(session[:admin_id]) if session[:admin_id]
     end
 
     def prepend_view_paths
