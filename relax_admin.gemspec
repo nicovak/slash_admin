@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '~> 5.0'
   s.add_dependency 'kaminari'
+  s.add_dependency 'cancancan'
   s.add_dependency 'groupdate'
   s.add_dependency 'ruby_identicon'
   s.add_dependency 'bcrypt'

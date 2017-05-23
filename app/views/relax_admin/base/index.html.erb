@@ -9,9 +9,11 @@
           Liste des <%= @model_name.pluralize %>
         </div>
         <div class="actions">
-          <%= link_to(new_polymorphic_url([:relax_admin, @model_class]), class: 'btn btn-circle btn-primary btn-sm') do %>
-            <i class="fa fa-plus"></i> Nouveau
-          <% end rescue nil %>
+          <% if can? :create, @model_class %>
+            <%= link_to(new_polymorphic_url([:relax_admin, @model_class]), class: 'btn btn-circle btn-primary btn-sm') do %>
+              <i class="fa fa-plus"></i> Nouveau
+            <% end rescue nil %>
+          <% end %>
           <div class="dropdown">
             <a class="btn btn-circle btn-secondary btn-sm dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-share"></i>

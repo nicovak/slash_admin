@@ -6,11 +6,13 @@
       <i class="fa fa-angle-down fix-dropdown"></i>
     </a>
     <div class="dropdown-menu">
-      <a
-      class="dropdown-item batch-action"
-      data-action="<%= batch_actions_path('delete', @model_class.model_name.to_s.underscore) %>"
-      data-message="Vous ne serez pas capable de revenir en arrière." href="#"><i class="icon-trash">
-      </i> Supprimer</a>
+      <% if can? :destroy, @model_class %>
+        <a
+        class="dropdown-item batch-action"
+        data-action="<%= batch_actions_path('delete', @model_class.model_name.to_s.underscore) %>"
+        data-message="Vous ne serez pas capable de revenir en arrière." href="#"><i class="icon-trash">
+        </i> Supprimer</a>
+      <% end %>
     </div>
   </div>
   <div class="count">

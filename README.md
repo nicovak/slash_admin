@@ -72,7 +72,7 @@ RelaxAdmin::Admin.create!(
 - [X] Easy widget system
 - [ ] I18n
 - [ ] Global search
-- [ ] Integration of roles and permission with cancancan
+- [X] Integration of roles and permission with [cancancan](https://github.com/CanCanCommunity/cancancan)
 
 ### Create / Edit
 - [X] WYSIWYG
@@ -189,6 +189,10 @@ def handle_default
   @order = 'DESC'
 end
 ```
+
+## Handle permission with [cancancan](https://github.com/CanCanCommunity/cancancan)
+
+Just run `rails g relax_admin:permissions` and edit the generated file according [docs](https://github.com/CanCanCommunity/cancancan/wiki/defining-abilities)
 
 ## Helpers
 

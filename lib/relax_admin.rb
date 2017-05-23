@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'relax_admin/engine'
+require 'cancancan'
 require 'kaminari'
 require 'groupdate'
 require 'ruby_identicon'
@@ -21,5 +22,4 @@ require 'tether-rails'
 require 'sweetalert-rails'
 
 module RelaxAdmin
-  # Your code goes here...
 end

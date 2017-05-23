@@ -2,6 +2,8 @@ require 'csv'
 
 module RelaxAdmin
   class BaseController < RelaxAdmin::ApplicationController
+    load_and_authorize_resource
+
     before_action :authenticate_admin!
     before_action :handle_default
     before_action :handle_default_mode

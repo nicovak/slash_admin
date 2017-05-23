@@ -9,6 +9,22 @@ module RelaxAdmin
       content_for :page_sub_title, content
     end
 
+    # is the current has access to one node
+    def access?(s)
+      if s[:sub_menu].present?
+        s[:sub_menu].each do |sub|
+          return false if !access_model?(sub)
+        end
+      end
+      true
+    end
+
+    # is the current has access to model
+    def access_model?(sub)
+      return false if cannot? :index, sub[:model]
+      true
+    end
+
     def required?(obj, name)
       obj.class.validators_on(name).any? { |v| v.is_a? ActiveModel::Validations::PresenceValidator }
     end

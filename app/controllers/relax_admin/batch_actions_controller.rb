@@ -2,6 +2,7 @@
 module RelaxAdmin
   class BatchActionsController < RelaxAdmin::BaseController
     def delete
+      authorize! :destroy, @model_class
       model.where(id: params[:ids]).delete_all
     end
 

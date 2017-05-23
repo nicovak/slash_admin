@@ -77,15 +77,21 @@
       <% end %>
       <td class="actions fit">
         <div class="btn-group">
-          <%= link_to(polymorphic_url([:relax_admin, m]), class: 'btn btn-primary btn-sm') do %>
-            <i class="icon-magnifier"></i>
-          <% end rescue nil %>
-          <%= link_to(edit_polymorphic_url([:relax_admin, m]), class: 'btn btn-warning btn-sm') do %>
-            <i class="icon-note"></i>
-          <% end rescue nil %>
-          <%= link_to(polymorphic_url([:relax_admin, m]), class: 'single-delete btn btn-danger btn-sm') do %>
-            <i class="icon-trash"></i>
-          <% end rescue nil %>
+          <% if can? :show, @model_class %>
+            <%= link_to(polymorphic_url([:relax_admin, m]), class: 'btn btn-primary btn-sm') do %>
+              <i class="icon-magnifier"></i>
+            <% end rescue nil %>
+          <% end %>
+          <% if can? :edit, @model_class %>
+            <%= link_to(edit_polymorphic_url([:relax_admin, m]), class: 'btn btn-warning btn-sm') do %>
+              <i class="icon-note"></i>
+            <% end rescue nil %>
+          <% end %>
+          <% if can? :destroy, @model_class %>
+            <%= link_to(polymorphic_url([:relax_admin, m]), class: 'single-delete btn btn-danger btn-sm') do %>
+              <i class="icon-trash"></i>
+            <% end rescue nil %>
+          <% end %>
         </div>
       </td>
     </tr>

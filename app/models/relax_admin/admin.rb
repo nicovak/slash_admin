@@ -21,6 +21,8 @@
 #
 module RelaxAdmin
   class Admin < ApplicationRecord
+    include CanCan::Ability
+
     has_secure_password
 
     attr_accessor :login
