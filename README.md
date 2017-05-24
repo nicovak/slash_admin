@@ -77,7 +77,7 @@ RelaxAdmin::Admin.create!(
 
 ### Create / Edit
 - [X] Default params for create
-- [ ] Better handling of field type
+- [ ] Handling form and helpers
 
 ### List
 - [X] Default export of model (excel and csv)
@@ -86,6 +86,7 @@ RelaxAdmin::Admin.create!(
 - [X] Pagination
 - [ ] Handle `has_one` and `belongs_to`
 - [ ] Sortable and nested list
+- [ ] Better handling of field type
 
 ### Miscellaneous
 
@@ -99,6 +100,7 @@ RelaxAdmin::Admin.create!(
 - [ ] Install & Initial setup
 - [X] Controllers
 - [ ] Views
+- [ ] Custom fields
 
 ### Fields form
 
