@@ -135,9 +135,8 @@ def create_params
 end
 ```
 
-You can create your own custom field within `app/views/relax_admin/custom_fields/_{type (see below)}`
+You can create your own custom field within `app/views/relax_admin/custom_fields/_{type (see below)}.html.erb`
 eg: `roles: {type: :select, choices: %w(superadmin admin editor), multiple: false}`
-
 
 Icons available:
 - http://fontawesome.io/ (eg: `fa fa-home`)
@@ -227,6 +226,15 @@ def handle_default
   @order_field = :id
   @order = 'DESC'
 end
+```
+
+Eg: I wanna change the @per values for my controller:
+
+```ruby
+  def handle_default
+    super # call super method to keep other instance variables
+    @per = 20
+  end
 ```
 
 ## Handle permission with [cancancan](https://github.com/CanCanCommunity/cancancan)

@@ -9,14 +9,15 @@ module RelaxAdmin
       content_for :page_sub_title, content
     end
 
-    # is the current has access to one node
+    # is the current has access to at least one node
     def access?(s)
+      access = false
       if s[:sub_menu].present?
         s[:sub_menu].each do |sub|
-          return false if !access_model?(sub)
+          access = true if access_model?(sub)
         end
       end
-      true
+      access
     end
 
     # is the current has access to model
