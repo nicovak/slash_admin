@@ -91,7 +91,7 @@ module RelaxAdmin
       return 'string' if type.blank? && @model&.respond_to?(attr)
 
       # Raise exception if no type fouded
-      raise Exception.new("Unable to guess field_type for attribute: #{attr} in model: #{model_class}") if type.blank?
+      raise Exception.new("Unable to guess field_type for attribute: #{attr} in model: #{@model_class}") if type.blank?
       type
     end
 

@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'groupdate'
   s.add_dependency 'ruby_identicon'
   s.add_dependency 'bcrypt'
-  s.add_dependency 'carrierwave'
   s.add_dependency 'chartkick'
   s.add_dependency 'chart-js-rails'
   s.add_dependency 'highcharts-rails'
