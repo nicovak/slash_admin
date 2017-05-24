@@ -4,6 +4,7 @@ PATH
     relax_admin (0.1.0)
       bcrypt
       bootstrap (~> 4.0.0.alpha6)
+      bootstrap-datepicker-rails
       cancancan
       carrierwave
       chart-js-rails
@@ -72,6 +73,8 @@ GEM
     bootstrap (4.0.0.alpha6)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
+    bootstrap-datepicker-rails (1.6.4.1)
+      railties (>= 3.0)
     builder (3.2.3)
     byebug (9.0.6)
     cancancan (2.0.0)

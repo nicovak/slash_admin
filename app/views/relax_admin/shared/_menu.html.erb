@@ -5,11 +5,8 @@
     <li
       class="nav-item
         <% if s[:path] %>
-          <% if s[:model] %>
-            <% if controller.controller_name == s[:model].name.tableize %>active<% end %>
-          <% else %>
-            <% if request.fullpath == s[:path] %>active
-            <% end %>
+          <% if request.fullpath == s[:path] %>
+            active
           <% end %>
         <% end %>">
       <a class="nav-link" href="
@@ -27,8 +24,8 @@
         <% if access_model?(sub) %>
         <li class="nav-item">
           <a class="nav-link
-                      <% if controller.controller_name == sub[:model].name.tableize %>active
-                      <% end %>" href="<%= polymorphic_url([:relax_admin, sub[:model]]) %>">
+                      <% if controller.controller_name == sub[:model].name.split('::').last.tableize %>active<% end %>"
+                      href="<%= polymorphic_url([:relax_admin, sub[:model]]) %>">
             <% if sub[:icon] %>
             <i class="<%= sub[:icon] %>"></i>
             <% end %>

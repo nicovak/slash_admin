@@ -9,6 +9,7 @@
 //= require Chart
 //= require highcharts
 //= require chartkick
+//= require bootstrap-datepicker
 //= require sweetalert
 //= require cocoon
 //= require toastr
