@@ -38,18 +38,20 @@ Or install it yourself as:
 $ gem install relax_admin
 ```
 
+Then:
+```bash
+rails g relax_admin:install
+rails relax_admin:install:migrations
+rails db:migrate
+```
+
 ```ruby
 Rails.application.routes.draw do
   mount RelaxAdmin::Engine => "/"
 end
 ```
 
-Mounted as '/' but prefixed in the gem and in routes definition of models admin. See below.
-
-Then execute:
-
-`rails relax_admin:install:migrations`
-`rails db:migrate`
+Mounted as '/' but prefixed in the gem and in routes definition of models admin. See above.
 
 Example of create admin in `seed.rb` in your app:
 
@@ -97,7 +99,7 @@ RelaxAdmin::Admin.create!(
 
 ### Generators (for overriding)
 
-- [ ] Install & Initial setup
+- [X] Install & Initial setup
 - [X] Controllers
 - [ ] Views
 - [ ] Custom fields
