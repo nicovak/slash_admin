@@ -16,6 +16,8 @@
  *= require colors
  *= require toastr
  *= require sweetalert
+ *= require selectize
+ *= require jquery.minicolors
  *= require_tree .
  *= require_self
  */
@@ -1193,7 +1195,7 @@ h6 {
   input:-webkit-autofill:active,
   input:-webkit-autofill:focus,
   input:-webkit-autofill:hover {
-    transition: background-color 5000s ease-in-out 0s;
+    transition: background-color 9999999s ease-in-out 0s;
     -webkit-text-fill-color: #fff !important;
   }
 

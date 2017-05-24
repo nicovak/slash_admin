@@ -1,0 +1,2 @@
+<%= f.label a.to_sym, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
+<%= f.text_area a, class: 'form-control froala-editor', rows: '5', required: required?(f.object, a).present? %>

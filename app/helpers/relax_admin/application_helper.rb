@@ -25,21 +25,31 @@ module RelaxAdmin
       true
     end
 
-    def required?(obj, name)
-      obj.class.validators_on(name).any? { |v| v.is_a? ActiveModel::Validations::PresenceValidator }
+    def required?(obj, field_name)
+      if field_name.is_a?(Hash)
+        field_name = field_name.keys.first
+      end
+
+      obj.class.validators_on(field_name.to_s).any? { |v| v.is_a? ActiveModel::Validations::PresenceValidator }
     end
 
-    def show_errors(object, field_name)
-      return [] if object.errors.empty?
-      unless object.errors.messages[field_name].blank?
-        return object.errors.messages[field_name]
+    def show_errors(field_name)
+      if field_name.is_a?(Hash)
+        field_name = field_name.keys.first
+      end
+      return [] if @model.errors.empty?
+      unless @model.errors.messages[field_name].blank?
+        return @model.errors.messages[field_name]
       end
       []
     end
 
-    def errors?(object, field_name)
-      return false if object.errors.empty?
-      return true unless object.errors.messages[field_name].blank?
+    def errors?(field_name)
+      if field_name.is_a?(Hash)
+        field_name = field_name.keys.first
+      end
+      return false if @model.errors.empty?
+      return true unless @model.errors.messages[field_name].blank?
     end
 
     def toastr_bootstrap
@@ -52,28 +62,28 @@ module RelaxAdmin
     end
 
     # Default available field_type handeled
-    def orderable?(attr, model_class)
-      field_type = guess_field_type(attr, model_class)
+    def orderable?(attr)
+      field_type = guess_field_type(attr)
       %w(boolean integer number decimal string text date datetime).include?(field_type)
     end
 
     # By default all sortable fields are orderable
-    def sortable?(attr, model_class)
-      orderable?(attr, model_class)
+    def sortable?(attr)
+      orderable?(attr)
     end
 
     # Automatic retrieve of field type
     # boolean integer number decimal string text date datetime has_many belongs_to
-    def guess_field_type(attr, model_class)
+    def guess_field_type(attr)
       # Specific field
-      type = if model_class&.uploaders&.key?(attr.to_sym)
+      type = if @model_class&.uploaders&.key?(attr.to_sym)
                'image'
              elsif @belongs_to_fields.include?(attr.to_sym)
                'belongs_to'
              elsif @has_many_fields.include?(attr.to_sym)
                'has_many'
              else
-               model_class.type_for_attribute(attr.to_s).type.to_s
+               @model_class.type_for_attribute(attr.to_s).type.to_s
              end
 
       # Virtual field default string eg password
@@ -84,23 +94,31 @@ module RelaxAdmin
       type
     end
 
-    # Form helper for field
-    def admin_field(form, attribute, model_class)
-      # Handle specific field first and default after
-      if @belongs_to_fields.include?(attribute.to_sym)
+    def admin_custom_field(form, attribute)
+      type = attribute[attribute.keys.first][:type].to_s
+      render partial: "relax_admin/custom_fields/#{type}", locals: {f: form, a: attribute}
+    end
+
+    # Form helper for generic field
+    def admin_field(form, attribute)
+      # Handle custom field first and default after
+      is_custom = attribute.is_a?(Hash)
+      if is_custom
+        admin_custom_field(form, attribute)
+      elsif @belongs_to_fields.include?(attribute.to_sym)
         render partial: 'relax_admin/fields/belongs_to', locals: {f: form, a: attribute}
       elsif @has_many_fields.include?(attribute.to_sym)
         # if has nested_attributes_options for has_many field
-        if model_class.nested_attributes_options.key?(attribute.to_sym)
+        if @model_class.nested_attributes_options.key?(attribute.to_sym)
           render partial: 'relax_admin/fields/nested_has_many', locals: {f: form, a: attribute}
         else
           render partial: 'relax_admin/fields/has_many', locals: {f: form, a: attribute}
         end
-      elsif model_class&.uploaders&.key?(attribute.to_sym)
+      elsif @model_class&.uploaders&.key?(attribute.to_sym)
         render partial: 'relax_admin/fields/carrierwave', locals: {f: form, a: attribute}
       else
         # Default fields
-        case guess_field_type(attribute, model_class)
+        case guess_field_type(attribute)
         when 'string'
           render partial: 'relax_admin/fields/string', locals: {f: form, a: attribute}
         when 'text'

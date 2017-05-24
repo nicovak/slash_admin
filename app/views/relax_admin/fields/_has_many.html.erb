@@ -1,7 +1,2 @@
-<% if required?(f.object, a.to_sym) %>
-  <%= f.label a.to_sym, class: 'form-control-label required' %>
-  <%= f.collection_select "#{a.to_s.singularize}_ids".to_sym, "#{a.to_s.singularize}".classify.constantize.all, :id, object_label(a), {include_blank: true}, {class: 'selectize-multiple', multiple: 'multiple', required: true} %>
-<% else %>
-  <%= f.label a.to_sym, class: 'form-control-label' %>
-  <%= f.collection_select "#{a.to_s.singularize}_ids".to_sym, "#{a.to_s.singularize}".classify.constantize.all, :id, object_label(a), {include_blank: true}, {class: 'selectize-multiple', multiple: 'multiple'} %>
-<% end %>
+<%= f.label a, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
+<%= f.collection_select "#{a.to_s.singularize}_ids", "#{a.to_s.singularize}".classify.constantize.all, :id, object_label(a), {include_blank: true}, {class: 'selectize-multiple', multiple: 'multiple', required: required?(f.object, a).present?} %>

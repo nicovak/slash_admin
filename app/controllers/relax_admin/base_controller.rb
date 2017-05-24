@@ -4,6 +4,7 @@ module RelaxAdmin
   class BaseController < RelaxAdmin::ApplicationController
     before_action :authenticate_admin!
     before_action :handle_default
+    before_action :handle_internal_default
     before_action :handle_default_mode
     before_action :handle_default_params
     before_action :look_for_association
@@ -148,11 +149,15 @@ module RelaxAdmin
       @per = 10
       @page = 1
       @per_values = [10, 20, 50, 100, 150]
-      @model_class = model
-      @model_name = @model_class.model_name.human
       @use_export_params = false
       @order_field = :id
       @order = 'DESC'
+    end
+
+    def handle_internal_default
+      @model_class = model
+      @model_name = @model_class.model_name.human
+      @update_params = update_params
     end
 
     def handle_default_params
@@ -205,8 +210,7 @@ module RelaxAdmin
       false
     end
 
-    def list_params
-    end
+    def list_params; end
 
     def export_params
       list_params
@@ -217,7 +221,7 @@ module RelaxAdmin
     end
 
     def update_params
-      exclude_default_params(create_params)
+      create_params
     end
 
     def show_params

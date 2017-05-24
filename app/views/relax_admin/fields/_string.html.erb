@@ -1,7 +1,2 @@
-<% if required?(f.object, a.to_sym) %>
-  <%= f.label a.to_sym, class: "form-control-label required" %>
-  <%= f.text_field a, class: 'form-control', required: true %>
-<% else %>
-  <%= f.label a.to_sym, class: "form-control-label" %>
-  <%= f.text_field a, class: 'form-control' %>
-<% end %>
+<%= f.label a, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
+<%= f.text_field a, class: 'form-control', required: required?(f.object, a).present? %>

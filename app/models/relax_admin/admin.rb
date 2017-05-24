@@ -37,6 +37,10 @@ module RelaxAdmin
 
     serialize :roles, JSON
 
+    def has_role?(role)
+      roles.include?(role)
+    end
+
     def login=(login)
       @login = login
     end

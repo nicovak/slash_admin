@@ -5,9 +5,9 @@
       <input type="text" name="filters[id]" value="<%= params[:filters]['id'] rescue nil %>" class="form-control form-control-sm fix-id-search"/>
     </td>
     <% list_params.each do |attr| %>
-      <% if !attr.is_a?(Hash) && sortable?(attr, @model_class) %>
+      <% if !attr.is_a?(Hash) && sortable?(attr) %>
         <td>
-          <% case guess_field_type(attr, @model_class)
+          <% case guess_field_type(attr)
                when 'string', 'text' %>
             <input type="text" name="filters[<%= attr %>]" value="<%= params[:filters][attr] rescue nil %>" class="form-control form-control-sm"/>
           <% when 'integer', 'number', 'decimal' %>

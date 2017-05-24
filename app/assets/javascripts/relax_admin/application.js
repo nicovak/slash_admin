@@ -12,6 +12,7 @@
 //= require sweetalert
 //= require cocoon
 //= require toastr
+//= require jquery.minicolors
 //= require turbolinks
 //= require_tree .
 
@@ -184,6 +185,8 @@ function init() {
   $('.bootstrap-material-datetime').bootstrapMaterialDatePicker({lang: 'fr', weekStart: 1, cancelText: 'ANNULER'});
 
   $('.froala-editor').froalaEditor();
+
+  $('.colorpicker').minicolors();
 
   //$(':file').filestyle({buttonBefore: true, buttonText: 'Choisissez un fichier', buttonName: 'btn-primary'});
 }

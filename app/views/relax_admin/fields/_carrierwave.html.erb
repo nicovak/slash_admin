@@ -1,8 +1,4 @@
-<% if required?(f.object, a.to_sym) %>
-  <%= f.label a.to_sym, class: 'form-control-label required' %>
-<% else %>
-  <%= f.label a.to_sym, class: 'form-control-label' %>
-<% end %>
+<%= f.label a.to_sym, class: "form-control-label required #{required?(f.object, a).present? ? 'required' : ''}" %>
 
 <div class="image-field">
   <%# TODO handle file that are not image eg pdf %>

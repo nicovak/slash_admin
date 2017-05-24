@@ -4,7 +4,7 @@ module RelaxAdmin
     class PermissionsGenerator < Rails::Generators::Base
       source_root File.expand_path('../templates', __FILE__)
 
-      def create_controller
+      def create_permissions
         template 'permissions.erb',
                  'app/models/relax_admin/admin_ability.rb'
       end

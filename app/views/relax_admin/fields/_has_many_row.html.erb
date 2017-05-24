@@ -2,10 +2,10 @@
   <% if association.has_key?(model_ref) %>
     <% association[model_ref].each do |attribute| %>
       <div class="form-group nested-fields
-        <% if errors?(@model, attribute.to_sym) %>has-danger<% end %>">
+        <% if errors?(attribute.to_sym) %>has-danger<% end %>">
           <%= admin_field(f, attribute, model_ref.to_s.singularize.classify.constantize) %>
         <div class="form-control-feedback">
-          <% show_errors(@model, attribute.to_sym).each do |msg| %>
+          <% show_errors(attribute.to_sym).each do |msg| %>
             - <%= msg %><br/>
           <% end %>
         </div>

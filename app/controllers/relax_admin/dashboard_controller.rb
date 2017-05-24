@@ -3,7 +3,7 @@ module RelaxAdmin
   class DashboardController < RelaxAdmin::BaseController
     def index; end
 
-    def handle_default; end
+    def handle_internal_default; end
 
     def look_for_association; end
 

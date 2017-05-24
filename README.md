@@ -76,10 +76,8 @@ RelaxAdmin::Admin.create!(
 - [X] Integration of roles and permission with [cancancan](https://github.com/CanCanCommunity/cancancan)
 
 ### Create / Edit
-- [X] WYSIWYG
-- [X] Image and file upload with carrierwave
 - [X] Default params for create
-- [X] Nested relations with `nested_attributes`
+- [ ] Better handling of field type
 
 ### List
 - [X] Default export of model (excel and csv)
@@ -87,6 +85,7 @@ RelaxAdmin::Admin.create!(
 - [X] Batch action
 - [X] Pagination
 - [ ] Handle `has_one` and `belongs_to`
+- [ ] Sortable and nested list
 
 ### Miscellaneous
 
@@ -100,6 +99,45 @@ RelaxAdmin::Admin.create!(
 - [ ] Install & Initial setup
 - [X] Controllers
 - [ ] Views
+
+### Fields form
+
+- [X] `belongs_to`
+- [X] `has_many`
+- [X] nested `has_many`
+- [ ] `has_one`
+- [ ] nested `has_one`
+- [X] `boolean`
+- [X] `carrierwave`
+- [X] `date`, `datetime`
+- [X] `string`
+- [X] `text`
+- [X] `integer`
+- [X] `number`
+
+### Custom fields form
+
+- [X] Color
+- [X] WYSIWYG
+- [X] Select
+- [ ] Google Map
+
+Use case:
+
+```ruby
+def create_params
+  [
+    :username,
+    :email,
+    :password,
+    roles: {type: :select, choices: %w(superadmin admin editor), multiple: false},
+  ]
+end
+```
+
+You can create your own custom field within `app/views/relax_admin/custom_fields/_{type (see below)}`
+eg: `roles: {type: :select, choices: %w(superadmin admin editor), multiple: false}`
+
 
 Icons available:
 - http://fontawesome.io/ (eg: `fa fa-home`)
@@ -161,7 +199,7 @@ module RelaxAdmin
     class PagesController < RelaxAdmin::BaseController
       def list_params
         [
-          {attr: :image, type: 'image'},
+          image: {type: 'image'}
           :title,
         ]
       end
