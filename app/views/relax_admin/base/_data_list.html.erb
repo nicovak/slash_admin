@@ -27,7 +27,7 @@
     </th>
     <% list_params.each do |attr| %>
       <% if attr.is_a?(Hash) %>
-        <th><%= @model_class.human_attribute_name(attr[:attr]) %></th>
+        <th><%= @model_class.human_attribute_name(attr.keys.first) %></th>
       <% else %>
         <th
         <% if orderable?(attr) %>
@@ -58,9 +58,9 @@
       <td class="fit"><%= m.id %></td>
       <% list_params.each do |attr| %>
         <% if attr.is_a?(Hash) %>
-          <% if attr.keys.first == 'image' %>
+          <% if attr[keys.first][:type] == 'image' %>
             <td class="text-center">
-              <img src="<%= m.send(attr[:attr]) %>" class="img-fluid"/>
+              <img src="<%= m.send(attr[keys.first]) %>" class="img-fluid"/>
             </td>
           <% end %>
         <% else %>
