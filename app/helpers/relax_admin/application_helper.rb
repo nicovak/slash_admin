@@ -34,6 +34,11 @@ module RelaxAdmin
       obj.class.validators_on(field_name.to_s).any? { |v| v.is_a? ActiveModel::Validations::PresenceValidator }
     end
 
+    def show_hidden_errors
+
+      @model.errors.messages.except(*@update_params)
+    end
+
     def show_errors(field_name)
       if field_name.is_a?(Hash)
         field_name = field_name.keys.first

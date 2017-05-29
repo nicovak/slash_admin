@@ -155,6 +155,14 @@ h6 {
     display: inline-block;
   }
 
+  .errors {
+    color: $red;
+    display: block;
+    &:not(:empty) {
+      margin-bottom: 10px;
+    }
+  }
+
   &.page-sidebar-closed {
     .navbar .navbar-brand {
       display: none !important;
