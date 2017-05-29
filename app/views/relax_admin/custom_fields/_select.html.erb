@@ -1,2 +1,2 @@
 <%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
-<%= select("post", a.keys.first, a[a.keys.first][:choices], { include_blank: false }, class: 'selectize-single') %>
+<%= f.select(a.keys.first, a[a.keys.first][:choices], { include_blank: false }, class: 'selectize-single') %>

@@ -44,7 +44,7 @@ module RelaxAdmin
       authorize! :new, @model_class
       @model = @model_class.new(permit_params)
       if @model.valid?
-        if @model.save
+        if @model.save!
           flash[:success] = "#{@model_name} créé(e)."
           return handle_redirect_after_submit
         end
