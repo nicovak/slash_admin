@@ -101,6 +101,8 @@ RelaxAdmin::Admin.create!(
 
 - [X] Install & Initial setup
 - [X] Controllers
+- [X] Override `sessions_controller`
+- [X] Override `admin` model
 - [ ] Views
 - [ ] Custom fields
 
@@ -148,7 +150,7 @@ Icons available:
 
 Exemple of process to add a new 'page' model:
 
-````ruby
+```ruby
 module RelaxAdmin
   class MenuHelper
     def menu_entries
@@ -169,20 +171,20 @@ module RelaxAdmin
     end
   end
 end
-````
+```
 
 ## Routes
 
 No role or acccess security right now.
 You can define `except` and `only` on ressources
 
-````ruby
+```ruby
 namespace :relax_admin, path: 'admin' do
   scope module: 'models' do
     resources :pages
   end
 end
-````
+```
 
 ## Sample controller (mandatory), in `app/controllers/relax_admin/models` folder
 For references see: app/controllers/admin/base_controller.rb
@@ -192,11 +194,11 @@ Everything is overridable for each controller and each model (params, views, fie
 
 You can generate an admin controller (e.g for page model):
 
-````bash
+```bash
 rails g relax_admin:controllers pages
-````
+```
 
-````ruby
+```ruby
 module RelaxAdmin
   module Models
     class PagesController < RelaxAdmin::BaseController
@@ -215,7 +217,7 @@ module RelaxAdmin
     end
   end
 end
-````
+```
 
 ### Available and most commons usage
 
@@ -245,6 +247,15 @@ Eg: I wanna change the @per values for my controller:
 
 Just run `rails g relax_admin:permissions` and edit the generated file according [docs](https://github.com/CanCanCommunity/cancancan/wiki/defining-abilities)
 
+## Override admin model or sessions_controller
+
+You can override the default logic for authentication, and you can modify the default admin model.
+
+```bash
+rails g relax_admin:override_session
+rails g relax_admin:override_admin
+```
+
 ## Helpers
 
 ```erb
@@ -258,7 +269,7 @@ Just run `rails g relax_admin:permissions` and edit the generated file according
 ```
 
 ## Contributing
-Contribution directions go here.
+Coming soon.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
