@@ -53,6 +53,14 @@ end
 
 Mounted as '/' but prefixed in the gem and in routes definition of models admin. See above.
 
+### Important
+
+If you are using [friendly_id](https://github.com/norman/friendly_id) gem, you have to add `routes: :default` like so:
+
+```ruby
+friendly_id :title, use: :history, routes: :default
+```
+
 Example of create admin in `seed.rb` in your app:
 
 ```ruby
