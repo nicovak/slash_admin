@@ -1195,6 +1195,23 @@ h6 {
   .toast {
     border-radius: 0;
   }
+
+  .minicolors-theme-default.minicolors {
+    display: flex;
+    align-items: center;
+  }
+
+  .minicolors-theme-default .minicolors-input {
+    height: 40px;
+    padding-left: 40px;
+  }
+
+  .minicolors-theme-default .minicolors-swatch {
+    width: 18px;
+    height: 18px;
+    left: 10px;
+    top: auto;
+  }
 }
 
 #admin-user {

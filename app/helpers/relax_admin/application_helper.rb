@@ -35,7 +35,6 @@ module RelaxAdmin
     end
 
     def show_hidden_errors
-
       @model.errors.messages.except(*@update_params)
     end
 

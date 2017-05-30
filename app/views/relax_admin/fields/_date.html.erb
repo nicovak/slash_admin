@@ -1,2 +1,2 @@
-<%= f.label a, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
-<%= f.text_field a, class: "form-control bootstrap-material-#{@model_class.type_for_attribute(a).type.to_s}", required: required?(f.object, a).present? %>
+<%= f.label a, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
+<%= f.text_field a, class: "form-control bootstrap-material-#{@model_class.type_for_attribute(a).type.to_s}", required: required?(f.object, a) %>

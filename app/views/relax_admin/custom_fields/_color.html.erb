@@ -1,2 +1,2 @@
-<%= f.label a.to_sym, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
-<%= f.text_field a, class: 'form-control colorpicker', required: required?(f.object, a).present? %>
+<%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
+<%= f.text_field a.keys.first, class: 'form-control colorpicker', required: required?(f.object, a) %>
