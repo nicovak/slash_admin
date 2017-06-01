@@ -200,7 +200,6 @@ In `app/controllers/relax_admin/froala_controller.rb`
 
 ```ruby
 # frozen_string_literal: true
-# frozen_string_literal: true
 module RelaxAdmin
   class FroalaController < RelaxAdmin::BaseController
     def upload
