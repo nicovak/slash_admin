@@ -1,0 +1,2 @@
+<%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
+<%= f.text_field a.keys.first, class: 'form-control', required: required?(f.object, a) %>

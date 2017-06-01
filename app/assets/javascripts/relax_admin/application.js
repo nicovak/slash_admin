@@ -6,6 +6,7 @@
 //= require moment
 //= require moment/fr
 //= require bootstrap-material-datetimepicker
+//= jquery.tagsinput.min
 //= require Chart
 //= require highcharts
 //= require chartkick
@@ -185,8 +186,6 @@ function init() {
   });
 
   $('.bootstrap-material-datetime').bootstrapMaterialDatePicker({lang: 'fr', weekStart: 1, cancelText: 'ANNULER'});
-
-  $('.froala-editor').froalaEditor();
 
   $('.colorpicker').minicolors();
 

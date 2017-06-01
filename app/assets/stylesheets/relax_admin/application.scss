@@ -20,6 +20,7 @@
  *= require selectize
  *= require bootstrap-datepicker
  *= require bootstrap-material-datetimepicker
+ *= jquery.tagsinput.min
  *= require jquery.minicolors
  *= require_tree .
  *= require_self
@@ -35,7 +36,7 @@ $border-radius: .15rem !default;
 @import 'font-awesome';
 @import 'alert';
 
-@import 'https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.min.css';
+@import 'https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css';
 @import 'https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css';
 
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all");

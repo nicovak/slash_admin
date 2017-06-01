@@ -113,6 +113,7 @@ RelaxAdmin::Admin.create!(
 - [X] Override `admin` model
 - [ ] Views
 - [ ] Custom fields
+- [ ] Custom JS & CSS file
 
 ### Fields form
 
@@ -131,12 +132,18 @@ RelaxAdmin::Admin.create!(
 
 ### Custom fields form
 
+You can create your own custom field within `app/views/relax_admin/custom_fields/_{type (see below)}.html.erb`
+eg: `roles: {type: :select, choices: %w(superadmin admin editor), multiple: false}`
+
 - [X] Color
 - [X] WYSIWYG
 - [X] Select
 - [ ] Google Map
+- [X] Tags (string delimited with ';', ',', '.', ' ')
 
 Use case:
+
+#### SELECT
 
 ```ruby
 def create_params
@@ -149,8 +156,157 @@ def create_params
 end
 ```
 
-You can create your own custom field within `app/views/relax_admin/custom_fields/_{type (see below)}.html.erb`
-eg: `roles: {type: :select, choices: %w(superadmin admin editor), multiple: false}`
+#### COLOR
+
+```ruby
+def create_params
+  [
+    color: {type: :color},
+  ]
+end
+```
+
+#### TAGS
+
+```ruby
+def create_params
+  [
+    tags: {type: :tags},
+  ]
+end
+```
+
+#### WYSIWYG (using froala)
+
+Add in your route.rb
+
+```ruby
+namespace :relax_admin, path: '/admin' do
+    # FROALA (WYSIWYG)
+    post   'froala_upload' => 'froala#upload'
+    post   'froala_manage' => 'froala#manage'
+    delete 'froala_delete' => 'froala#delete'
+
+    ...
+
+    scope module: 'models' do
+      ...
+    end
+```
+
+Create a froala dedicated controller (for image uploads and file uploads)
+
+In `app/controllers/relax_admin/froala_controller.rb`
+
+```ruby
+# frozen_string_literal: true
+# frozen_string_literal: true
+module RelaxAdmin
+  class FroalaController < RelaxAdmin::BaseController
+    def upload
+      uploader = FroalaUploader.new(params[:type].pluralize)
+      uploader.store!(params[:file])
+
+      respond_to do |format|
+        format.json { render json: {status: 'OK', link: uploader.url} }
+      end
+    end
+
+    def delete
+      filename = params[:src].split('/').last
+      file_path = "uploads/froala/images/#{filename}"
+      path = "#{Rails.root}/public/#{file_path}"
+
+      FileUtils.rm(path)
+
+      respond_to do |format|
+        format.json { render json: {status: 'OK'} }
+      end
+    end
+
+    def manage
+      files = []
+
+      file_path = "uploads/froala/images"
+      real_file_path = "#{request.headers['HTTP_ORIGIN']}/uploads/froala/images/"
+      path = "#{Rails.root}/public/#{file_path}"
+
+      if File.directory?(path)
+        Dir.foreach(path) do |item|
+          next if (item == '.') || (item == '..')
+          object = ObjectImage.new
+          object.url = real_file_path + item
+          object.thumb = real_file_path + item
+          object.tag = params[:model]
+
+          files << object
+        end
+      end
+
+      respond_to do |format|
+        format.json { render json: files }
+      end
+    end
+
+    class ObjectImage
+      attr_accessor :url, :thumb, :tag
+    end
+
+    def handle_internal_default; end
+
+    def look_for_association; end
+
+    def model; end
+  end
+end
+```
+
+In `app/uploaders/froala_uploader.rb`
+
+```ruby
+class FroalaUploader < CarrierWave::Uploader::Base
+  storage :file
+
+  def store_dir
+    "uploads/froala/#{mounted_as}"
+  end
+end
+```
+
+Finally, in your `app/assets/javascripts/relax_admin/custom.js`
+Don't forget `//= stub relax_admin/custom` at the end of your `app/assets/javascripts/application.js`
+
+```javascript
+$(document).on('turbolinks:load', initCustom);
+
+function initCustom() {
+  $('.froala-editor').froalaEditor({
+    height: 250,
+    toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'help', 'html', '|', 'undo', 'redo'],
+    pluginsEnabled: null,
+    imageUploadURL: '/relax_admin/froala_upload',
+    imageUploadParam: 'file',
+    imageUploadParams: {
+      type: 'image',
+    },
+    fileUploadURL: '/admin/froala_upload',
+    fileUploadParam: 'file',
+    fileUploadParams: {
+      type: 'file',
+    },
+    imageManagerLoadMethod: 'POST',
+    imageManagerLoadURL: '/admin/froala_manage',
+    imageManagerLoadParams: {
+      format: 'json',
+    },
+    imageManagerDeleteMethod: 'DELETE',
+    imageManagerDeleteURL: '/admin/froala_delete',
+    imageManagerDeleteParams: {
+      format: 'json',
+    },
+  });
+}
+```
 
 Icons available:
 - http://fontawesome.io/ (eg: `fa fa-home`)
@@ -335,6 +491,25 @@ end
 ```
 
 `@max_depth = 1` by default, if its one models will only be sortable. If more than `1` models will be nestable and you must provide an ancestry field.
+
+## Custom JS & CSS
+
+### For JS
+
+Create a file here `app/assets/javascripts/relax_admin/custom.js`
+Don't forget `//= stub relax_admin/custom` at the end of your `app/assets/javascripts/application.js`
+Put your custom code in initCustom function, and you'r ready to go:
+
+```javascript
+$(document).on('turbolinks:load', initCustom);
+
+function initCustom() {
+}
+```
+
+### For SCSS
+
+Create a file here `app/assets/stylesheets/relax_admin/custom.scss`
 
 ## Contributing
 Coming soon.
