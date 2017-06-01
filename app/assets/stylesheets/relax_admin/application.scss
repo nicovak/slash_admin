@@ -20,7 +20,7 @@
  *= require selectize
  *= require bootstrap-datepicker
  *= require bootstrap-material-datetimepicker
- *= jquery.tagsinput.min
+ *= require jquery.tagsinput-revisited.min
  *= require jquery.minicolors
  *= require_tree .
  *= require_self
@@ -137,12 +137,12 @@ h6 {
     display: inline-block;
   }
 
-  .tag {
+  /*.tag {
     font-size: 13px;
     padding: 2px 5px;
     color: #fff;
     text-transform: uppercase;
-  }
+  }*/
 
   .tag-sucess {
     background: $green;
@@ -1224,6 +1224,10 @@ h6 {
   .dd-handle {
     height: auto;
     padding: 7px 10px;
+  }
+
+  .tagsinput input {
+    outline: 0 !important;
   }
 }
 

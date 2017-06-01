@@ -6,7 +6,7 @@
 //= require moment
 //= require moment/fr
 //= require bootstrap-material-datetimepicker
-//= jquery.tagsinput.min
+//= require jquery.tagsinput-revisited.min
 //= require Chart
 //= require highcharts
 //= require chartkick
@@ -23,6 +23,11 @@ $(document).on('turbolinks:load', init);
 
 function init() {
   console.log('Code ready to rocks !');
+
+  $('.tags').tagsInput({
+    placeholder: 'Ajouter un tag',
+    delimiter: [',',';', ' '],
+  });
 
   // Scroll to top
   var offset = 250;
@@ -188,6 +193,5 @@ function init() {
   $('.bootstrap-material-datetime').bootstrapMaterialDatePicker({lang: 'fr', weekStart: 1, cancelText: 'ANNULER'});
 
   $('.colorpicker').minicolors();
-
   //$(':file').filestyle({buttonBefore: true, buttonText: 'Choisissez un fichier', buttonName: 'btn-primary'});
 }
