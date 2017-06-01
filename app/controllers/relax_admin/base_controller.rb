@@ -5,6 +5,7 @@ module RelaxAdmin
     before_action :authenticate_admin!
     before_action :handle_default
     before_action :handle_internal_default
+    before_action :nestable_config
     before_action :handle_default_mode
     before_action :handle_default_params
     before_action :look_for_association
@@ -79,6 +80,28 @@ module RelaxAdmin
       redirect_to main_app.polymorphic_url([:relax_admin, @model_class])
     end
 
+    def nestable
+      if !@is_nestable
+        flash[:error] = "Impossible de trier '#{@model_class}'"
+        redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) and return
+      end
+
+      if request.post?
+        if params[:nestable][:data].present?
+          JSON.parse(params[:nestable][:data]).each_with_index do |p, i|
+            m = @model_class.find(p['id'])
+            m.position = i
+            m.save!
+          end
+        end
+
+        flash[:success] = 'Opération réussi.'
+
+        redirect_to main_app.polymorphic_url(['relax_admin', @model_class]) and return if params.key?(:submit_redirect)
+        redirect_to main_app.polymorphic_url([:nestable, :relax_admin, @model_class])
+      end
+    end
+
     def object_label_methods
       [:title, :name]
     end
@@ -121,8 +144,14 @@ module RelaxAdmin
     end
 
     # Default label for object to string, title and name
+    # a can be an attribute, a string or the model_class
     def object_label(a)
-      constantized_model = a.to_s.singularize.classify.constantize
+      if a.is_a? Object
+        constantized_model = a
+      else
+        constantized_model = a.to_s.singularize.classify.constantize
+      end
+
       method = 'to_s'
 
       object_label_methods.each do |m|
@@ -152,6 +181,14 @@ module RelaxAdmin
       @use_export_params = false
       @order_field = :id
       @order = 'DESC'
+    end
+
+    def nestable_config
+      @is_nestable = false
+      @max_depth = 1
+
+      @nestable_field = :position
+      @acenstry_field = :ancestry
     end
 
     def handle_internal_default
@@ -239,7 +276,7 @@ module RelaxAdmin
 
     # Exclude default params for edit and create
     def exclude_default_params(params)
-      params - %w(id created_at updated_at slug)
+      params - %w(id created_at updated_at slug position)
     end
   end
 end

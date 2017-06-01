@@ -1,0 +1,35 @@
+<div class="dd">
+  <ol class="dd-list">
+    <% if @ancestry_field.present? %>
+    <% else %>
+      <% @model_class.all.order("#{@position_field} ASC").each do |m| %>
+        <li class="dd-item" data-id="<%= m.id %>">
+          <div class="dd-handle"><%= m.send(object_label(m)) %></div>
+        </li>
+      <% end %>
+    <% end %>
+  </ol>
+</div>
+
+<br />
+
+
+
+<%= form_tag('', method: 'post') do %>
+  <%= hidden_field(:nestable, :data) %>
+
+  <%= button_tag(type: 'submit', class: 'btn btn btn-success', name: 'submit_redirect') do %>
+    <i class="fa fa-save"></i> <i class="icon-action-undo"></i> Enregistrer &amp; Retourner à la liste
+  <% end %>
+  <button type="submit" class="btn btn-primary pull-right">
+    <i class="fa fa-save"></i> Enregistrer
+  </button>
+<% end %>
+
+<script type="text/javascript">
+  $('.dd').nestable({
+    maxDepth: <%= @max_depth %>
+  }).on('change', function() {
+    $('#nestable_data').val(JSON.stringify($('.dd').nestable('serialize')));
+  });
+</script>

@@ -6,6 +6,12 @@
     <div class="portlet">
       <div class="portlet-title">
         <div class="caption">
+          <% if @is_nestable %>
+            <%= link_to(polymorphic_url([:nestable, :relax_admin, @model_class]), class: 'btn btn-circle btn-info btn-sm') do %>
+              <i class="fa fa-outdent"></i> Trier
+            <% end %>
+          <% end %>
+
           Liste des <%= @model_name.pluralize %>
         </div>
         <div class="actions">

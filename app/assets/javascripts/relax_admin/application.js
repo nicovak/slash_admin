@@ -13,6 +13,7 @@
 //= require sweetalert
 //= require cocoon
 //= require toastr
+//= require jquery.nestable
 //= require jquery.minicolors
 //= require turbolinks
 //= require_tree .

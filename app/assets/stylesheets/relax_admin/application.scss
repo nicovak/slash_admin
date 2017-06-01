@@ -15,9 +15,11 @@
  *= require alert
  *= require colors
  *= require toastr
+ *= require jquery.nestable
  *= require sweetalert
  *= require selectize
  *= require bootstrap-datepicker
+ *= require bootstrap-material-datetimepicker
  *= require jquery.minicolors
  *= require_tree .
  *= require_self
@@ -828,7 +830,12 @@ h6 {
       text-transform: uppercase;
       font-weight: bold;
       padding: 10px 0;
-      display: inline-block;
+      display: flex;
+      align-items: center;
+
+      .btn {
+        margin-right: 10px;
+      }
     }
 
     .actions {
@@ -1211,6 +1218,11 @@ h6 {
     height: 18px;
     left: 10px;
     top: auto;
+  }
+
+  .dd-handle {
+    height: auto;
+    padding: 7px 10px;
   }
 }
 
