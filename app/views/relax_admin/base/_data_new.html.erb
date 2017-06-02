@@ -1,16 +1,7 @@
 <%= form_for [:relax_admin, @model] do |f| %>
   <%#= render 'relax_admin/shared/debug', params: params %>
 
-  <div class="errors">
-    <% show_hidden_errors.each do |msg| %>
-      - <strong><%= msg[0] %> :</strong><br  />
-      <div style="padding-left: 25px">
-        <% msg[1].each do |e| %>
-        <%= e.to_s %><br/>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+  <%= render 'relax_admin/shared/errors_data_new' %>
 
   <% params.each do |a| %>
     <%# <strong><%= @model_class.type_for_attribute(a).type.to_s </strong><br /> %>

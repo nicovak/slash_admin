@@ -811,6 +811,15 @@ h6 {
     padding-top: 3px;
   }
 
+  .title-data_new {
+    color: $primary;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+  }
+
   .portlet-title {
     border-bottom: 1px solid #eee;
     padding: 10px 20px;
