@@ -273,6 +273,7 @@ end
 ```
 
 Finally, in your `app/assets/javascripts/relax_admin/custom.js`
+
 Don't forget `//= stub relax_admin/custom` at the end of your `app/assets/javascripts/application.js`
 
 ```javascript
@@ -431,7 +432,7 @@ rails g relax_admin:override_admin
 <%= statistic_progress_tile(title: 'My title', number: 18000, icon: 'fa fa-globe', percent: 80, progress_label: 'progression', status: 'success') %>
 ```
 
-## Make a model sortable (sortable link in 'Tools' dropdown from list view)
+## Make a model sortable (sortable link in list view)
 
 In your `routes.rb`, you have to change your routes definition, example for an `user` model:
 
