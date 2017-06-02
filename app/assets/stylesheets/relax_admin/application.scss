@@ -137,13 +137,6 @@ h6 {
     display: inline-block;
   }
 
-  /*.tag {
-    font-size: 13px;
-    padding: 2px 5px;
-    color: #fff;
-    text-transform: uppercase;
-  }*/
-
   .tag-sucess {
     background: $green;
   }
@@ -1171,6 +1164,15 @@ h6 {
     p {
       font-size: 16px;
       margin-bottom: 25px;
+    }
+  }
+
+  .datatable_wrapper {
+    .tag {
+      font-size: 13px;
+      padding: 2px 5px;
+      color: #fff;
+      text-transform: uppercase;
     }
   }
 
