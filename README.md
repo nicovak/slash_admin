@@ -337,6 +337,59 @@ module RelaxAdmin
 end
 ```
 
+Custom action: (eg a menu builder section)
+
+```ruby
+...
+sub_menu: [
+  {path: relax_admin_menu_builder_path, icon: 'icon-organization', title: 'Menu'},
+...
+```
+
+Route in `app/config/routes.rb`
+
+```ruby
+...
+get 'menu' => 'menus#builder', as: 'menu_builder'
+post 'menu' => 'menus#builder', as: 'menu_builder_action'
+...
+```
+
+Controller in `app/controllers/relax_admin/models/menus_controller.rb`
+
+```ruby
+module RelaxAdmin
+  module Models
+    class MenusController < RelaxAdmin::BaseController
+      def builder
+      end
+
+      def handle_default
+        super
+        @title = 'My Menu Builder'
+      end
+
+      def index; end
+
+      def handle_internal_default; end
+
+      def look_for_association; end
+
+      def model; end
+    end
+  end
+end
+```
+
+Finally create your view in `app/views/relax_admin/models/builder.html.erb`
+
+```erb
+<% page_title(@title) %>
+<% page_sub_title(@sub_title) %>
+
+My content
+```
+
 ## Routes
 
 No role or acccess security right now.
@@ -517,7 +570,7 @@ Example: I wanna overrride the new view for my model `page`
 
 In `app/views/relax_admin/models/pages/_data_new.html.erb` : (the default one)
 
-```
+```erb
 <%= form_for [:relax_admin, @model] do |f| %>
   <%= render 'relax_admin/shared/errors_data_new' %>
 
@@ -533,7 +586,7 @@ In `app/views/relax_admin/models/pages/_data_new.html.erb` : (the default one)
 
 Example of adding column system:
 
-```
+```erb
 <%= form_for [:relax_admin, @model] do |f| %>
   <%= render 'relax_admin/shared/errors_data_new' %>
 
@@ -548,6 +601,12 @@ Example of adding column system:
 
   <%= render 'relax_admin/shared/new_form_buttons' %>
 <% end %>
+```
+
+Be careful, for custom type:
+
+```erb
+  <%= render 'relax_admin/fields/form_group', f: f, a: {my_color_field: {type: :color}} %>
 ```
 
 ## Contributing

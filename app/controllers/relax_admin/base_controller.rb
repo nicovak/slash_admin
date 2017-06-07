@@ -3,8 +3,8 @@ require 'csv'
 module RelaxAdmin
   class BaseController < RelaxAdmin::ApplicationController
     before_action :authenticate_admin!
-    before_action :handle_default
     before_action :handle_internal_default
+    before_action :handle_default
     before_action :nestable_config
     before_action :handle_default_mode
     before_action :handle_default_params
@@ -173,6 +173,7 @@ module RelaxAdmin
     end
 
     def handle_default
+      @title = @model_name.present? ? @model_name.pluralize : nil
       @sub_title = nil
       @per = 10
       @page = 1
