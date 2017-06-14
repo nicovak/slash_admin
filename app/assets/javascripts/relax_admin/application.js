@@ -7,7 +7,7 @@
 //= require moment/fr
 //= require bootstrap-material-datetimepicker
 //= require jquery.tagsinput-revisited.min
-//= require Chart
+//= require Chart.min
 //= require highcharts
 //= require chartkick
 //= require bootstrap-datepicker
