@@ -29,7 +29,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'highcharts-rails'
   s.add_dependency 'selectize-rails'
   s.add_dependency 'font-awesome-rails'
-  s.add_dependency 'rails-assets-tether'
   s.add_dependency 'bootstrap', '~> 4.0.0.alpha6'
   s.add_dependency 'cocoon'
   s.add_dependency 'datetime_picker_rails'

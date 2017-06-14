@@ -107,8 +107,7 @@ module RelaxAdmin
     # Form helper for generic field
     def admin_field(form, attribute)
       # Handle custom field first and default after
-      is_custom = attribute.is_a?(Hash)
-      if is_custom
+      if attribute.is_a?(Hash)
         admin_custom_field(form, attribute)
       elsif @belongs_to_fields.include?(attribute.to_sym)
         render partial: 'relax_admin/fields/belongs_to', locals: {f: form, a: attribute}
