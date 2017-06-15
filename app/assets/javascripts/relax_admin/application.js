@@ -17,6 +17,7 @@
 //= require jquery.nestable
 //= require jquery.minicolors
 //= require turbolinks
+//= require relax_admin/custom
 //= require_tree .
 
 $(document).on('turbolinks:load', init);
