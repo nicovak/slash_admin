@@ -17,6 +17,11 @@ module RelaxAdmin
           access = true if access_model?(sub)
         end
       end
+
+      # Direct Link temp TODO
+      if s[:path].present?
+        access = true
+      end
       access
     end
 

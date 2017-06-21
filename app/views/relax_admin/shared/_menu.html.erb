@@ -1,57 +1,57 @@
 <div class="page-sidebar">
   <ul class="nav nav-pills flex-column">
     <% menu_entries.each do |s| %>
-    <% if access?(s) %>
-    <li
-      class="nav-item
-        <% if s[:path] %>
-          <% if request.fullpath == s[:path] %>
-            active
-          <% end %>
-        <% end %>">
-      <a class="nav-link" href="
-          <% if s[:path] %><%= s[:path] %>
-          <% else %>#
-          <% end %>">
-        <% if s[:icon] %>
-        <i class="<%= s[:icon] %>"></i>
-        <% end %>
-        <span class="title"><%= s[:title] %></span>
-      </a>
-      <% if s[:sub_menu] %>
-      <ul class="sub-menu">
-        <% s[:sub_menu].each do |sub| %>
-          <% if sub[:path].present? %>
-            <li class="nav-item">
-              <a class="nav-link <% if request.fullpath == sub[:path] %>
+      <% if access?(s) %>
+        <li
+          class="nav-item
+            <% if s[:path] %>
+              <% if request.fullpath == s[:path] %>
                 active
-              <% end %>" href="<%= sub[:path] %>">
-              <% if sub[:icon] %>
-                <i class="<%= sub[:icon] %>"></i>
               <% end %>
-              <span class="title"><%= sub[:title] %></span>
-            </a>
-            </li>
-          <% else %>
-            <% if access_model?(sub) %>
-            <li class="nav-item">
-              <a class="nav-link
-                          <% if controller.controller_name == sub[:model].name.split('::').last.tableize %>active<% end %>"
-                          href="<%= polymorphic_url([:relax_admin, sub[:model]]) %>">
-                <% if sub[:icon] %>
-                <i class="<%= sub[:icon] %>"></i>
-                <% end %>
-                <span class="title"><%= sub[:model].model_name.human.pluralize %></span>
-                <%# <span class="badge badge-pill badge-success">1</span> %>
-              </a>
-            </li>
+            <% end %>">
+          <a class="nav-link" href="
+              <% if s[:path] %><%= s[:path] %>
+              <% else %>#
+              <% end %>">
+            <% if s[:icon] %>
+            <i class="<%= s[:icon] %>"></i>
             <% end %>
+            <span class="title"><%= s[:title] %></span>
+          </a>
+          <% if s[:sub_menu] %>
+          <ul class="sub-menu">
+            <% s[:sub_menu].each do |sub| %>
+              <% if sub[:path].present? %>
+                <li class="nav-item">
+                  <a class="nav-link <% if request.fullpath == sub[:path] %>
+                    active
+                  <% end %>" href="<%= sub[:path] %>">
+                  <% if sub[:icon] %>
+                    <i class="<%= sub[:icon] %>"></i>
+                  <% end %>
+                  <span class="title"><%= sub[:title] %></span>
+                </a>
+                </li>
+              <% else %>
+                <% if access_model?(sub) %>
+                <li class="nav-item">
+                  <a class="nav-link
+                              <% if controller.controller_name == sub[:model].name.split('::').last.tableize %>active<% end %>"
+                              href="<%= polymorphic_url([:relax_admin, sub[:model]]) %>">
+                    <% if sub[:icon] %>
+                    <i class="<%= sub[:icon] %>"></i>
+                    <% end %>
+                    <span class="title"><%= sub[:model].model_name.human.pluralize %></span>
+                    <%# <span class="badge badge-pill badge-success">1</span> %>
+                  </a>
+                </li>
+                <% end %>
+              <% end %>
+            <% end %>
+          </ul>
           <% end %>
-        <% end %>
-      </ul>
+        </li>
       <% end %>
-    </li>
-    <% end %>
     <% end %>
   </ul>
 </div>
