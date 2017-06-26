@@ -203,14 +203,16 @@ function init() {
     weekStart: 1,
     cancelText: "ANNULER",
     time: false,
-    clearButton: true
+    clearButton: true,
+    clearText: "EFFACER"
   });
 
   $(".bootstrap-material-datetime").bootstrapMaterialDatePicker({
     lang: "fr",
     weekStart: 1,
     cancelText: "ANNULER",
-    clearButton: true
+    clearButton: true,
+    clearText: "EFFACER"
   });
 
   $(".colorpicker").minicolors();
