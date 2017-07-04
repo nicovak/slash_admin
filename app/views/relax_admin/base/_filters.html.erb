@@ -1,5 +1,4 @@
 <tr role="row" class="filters">
-  <%= form_for :filters, url: '', method: 'GET', html: {id: 'filters'} do |form| %>
     <td>&nbsp;</td>
     <td class="fit">
       <input type="text" name="filters[id]" value="<%= params[:filters]['id'] rescue nil %>" class="form-control form-control-sm fix-id-search"/>
@@ -38,5 +37,4 @@
       <button type="submit" class="btn btn-sm btn-block btn-primary"><i class='fa fa-filter'></i> Filtrer</button>
       <button id="reset-filters" class="btn btn-sm btn-block btn-secondary"><i class='fa fa-times'></i> Réinitialiser</button>
     </td>
-  <% end %>
 </tr>

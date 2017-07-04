@@ -111,7 +111,7 @@ module RelaxAdmin
 
       params[:filters].each do |attr, query|
         unless query.blank?
-          case helpers.guess_field_type(attr, @model_class)
+          case helpers.guess_field_type(attr)
           when 'string', 'text'
               # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
               search = search.where("lower(#{attr}) LIKE lower(:query)", query: "%#{query}%")
