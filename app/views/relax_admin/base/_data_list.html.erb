@@ -61,7 +61,11 @@
           <% if attr.is_a?(Hash) %>
             <% if attr[attr.keys.first][:type] == 'image' %>
               <td class="text-center">
-                <img src="<%= m.send(attr.keys.first) %>" class="img-fluid"/>
+                <% if m.send(attr.keys.first).present? %>
+                  <img src="<%= m.send(attr.keys.first) %>" class="img-fluid"/>
+                <% else %>
+                  <em>Aucune image</em>
+                <% end %>
               </td>
             <% end %>
           <% else %>
