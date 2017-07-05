@@ -41,7 +41,7 @@
                     <% if sub[:icon] %>
                     <i class="<%= sub[:icon] %>"></i>
                     <% end %>
-                    <span class="title"><%= sub[:model].model_name.human.pluralize %></span>
+                    <span class="title"><%= sub[:model].model_name.human(count: 2) %></span>
                     <%# <span class="badge badge-pill badge-success">1</span> %>
                   </a>
                 </li>

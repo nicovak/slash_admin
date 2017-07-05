@@ -173,7 +173,7 @@ module RelaxAdmin
     end
 
     def handle_default
-      @title = @model_name.present? ? @model_name.pluralize : nil
+      @title = @model_name.present? ? @model_class.model_name.human(count: 2) : nil
       @sub_title = nil
       @per = 10
       @page = 1
