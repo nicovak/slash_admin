@@ -23,8 +23,6 @@
 $(document).on("turbolinks:load", init);
 
 function init() {
-  console.log("Code ready to rocks !");
-
   $(".tags").tagsInput({
     placeholder: "Ajouter un tag",
     delimiter: [",", ";", " "]

@@ -65,7 +65,7 @@ module RelaxAdmin
     def toastr_bootstrap
       flash_messages = []
       flash.each do |type, message|
-        text = '<script>toastr.' + type + '("' + message + '");</script>'
+        text = '<script data-turbolinks-eval="false">toastr.' + type + '("' + message + '");</script>'
         flash_messages << text.html_safe if message
       end
       flash_messages.join("\n").html_safe
