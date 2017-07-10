@@ -11,7 +11,7 @@ module RelaxAdmin
     before_action :look_for_association
     before_action :prepend_view_paths
 
-    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :current_admin, :object_label
+    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :current_admin, :object_label, :boolean_to_string
 
     def index
       authorize! :index, @model_class
@@ -241,6 +241,10 @@ module RelaxAdmin
 
     def to_boolean(str)
       str == 'true'
+    end
+
+    def boolean_to_string(str)
+      str ? 'true' : 'false'
     end
 
     def should_load_layout_data?
