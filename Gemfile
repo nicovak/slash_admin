@@ -18,4 +18,5 @@ group :development, :test do
   gem "i18n-tasks"
   gem "pry-rails"
   gem "rspec-rails", "~> 3.5.0"
+  gem "rspec_junit_formatter"
 end
