@@ -11,4 +11,11 @@ gemspec
 # your gem to rubygems.org.
 
 # To use a debugger
-gem 'byebug', group: [:development, :test]
+
+group :development, :test do
+  gem "byebug"
+  gem "factory_girl_rails"
+  gem "i18n-tasks"
+  gem "pry-rails"
+  gem "rspec-rails", "~> 3.5.0"
+end
