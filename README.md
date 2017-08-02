@@ -38,11 +38,21 @@ Or install it yourself as:
 $ gem install relax_admin
 ```
 
+Gemfile
+```
+gem 'carrierwave'
+```
+
 Then:
 ```bash
 rails g relax_admin:install
 rails relax_admin:install:migrations
 rails db:migrate
+```
+
+`config/initializers/mime_types.rb`
+```ruby
+Mime::Type.register "application/xls", :xls
 ```
 
 ```ruby

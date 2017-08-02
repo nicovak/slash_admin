@@ -5,7 +5,7 @@ module RelaxAdmin
 
     def initialize(user)
       @user = user
-      can :read, :all
+      can :manage, :all
     end
   end
 end

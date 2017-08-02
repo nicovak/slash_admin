@@ -1,0 +1,23 @@
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <%= form_for [:relax_admin, a.keys.first.to_s.classify.constantize.new], remote: true do |fs| %>
+      <div class="modal-header">
+        Création d'un(e)
+        <%= a.keys.first.to_s.classify.constantize.model_name.human.downcase %>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render 'relax_admin/shared/errors_data_new' %>
+        <% "RelaxAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.update_params.each do |b| %>
+          <%= render 'relax_admin/fields/form_group', f: fs, a: b %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <a href="#" data-dismiss="modal">Annuler</a>
+        <button type="submit" class="btn-menu-save-node pull-right" data-remote="true">Enregistrer</button>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -247,4 +247,13 @@ function init() {
 
     window.location.href = url + "?" + parameters;
   }
+
+  // Handle create belongs to
+  $("#create-belongs-to-form")
+    .on("ajax:success", function(e, data, status, xhr) {
+      $("#create-belongs-to-form").text("Done.");
+    })
+    .on("ajax:error", function(e, xhr, status, error) {
+      $("#create-belongs-to-form").text("Failed.");
+    });
 }

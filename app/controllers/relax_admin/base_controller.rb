@@ -33,6 +33,7 @@ module RelaxAdmin
         format.html
         format.csv { send_data export_csv.encode('iso-8859-1'), filename: "#{@model_name.pluralize.upcase}_#{Date.today}.csv", type: 'text/csv; charset=iso-8859-1; header=present' }
         format.xls { send_data render_to_string, filename: "#{@model_name.pluralize.upcase}_#{Date.today}.xls" }
+        format.js { @models }
       end
     end
 
@@ -47,7 +48,10 @@ module RelaxAdmin
       if @model.valid?
         if @model.save!
           flash[:success] = "#{@model_name} créé(e)."
-          return handle_redirect_after_submit
+          respond_to do |format|
+            format.html { handle_redirect_after_submit }
+            format.js { @model }
+          end
         end
       end
       render :new and return
@@ -63,7 +67,10 @@ module RelaxAdmin
       @model = @model_class.find(params[:id])
       if @model.update(permit_params)
         flash[:success] = "#{@model_name} mis(e) à jour."
-        return handle_redirect_after_submit
+        respond_to do |format|
+          format.html { handle_redirect_after_submit }
+          format.js
+        end
       end
       render :edit and return
     end
@@ -71,13 +78,20 @@ module RelaxAdmin
     def show
       authorize! :show, @model_class
       @model = @model_class.find(params[:id])
+
+      respond_to do |format|
+        format.html
+        format.js { @model }
+      end
     end
 
     def destroy
       @model_class.find(params[:id]).destroy!
-
       flash[:success] = "#{@model_name} supprimé(e)."
-      redirect_to main_app.polymorphic_url([:relax_admin, @model_class])
+      respond_to do |format|
+        format.html { redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) }
+        format.js
+      end
     end
 
     def nestable
@@ -146,7 +160,9 @@ module RelaxAdmin
     # Default label for object to string, title and name
     # a can be an attribute, a string or the model_class
     def object_label(a)
-      if a.is_a? ActiveRecord::Base
+      if a.is_a? Hash
+        constantized_model = a.keys.first.to_s.singularize.classify.constantize
+      elsif a.is_a? ActiveRecord::Base
         constantized_model = a
       else
         constantized_model = a.to_s.singularize.classify.constantize
@@ -158,6 +174,10 @@ module RelaxAdmin
       end
 
       method
+    end
+
+    def update_params
+      create_params
     end
 
   protected
@@ -223,6 +243,28 @@ module RelaxAdmin
       session[:compact] ||= false
     end
 
+    def create_params
+      exclude_default_params(controller_name.classify.constantize.attribute_names).map { |attr| attr.gsub('_id', '') }
+    end
+
+    def show_params
+      @model_class.attribute_names.map { |attr| attr.gsub('_id', '') }
+    end
+
+    def nested_params
+      nested_params = []
+      @model_class.nested_attributes_options.keys.each do |nested|
+        nested_params << {nested => exclude_default_params(nested.to_s.singularize.classify.constantize.attribute_names.map { |attr| attr.gsub('_id', '') }) - [@model.model_name.param_key]}
+      end
+
+      nested_params
+    end
+
+    # Exclude default params for edit and create
+    def exclude_default_params(params)
+      params - %w(id created_at updated_at slug position)
+    end
+
   private
     def authenticate_admin!
       return true if current_admin.present?
@@ -255,32 +297,6 @@ module RelaxAdmin
 
     def export_params
       list_params
-    end
-
-    def create_params
-      exclude_default_params(@model_class.attribute_names).map { |attr| attr.gsub('_id', '') }
-    end
-
-    def update_params
-      create_params
-    end
-
-    def show_params
-      @model_class.attribute_names.map { |attr| attr.gsub('_id', '') }
-    end
-
-    def nested_params
-      nested_params = []
-      @model_class.nested_attributes_options.keys.each do |nested|
-        nested_params << {nested => exclude_default_params(nested.to_s.singularize.classify.constantize.attribute_names.map { |attr| attr.gsub('_id', '') }) - [@model.model_name.param_key]}
-      end
-
-      nested_params
-    end
-
-    # Exclude default params for edit and create
-    def exclude_default_params(params)
-      params - %w(id created_at updated_at slug position)
     end
   end
 end
