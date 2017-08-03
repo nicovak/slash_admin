@@ -1,5 +1,5 @@
 <%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
-<%= f.collection_select a.keys.first.to_s + '_id', a.keys.first.to_s.classify.constantize.all, :id, object_label(a), {prompt: "Sélectionner un(e) #{a.keys.first.to_s.classify.constantize.model_name.human.downcase}"}, class: 'selectize-single', required: required?(f.object, a).present? %>
+<%= f.collection_select a.keys.first.to_s + '_id', a.keys.first.to_s.classify.constantize.all, :id, object_label(a), {prompt: "Sélectionner un(e) #{a.keys.first.to_s.classify.constantize.model_name.human.downcase}"}, class: 'selectize-single ' + a.keys.first.to_s + '_id', required: required?(f.object, a).present? %>
 <a href="#" class="add-belongs-to" style="font-size: .9em;">Ajouter une(e) <%= a.keys.first.to_s.classify.constantize.model_name.human.downcase %></a>
 
 <script type="text/javascript">
@@ -12,8 +12,35 @@
 
       var id = "form#new_<%= a.keys.first.to_s.singularize %>";
 
-      $(id).bind('ajax:success', function(evt, data, status, xhr) {
-        console.log('success');
+      function closeModals() {
+        $(".modal").modal("hide");
+        $("body").removeClass("modal-open");
+        $(".modal-backdrop").remove();
+      }
+
+      $(id)
+      .on('ajax:complete', function(xhr, status) {
+        // console.log(status);
+      })
+      .on('ajax:error', function(xhr, status, err) {
+        console.log(status);
+        console.log(err);
+      })
+      .on("ajax:success", function(xhr, data, status) {
+        if (data.errors) {
+          var errors_html = "";
+          data.errors.map(function(item, index) {
+            errors_html += item + '<br  />';
+          });
+          $('.errors-json').html(errors_html)
+        } else {
+          toastr.success('<%= a.keys.first.to_s.classify.constantize.model_name.human %> créé(e) avec succés');
+          $(id).trigger("reset");
+          closeModals();
+          var select = $('.<%= a.keys.first.to_s + '_id' %>')[0].selectize;
+          select.addOption({value: data.id, text: data.title});
+          select.addItem(data.id);
+        }
       });
     });
   });

@@ -149,6 +149,7 @@ eg: `roles: {type: :select, choices: %w(superadmin admin editor), multiple: fals
 - [X] WYSIWYG
 - [X] Select
 - [ ] Google Map
+- [X] nested `belongs_to`
 - [X] Tags (string delimited with ';', ',', '.', ' ')
 
 Use case:
@@ -260,12 +261,6 @@ module RelaxAdmin
     class ObjectImage
       attr_accessor :url, :thumb, :tag
     end
-
-    def handle_internal_default; end
-
-    def look_for_association; end
-
-    def model; end
   end
 end
 ```
@@ -347,7 +342,7 @@ module RelaxAdmin
 end
 ```
 
-Custom action: (eg a menu builder section)
+Custom action: (eg a menu builder section) without a linked existing model
 
 ```ruby
 ...
@@ -380,12 +375,6 @@ module RelaxAdmin
       end
 
       def index; end
-
-      def handle_internal_default; end
-
-      def look_for_association; end
-
-      def model; end
     end
   end
 end
@@ -414,7 +403,8 @@ end
 ```
 
 ## Sample controller (mandatory), in `app/controllers/relax_admin/models` folder
-For references see: app/controllers/admin/base_controller.rb
+
+For references see: app/controllers/admin/models_controller.rb and app/controllers/admin/base_controller.rb
 Everything is overridable for each controller and each model (params, views, field, etc)
 
 **def list_params method is mandatory**
@@ -428,7 +418,7 @@ rails g relax_admin:controllers pages
 ```ruby
 module RelaxAdmin
   module Models
-    class PagesController < RelaxAdmin::BaseController
+    class PagesController < RelaxAdmin::ModelsController
       def list_params
         [
           image: {type: 'image'}
