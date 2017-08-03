@@ -15,7 +15,7 @@ module RelaxAdmin
       @models_export = if params[:filters].present?
         handle_filtered_search
       else
-         @model_class.all
+        @model_class.all
       end
 
       column = @model_class.arel_table[params[:order_field].to_sym]
@@ -51,15 +51,15 @@ module RelaxAdmin
           respond_to do |format|
             format.html do
               flash[:success] = "#{@model_name} créé(e)."
-              handle_redirect_after_submit and return
+              handle_redirect_after_submit; return
             end
-            format.js { render json: @model and return }
+            format.js { render json: @model; return }
           end
         end
       end
       respond_to do |format|
-        format.html { render :new and return }
-        format.js { render json: {errors: @model.errors.full_messages} and return }
+        format.html { render :new; return }
+        format.js { render json: { errors: @model.errors.full_messages }; return }
       end
     end
 
@@ -74,11 +74,11 @@ module RelaxAdmin
       if @model.update(permit_params)
         flash[:success] = "#{@model_name} mis(e) à jour."
         respond_to do |format|
-          format.html { handle_redirect_after_submit and return }
+          format.html { handle_redirect_after_submit; return }
           format.js
         end
       end
-      render :edit and return
+      render :edit; return
     end
 
     def show
@@ -103,7 +103,7 @@ module RelaxAdmin
     def nestable
       unless @is_nestable
         flash[:error] = "Impossible de trier '#{@model_class}'"
-        redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) and return
+        redirect_to main_app.polymorphic_url([:relax_admin, @model_class]); return
       end
 
       if request.post?
@@ -117,7 +117,7 @@ module RelaxAdmin
 
         flash[:success] = 'Opération réussi.'
 
-        redirect_to main_app.polymorphic_url(['relax_admin', @model_class]) and return if params.key?(:submit_redirect)
+        redirect_to main_app.polymorphic_url(['relax_admin', @model_class]); return if params.key?(:submit_redirect)
         redirect_to main_app.polymorphic_url([:nestable, :relax_admin, @model_class])
       end
     end
@@ -271,7 +271,7 @@ module RelaxAdmin
     def nested_params
       nested_params = []
       @model_class.nested_attributes_options.keys.each do |nested|
-        nested_params << {nested => exclude_default_params(nested.to_s.singularize.classify.constantize.attribute_names.map { |attr| attr.gsub('_id', '') }) - [@model.model_name.param_key]}
+        nested_params << { nested => exclude_default_params(nested.to_s.singularize.classify.constantize.attribute_names.map { |attr| attr.gsub('_id', '') }) - [@model.model_name.param_key] }
       end
 
       nested_params

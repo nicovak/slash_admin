@@ -13,10 +13,10 @@ gemspec
 # To use a debugger
 
 group :development, :test do
-  gem "byebug"
-  gem "factory_girl_rails"
-  gem "i18n-tasks"
-  gem "pry-rails"
-  gem "rspec-rails", "~> 3.5.0"
-  gem "rspec_junit_formatter"
+  gem 'byebug'
+  gem 'factory_girl_rails'
+  gem 'i18n-tasks'
+  gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.5.0'
+  gem 'rspec_junit_formatter'
 end

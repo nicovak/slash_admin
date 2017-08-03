@@ -87,14 +87,14 @@ module RelaxAdmin
     def guess_field_type(attr)
       # Specific field
       type = if @model_class&.uploaders&.key?(attr.to_sym)
-               'image'
-             elsif @belongs_to_fields.include?(attr.to_sym)
-               'belongs_to'
-             elsif @has_many_fields.include?(attr.to_sym)
-               'has_many'
-             else
-               @model_class.type_for_attribute(attr.to_s).type.to_s
-             end
+        'image'
+      elsif @belongs_to_fields.include?(attr.to_sym)
+        'belongs_to'
+      elsif @has_many_fields.include?(attr.to_sym)
+        'has_many'
+      else
+        @model_class.type_for_attribute(attr.to_s).type.to_s
+      end
 
       # Virtual field default string eg password
       return 'string' if type.blank? && @model&.respond_to?(attr)
@@ -106,7 +106,7 @@ module RelaxAdmin
 
     def admin_custom_field(form, attribute)
       type = attribute[attribute.keys.first][:type].to_s
-      render partial: "relax_admin/custom_fields/#{type}", locals: {f: form, a: attribute}
+      render partial: "relax_admin/custom_fields/#{type}", locals: { f: form, a: attribute }
     end
 
     # Form helper for generic field
@@ -115,19 +115,19 @@ module RelaxAdmin
       if attribute.is_a?(Hash)
         admin_custom_field(form, attribute)
       elsif @belongs_to_fields.include?(attribute.to_sym)
-        render partial: 'relax_admin/fields/belongs_to', locals: {f: form, a: attribute}
+        render partial: 'relax_admin/fields/belongs_to', locals: { f: form, a: attribute }
       elsif @has_many_fields.include?(attribute.to_sym)
         # if has nested_attributes_options for has_many field
         if @model_class.nested_attributes_options.key?(attribute.to_sym)
-          render partial: 'relax_admin/fields/nested_has_many', locals: {f: form, a: attribute}
+          render partial: 'relax_admin/fields/nested_has_many', locals: { f: form, a: attribute }
         else
-          render partial: 'relax_admin/fields/has_many', locals: {f: form, a: attribute}
+          render partial: 'relax_admin/fields/has_many', locals: { f: form, a: attribute }
         end
       elsif @model_class&.uploaders&.key?(attribute.to_sym)
-        render partial: 'relax_admin/fields/carrierwave', locals: {f: form, a: attribute}
+        render partial: 'relax_admin/fields/carrierwave', locals: { f: form, a: attribute }
       else
         type = @model_class.type_for_attribute(attribute.to_s).type.to_s
-        render partial: "relax_admin/fields/#{type}", locals: {f: form, a: attribute}
+        render partial: "relax_admin/fields/#{type}", locals: { f: form, a: attribute }
       end
     end
   end

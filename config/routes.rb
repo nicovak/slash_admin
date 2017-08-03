@@ -8,7 +8,7 @@ RelaxAdmin::Engine.routes.draw do
 
     # Batch actions
 
-    # DELETE 
+    # DELETE
     post 'batch_actions/delete/:model_class', to: 'batch_actions#delete', as: 'batch_delete'
   end
 end
