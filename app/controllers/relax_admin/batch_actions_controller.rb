@@ -7,7 +7,8 @@ module RelaxAdmin
     end
 
     def model
-      params[:model_class].classify.constantize
+      constant = params[:model_class].classify.safe_constantize
+      return constant if constant
     end
   end
 end
