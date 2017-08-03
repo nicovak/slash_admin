@@ -7,6 +7,8 @@ RelaxAdmin::Engine.routes.draw do
     get 'dashboard/toggle' => 'dashboard#toggle', as: 'toggle_dashboard'
 
     # Batch actions
-    match 'batch_actions/:action/:model_class', to: 'batch_actions#', via: [:all], as: 'batch_actions'
+
+    # DELETE 
+    post 'batch_actions/delete/:model_class', to: 'batch_actions#delete', as: 'batch_delete'
   end
 end
