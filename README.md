@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/nicovak/relax_admin/tree/master.svg?style=svg&circle-token=6e9ebd7fef3ebc881c75a769b0970808024a2ae9)](https://circleci.com/gh/nicovak/relax_admin/tree/master)
+
 # [W.I.P] Relax Admin
 
 A modern and overridable admin, just the rails way.
