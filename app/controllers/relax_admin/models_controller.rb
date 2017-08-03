@@ -13,10 +13,10 @@ module RelaxAdmin
     def index
       authorize! :index, @model_class
       @models_export = if params[:filters].present?
-                         handle_filtered_search
-                       else
-                         @model_class.all
-                       end
+        handle_filtered_search
+      else
+         @model_class.all
+      end
 
       column = @model_class.arel_table[params[:order_field].to_sym]
       order = params[:order].downcase
@@ -25,10 +25,10 @@ module RelaxAdmin
       end
 
       @fields = if @use_export_params
-                  export_params
-                else
-                  @model_class.column_names
-                end
+        export_params
+        else
+          @model_class.column_names
+      end
 
       respond_to do |format|
         format.html
