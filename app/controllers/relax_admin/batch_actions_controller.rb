@@ -7,8 +7,10 @@ module RelaxAdmin
     end
 
     def model
-      constant = params[:model_class].classify.safe_constantize
-      return constant if constant
+      ApplicationRecord.descendants.each do |klass|
+        return klass if klass == params[:model_class]
+        raise Exception.new("Can't find model #{params[:model_class]}")
+      end
     end
   end
 end

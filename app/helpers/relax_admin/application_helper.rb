@@ -126,21 +126,8 @@ module RelaxAdmin
       elsif @model_class&.uploaders&.key?(attribute.to_sym)
         render partial: 'relax_admin/fields/carrierwave', locals: {f: form, a: attribute}
       else
-        # Default fields
-        case guess_field_type(attribute)
-        when 'string'
-          render partial: 'relax_admin/fields/string', locals: {f: form, a: attribute}
-        when 'text'
-          render partial: 'relax_admin/fields/text', locals: {f: form, a: attribute}
-        when 'integer'
-          render partial: 'relax_admin/fields/integer', locals: {f: form, a: attribute}
-        when 'number', 'decimal'
-          render partial: 'relax_admin/fields/number', locals: {f: form, a: attribute}
-        when 'boolean'
-          render partial: 'relax_admin/fields/boolean', locals: {f: form, a: attribute}
-        when 'date', 'datetime'
-          render partial: 'relax_admin/fields/date', locals: {f: form, a: attribute}
-        end
+        type = @model_class.type_for_attribute(attribute.to_s).type.to_s
+        render partial: "relax_admin/fields/#{type}", locals: {f: form, a: attribute}
       end
     end
   end

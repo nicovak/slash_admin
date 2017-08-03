@@ -4,10 +4,10 @@ module RelaxAdmin
     before_action :handle_default
     before_action :handle_default_mode
     before_action :prepend_view_paths
-
     helper_method :current_admin, :boolean_to_string
 
   protected
+
     def handle_default; end
 
     def handle_default_mode
@@ -19,6 +19,7 @@ module RelaxAdmin
     end
 
   private
+
     def authenticate_admin!
       return true if current_admin.present?
       flash[:error] = 'Vous devez êtres connecté pour accéder à cette page.'

@@ -1,6 +1,6 @@
 module RelaxAdmin
   class ApplicationController < ActionController::Base
-    protect_from_forgery
+    protect_from_forgery with: :exception
     helper Rails.application.routes.url_helpers
 
     def current_ability

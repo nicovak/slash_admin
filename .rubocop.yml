@@ -7,7 +7,7 @@ AllCops:
     - 'vendor/bundle/**/*'
 
 Metrics/AbcSize:
-  Max: 15
+  Max: 25
 
 Metrics/BlockNesting:
   Max: 3

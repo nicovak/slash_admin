@@ -18,7 +18,11 @@ module RelaxAdmin
                          @model_class.all
                        end
 
-      @models = @models_export.order("#{params[:order_field]} #{params[:order]}").page(params[:page]).per(params[:per])
+      column = @model_class.arel_table[params[:order_field].to_sym]
+      order = params[:order].downcase
+      if %w(asc desc).include?(order)
+        @models = @models_export.order(column.send(params[:order].downcase)).page(params[:page]).per(params[:per])
+      end
 
       @fields = if @use_export_params
                   export_params
@@ -45,11 +49,10 @@ module RelaxAdmin
       if @model.valid?
         if @model.save!
           respond_to do |format|
-            format.html {
+            format.html do
               flash[:success] = "#{@model_name} créé(e)."
-
               handle_redirect_after_submit and return
-            }
+            end
             format.js { render json: @model and return }
           end
         end
@@ -98,7 +101,7 @@ module RelaxAdmin
     end
 
     def nestable
-      if !@is_nestable
+      unless @is_nestable
         flash[:error] = "Impossible de trier '#{@model_class}'"
         redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) and return
       end
@@ -128,19 +131,25 @@ module RelaxAdmin
 
       params[:filters].each do |attr, query|
         unless query.blank?
+          column = @model_class.arel_table[attr.to_sym]
           case helpers.guess_field_type(attr)
           when 'string', 'text'
-              # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
-              search = search.where("lower(#{attr}) LIKE lower(:query)", query: "%#{query}%")
+            # TODO: handle unnaccent if postgres and extensions installed
+            # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
+            search = search.where(column.matches("%#{query}%"))
           when 'date', 'datetime', 'integer', 'decimal', 'number'
             if query.is_a?(String)
-              search = search.where("#{attr} = :query", query: query)
+              search = search.where(column.eq(query))
             else
-              search = search.where("#{attr} >= :query", query: query['from']) if query['from'].present?
-              search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
+              if query['from'].present?
+                search = search.where(column.gteq(query['from']))
+              end
+              if query['end'].present?
+                search = search.where(column.lteq(query['end']))
+              end
             end
           when 'boolean'
-            search = search.where("#{attr} = :query", query: to_boolean(query))
+            search = search.where(column.eq(to_boolean(query)))
           end
         end
       end
@@ -274,6 +283,7 @@ module RelaxAdmin
     end
 
   private
+
     def list_params; end
 
     def export_params

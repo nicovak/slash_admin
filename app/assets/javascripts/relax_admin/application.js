@@ -54,11 +54,11 @@ function init() {
     return this.each(function() {
       var type = this.type,
         tag = this.tagName.toLowerCase();
-      if (tag == "form") return $(":input", this).clearForm();
-      if (type == "text" || type == "password" || tag == "textarea")
+      if (tag === "form") return $(":input", this).clearForm();
+      if (type === "text" || type === "password" || tag === "textarea")
         this.value = "";
-      else if (type == "checkbox" || type == "radio") this.checked = false;
-      else if (tag == "select") this.selectedIndex = -1;
+      else if (type === "checkbox" || type === "radio") this.checked = false;
+      else if (tag === "select") this.selectedIndex = -1;
     });
   };
 
@@ -75,7 +75,7 @@ function init() {
     return this.each(function() {
       var initialCounter = 0;
       var counterObject = $(this);
-      var counter = parseInt(counterObject.attr("data-value"));
+      var counter = parseInt(counterObject.attr("data-value"), 10);
       var animation = setInterval(frame, settings.delay);
 
       function frame() {
@@ -238,7 +238,7 @@ function init() {
       index,
       params
     ) {
-      if (index != 0) {
+      if (index !== 0) {
         parameters += "&" + params;
       } else {
         parameters += params;
