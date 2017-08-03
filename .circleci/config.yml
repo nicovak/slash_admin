@@ -27,8 +27,9 @@ jobs:
           - v1-dependencies-
 
       - run:
-        name: Update bundle
-        command: gem install bundler
+          name: Update bundle
+          command: |
+            gem install bundler
 
       - run:
           name: install dependencies
