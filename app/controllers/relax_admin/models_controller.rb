@@ -51,15 +51,15 @@ module RelaxAdmin
           respond_to do |format|
             format.html do
               flash[:success] = "#{@model_name} créé(e)."
-              handle_redirect_after_submit; return
+              redirect_to handle_redirect_after_submit and return
             end
-            format.js { render json: @model; return }
+            format.js { render json: @model }
           end
         end
       end
       respond_to do |format|
-        format.html { render :new; return }
-        format.js { render json: { errors: @model.errors.full_messages }; return }
+        format.html { render :new }
+        format.js { render json: { errors: @model.errors.full_messages } }
       end
     end
 
@@ -74,11 +74,11 @@ module RelaxAdmin
       if @model.update(permit_params)
         flash[:success] = "#{@model_name} mis(e) à jour."
         respond_to do |format|
-          format.html { handle_redirect_after_submit; return }
+          format.html { redirect_to handle_redirect_after_submit and return }
           format.js
         end
       end
-      render :edit; return
+      render :edit and return
     end
 
     def show
@@ -103,7 +103,7 @@ module RelaxAdmin
     def nestable
       unless @is_nestable
         flash[:error] = "Impossible de trier '#{@model_class}'"
-        redirect_to main_app.polymorphic_url([:relax_admin, @model_class]); return
+        redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) and return
       end
 
       if request.post?
@@ -117,7 +117,7 @@ module RelaxAdmin
 
         flash[:success] = 'Opération réussi.'
 
-        redirect_to main_app.polymorphic_url(['relax_admin', @model_class]); return if params.key?(:submit_redirect)
+        redirect_to main_app.polymorphic_url(['relax_admin', @model_class]) and return if params.key?(:submit_redirect)
         redirect_to main_app.polymorphic_url([:nestable, :relax_admin, @model_class])
       end
     end
@@ -200,9 +200,11 @@ module RelaxAdmin
     end
 
     def handle_redirect_after_submit
-      redirect_to main_app.polymorphic_url(['relax_admin', @model_class]) if params.key?(:submit_redirect)
-      redirect_to main_app.new_polymorphic_url(['relax_admin', @model_class]) if params.key?(:submit_add)
-      redirect_to main_app.edit_polymorphic_url(['relax_admin', @model])
+      path =  main_app.edit_polymorphic_url(['relax_admin', @model])
+      path =  main_app.polymorphic_url(['relax_admin', @model_class]) if params.key?(:submit_redirect)
+      path =  main_app.new_polymorphic_url(['relax_admin', @model_class]) if params.key?(:submit_add)
+
+      path
     end
 
     def permit_params

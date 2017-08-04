@@ -16,7 +16,7 @@ module RelaxAdmin
           redirect_to relax_admin.dashboard_path
         else
           @error_messages = 'Merci de vérifier vos identifiants'
-          render :new; return
+          render :new and return
         end
       end
 
