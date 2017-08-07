@@ -285,34 +285,82 @@ Finally, in your `app/assets/javascripts/relax_admin/custom.js`
 Don't forget `//= stub relax_admin/custom` at the end of your `app/assets/javascripts/application.js`
 
 ```javascript
-$(document).on('turbolinks:load', initCustom);
+$(document).on("turbolinks:load", initCustom);
 
 function initCustom() {
-  $('.froala-editor').froalaEditor({
-    height: 250,
-    toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'help', 'html', '|', 'undo', 'redo'],
-    pluginsEnabled: null,
-    imageUploadURL: '/relax_admin/froala_upload',
-    imageUploadParam: 'file',
-    imageUploadParams: {
-      type: 'image',
-    },
-    fileUploadURL: '/admin/froala_upload',
-    fileUploadParam: 'file',
-    fileUploadParams: {
-      type: 'file',
-    },
-    imageManagerLoadMethod: 'POST',
-    imageManagerLoadURL: '/admin/froala_manage',
-    imageManagerLoadParams: {
-      format: 'json',
-    },
-    imageManagerDeleteMethod: 'DELETE',
-    imageManagerDeleteURL: '/admin/froala_delete',
-    imageManagerDeleteParams: {
-      format: 'json',
-    },
-  });
+  if ($.FroalaEditor) {
+    $(".froala-editor").froalaEditor({
+      height: 250,
+      enter: $.FroalaEditor.ENTER_BR,
+      toolbarButtons: [
+        "fullscreen",
+        "bold",
+        "italic",
+        "underline",
+        "strikeThrough",
+        "subscript",
+        "superscript",
+        "|",
+        "fontFamily",
+        "fontSize",
+        "color",
+        "inlineStyle",
+        "paragraphStyle",
+        "|",
+        "paragraphFormat",
+        "align",
+        "formatOL",
+        "formatUL",
+        "outdent",
+        "indent",
+        "quote",
+        "-",
+        "insertLink",
+        "insertImage",
+        "insertVideo",
+        "insertFile",
+        "insertTable",
+        "|",
+        "emoticons",
+        "specialCharacters",
+        "insertHR",
+        "selectAll",
+        "clearFormatting",
+        "|",
+        "print",
+        "help",
+        "html",
+        "|",
+        "undo",
+        "redo"
+      ],
+      pluginsEnabled: null,
+      imageMove: true,
+      imageDefaultDisplay: true,
+      imageUploadURL: "/admin/froala_upload",
+      imageUploadParam: "file",
+      imageUploadParams: {
+        type: "image",
+        authenticity_token: $('meta[name="csrf-token"]').attr("content")
+      },
+      fileUploadURL: "/admin/froala_upload",
+      fileUploadParam: "file",
+      fileUploadParams: {
+        type: "file"
+      },
+      imageManagerLoadMethod: "POST",
+      imageManagerLoadURL: "/admin/froala_manage",
+      imageManagerLoadParams: {
+        format: "json",
+        authenticity_token: $('meta[name="csrf-token"]').attr("content")
+      },
+      imageManagerDeleteMethod: "DELETE",
+      imageManagerDeleteURL: "/admin/froala_delete",
+      imageManagerDeleteParams: {
+        format: "json"
+      }
+    });
+  }
 }
 ```
 
