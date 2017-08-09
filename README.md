@@ -346,7 +346,8 @@ function initCustom() {
       fileUploadURL: "/admin/froala_upload",
       fileUploadParam: "file",
       fileUploadParams: {
-        type: "file"
+        type: "file",
+        authenticity_token: $('meta[name="csrf-token"]').attr("content")
       },
       imageManagerLoadMethod: "POST",
       imageManagerLoadURL: "/admin/froala_manage",
@@ -357,7 +358,8 @@ function initCustom() {
       imageManagerDeleteMethod: "DELETE",
       imageManagerDeleteURL: "/admin/froala_delete",
       imageManagerDeleteParams: {
-        format: "json"
+        format: "json",
+        authenticity_token: $('meta[name="csrf-token"]').attr("content")
       }
     });
   }
