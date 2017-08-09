@@ -258,10 +258,6 @@ module RelaxAdmin
       end
     end
 
-    def handle_default_mode
-      session[:compact] ||= false
-    end
-
     def create_params
       exclude_default_params(controller_name.classify.constantize.attribute_names).map { |attr| attr.gsub('_id', '') }
     end
