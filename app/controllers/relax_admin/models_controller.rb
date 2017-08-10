@@ -53,7 +53,7 @@ module RelaxAdmin
               flash[:success] = "#{@model_name} créé(e)."
               redirect_to handle_redirect_after_submit and return
             end
-            format.js { render json: @model }
+            format.js { render json: @model and return }
           end
         end
       end
