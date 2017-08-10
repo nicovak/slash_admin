@@ -1,11 +1,11 @@
 <div class="form-group
-  <% if errors?(a) %>has-danger<% end %>">
+  <% if errors?(f, a) %>has-danger<% end %>">
     <%= admin_field(f, a) %>
     <% if defined?(help) %>
       <small class="form-text text-muted"><%= help %></small>
     <% end %>
   <div class="form-control-feedback">
-    <% show_errors(a).each do |msg| %>
+    <% show_errors(f, a).each do |msg| %>
       - <%= msg %><br/>
     <% end %>
   </div>

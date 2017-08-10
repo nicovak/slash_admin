@@ -1,0 +1,2 @@
+<%= f.label a, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
+<%= f.number_field a, class: 'form-control', step: '0.01', required: required?(f.object, a) %>

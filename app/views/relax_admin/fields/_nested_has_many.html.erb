@@ -1,14 +1,14 @@
 <%= f.label a, class: 'form-control-label' %>
 
 <%= f.fields_for a do |association_model| %>
-  <%= render partial: 'fields/has_many_row', locals: {f: association_model, model_ref: a.to_sym} %>
+  <%= render 'relax_admin/fields/has_many_row', f: association_model, model_ref: a.to_sym %>
 <% end %>
 
 <div class="links">
   <%= link_to_add_association f, a,
   class: 'btn btn-success btn-sm btn-add-assoc',
   render_options: {locals: {model_ref: a}},
-  partial: 'fields/has_many_row' do %>
+  partial: 'relax_admin/fields/has_many_row' do %>
     <i class="icon-plus"></i> Ajouter un(e) <%= @model_class.human_attribute_name(a).singularize.downcase %>
   <% end %>
 </div>

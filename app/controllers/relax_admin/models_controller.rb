@@ -6,7 +6,6 @@ module RelaxAdmin
     before_action :handle_default
     before_action :nestable_config
     before_action :handle_default_params
-    before_action :look_for_association
 
     helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :object_label
 
@@ -132,7 +131,7 @@ module RelaxAdmin
       params[:filters].each do |attr, query|
         unless query.blank?
           column = @model_class.arel_table[attr.to_sym]
-          case helpers.guess_field_type(attr)
+          case helpers.guess_field_type(@model, attr)
           when 'string', 'text'
             # TODO: handle unnaccent if postgres and extensions installed
             # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
@@ -242,11 +241,6 @@ module RelaxAdmin
       params[:order_field] ||= @order_field
       params[:order] ||= @order
       params[:filters] ||= []
-    end
-
-    def look_for_association
-      @belongs_to_fields = @model_class.reflect_on_all_associations(:belongs_to).map(&:name)
-      @has_many_fields = @model_class.reflect_on_all_associations(:has_many).map(&:name)
     end
 
     # By default we are looking in RelaxAdmin:: namespace

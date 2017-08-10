@@ -24,7 +24,7 @@
       </div>
     </div>
   <% else %>
-    <% case guess_field_type(a)
+    <% case guess_field_type(@model, a)
          when 'string' %>
       <div class="row line-show">
         <div class="col-sm-12">

@@ -43,23 +43,25 @@ module RelaxAdmin
       @model.errors.messages.except(*@update_params)
     end
 
-    def show_errors(field_name)
+    def show_errors(form, field_name)
+      object = form.object
       if field_name.is_a?(Hash)
         field_name = field_name.keys.first
       end
-      return [] if @model.errors.empty?
-      unless @model.errors.messages[field_name].blank?
-        return @model.errors.messages[field_name]
+      return [] if object.errors.empty?
+      unless object.errors.messages[field_name].blank?
+        return object.errors.messages[field_name]
       end
       []
     end
 
-    def errors?(field_name)
+    def errors?(form, field_name)
+      object = form.object
       if field_name.is_a?(Hash)
         field_name = field_name.keys.first
       end
-      return false if @model.errors.empty?
-      return true unless @model.errors.messages[field_name].blank?
+      return false if object.errors.empty?
+      return true unless object.errors.messages[field_name].blank?
     end
 
     def toastr_bootstrap
@@ -72,35 +74,43 @@ module RelaxAdmin
     end
 
     # Default available field_type handeled
-    def orderable?(attr)
-      field_type = guess_field_type(attr)
+    def orderable?(object, attr)
+      field_type = guess_field_type(object, attr)
       %w(boolean integer number decimal string text date datetime).include?(field_type)
     end
 
     # By default all sortable fields are orderable
-    def sortable?(attr)
-      orderable?(attr)
+    def sortable?(object, attr)
+      orderable?(object, attr)
     end
 
     # Automatic retrieve of field type
+    # object params can be a Model Class or a Model Instance
     # boolean integer number decimal string text date datetime has_many belongs_to
-    def guess_field_type(attr)
-      # Specific field
-      type = if @model_class&.uploaders&.key?(attr.to_sym)
+    def guess_field_type(object, attr)
+      if object.class === Class
+        object_class = object
+      else
+        object_class = object.class
+      end
+      belongs_to_fields = object_class.reflect_on_all_associations(:belongs_to).map(&:name)
+      has_many_fields = object_class.reflect_on_all_associations(:has_many).map(&:name)
+
+      type = if object_class&.uploaders&.key?(attr.to_sym)
         'image'
-      elsif @belongs_to_fields.include?(attr.to_sym)
+      elsif belongs_to_fields.include?(attr.to_sym)
         'belongs_to'
-      elsif @has_many_fields.include?(attr.to_sym)
+      elsif has_many_fields.include?(attr.to_sym)
         'has_many'
       else
-        @model_class.type_for_attribute(attr.to_s).type.to_s
+        object_class.type_for_attribute(attr.to_s).type.to_s
       end
 
       # Virtual field default string eg password
-      return 'string' if type.blank? && @model&.respond_to?(attr)
+      return 'string' if type.blank? && object&.respond_to?(attr)
 
       # Raise exception if no type fouded
-      raise Exception.new("Unable to guess field_type for attribute: #{attr} in model: #{@model_class}") if type.blank?
+      raise Exception.new("Unable to guess field_type for attribute: #{attr} in model: #{object_class}") if type.blank?
       type
     end
 
@@ -111,22 +121,26 @@ module RelaxAdmin
 
     # Form helper for generic field
     def admin_field(form, attribute)
+      object_class = form.object.class
+      belongs_to_fields = object_class.reflect_on_all_associations(:belongs_to).map(&:name)
+      has_many_fields = object_class.reflect_on_all_associations(:has_many).map(&:name)
+
       # Handle custom field first and default after
       if attribute.is_a?(Hash)
         admin_custom_field(form, attribute)
-      elsif @belongs_to_fields.include?(attribute.to_sym)
+      elsif belongs_to_fields.include?(attribute.to_sym)
         render partial: 'relax_admin/fields/belongs_to', locals: { f: form, a: attribute }
-      elsif @has_many_fields.include?(attribute.to_sym)
+      elsif has_many_fields.include?(attribute.to_sym)
         # if has nested_attributes_options for has_many field
-        if @model_class.nested_attributes_options.key?(attribute.to_sym)
+        if form.object.class.nested_attributes_options.key?(attribute.to_sym)
           render partial: 'relax_admin/fields/nested_has_many', locals: { f: form, a: attribute }
         else
           render partial: 'relax_admin/fields/has_many', locals: { f: form, a: attribute }
         end
-      elsif @model_class&.uploaders&.key?(attribute.to_sym)
+      elsif form.object.class&.uploaders&.key?(attribute.to_sym)
         render partial: 'relax_admin/fields/carrierwave', locals: { f: form, a: attribute }
       else
-        type = @model_class.type_for_attribute(attribute.to_s).type.to_s
+        type = form.object.class.type_for_attribute(attribute.to_s).type.to_s
         render partial: "relax_admin/fields/#{type}", locals: { f: form, a: attribute }
       end
     end

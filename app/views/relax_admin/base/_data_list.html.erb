@@ -31,7 +31,7 @@
           <th><%= @model_class.human_attribute_name(attr.keys.first) %></th>
         <% else %>
           <th
-          <% if orderable?(attr) %>
+          <% if orderable?(@model_class, attr) %>
           data-order-field="<%= attr %>"
           <% if params[:order_field].to_s == attr.to_s %>
           class="ordered <%= params[:order].downcase %>"
@@ -47,7 +47,7 @@
       <th class="text-center">Actions</th>
     </tr>
 
-      <%= render 'filters' %>
+      <%= render 'filters', model: @model_class %>
     </thead>
 
     <tbody>

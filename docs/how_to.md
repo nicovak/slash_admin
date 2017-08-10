@@ -65,12 +65,6 @@ module RelaxAdmin
           :title,
         ]
       end
-
-      def export_params
-        [
-          :title,
-        ]
-      end
     end
   end
 end
