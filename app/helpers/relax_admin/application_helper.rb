@@ -84,6 +84,41 @@ module RelaxAdmin
       orderable?(object, attr)
     end
 
+    def object_label_methods
+      [:title, :name]
+    end
+
+    # Default label for object to string, title and name
+    # can be an attribute, a string or the model_class
+    def object_label(a)
+      if a.is_a? Hash
+        constantized_model = a.keys.first.to_s.singularize.classify.constantize
+      elsif a.is_a? ActiveRecord::Base
+        constantized_model = a
+      else
+        constantized_model = a.to_s.singularize.classify.constantize
+      end
+
+      method = 'to_s'
+      object_label_methods.each do |m|
+        method = m if constantized_model.has_attribute?(m)
+      end
+
+      method
+    end
+
+    def show_object(a)
+      method = 'to_s'
+
+      unless a.blank?
+        object_label_methods.each do |m|
+          method = m if a.has_attribute?(m)
+        end
+
+        a.send(method)
+      end
+    end
+
     # Automatic retrieve of field type
     # object params can be a Model Class or a Model Instance
     # boolean integer number decimal string text date datetime has_many belongs_to

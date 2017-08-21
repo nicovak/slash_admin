@@ -6,8 +6,9 @@ module RelaxAdmin
     before_action :handle_default
     before_action :nestable_config
     before_action :handle_default_params
+    before_action :handle_assocations
 
-    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :object_label
+    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params
 
     def index
       authorize! :index, @model_class
@@ -121,10 +122,6 @@ module RelaxAdmin
       end
     end
 
-    def object_label_methods
-      [:title, :name]
-    end
-
     def handle_filtered_search
       search = @model_class.all
 
@@ -166,25 +163,6 @@ module RelaxAdmin
         end
         csv
       end
-    end
-
-    # Default label for object to string, title and name
-    # a can be an attribute, a string or the model_class
-    def object_label(a)
-      if a.is_a? Hash
-        constantized_model = a.keys.first.to_s.singularize.classify.constantize
-      elsif a.is_a? ActiveRecord::Base
-        constantized_model = a
-      else
-        constantized_model = a.to_s.singularize.classify.constantize
-      end
-
-      method = 'to_s'
-      object_label_methods.each do |m|
-        method = m if constantized_model.has_attribute?(m)
-      end
-
-      method
     end
 
     def update_params
@@ -241,6 +219,11 @@ module RelaxAdmin
       params[:order_field] ||= @order_field
       params[:order] ||= @order
       params[:filters] ||= []
+    end
+
+    def handle_assocations
+      @belongs_to_fields = @model_class.reflect_on_all_associations(:belongs_to).map(&:name)
+      @has_many_fields = @model_class.reflect_on_all_associations(:has_many).map(&:name)
     end
 
     # By default we are looking in RelaxAdmin:: namespace

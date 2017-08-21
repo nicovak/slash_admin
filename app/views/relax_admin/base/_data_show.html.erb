@@ -3,7 +3,7 @@
     <div class="row line-show">
       <div class="col-sm-12">
         <span class="show-attr-title"><%= @model_class.human_attribute_name(a) %></span>
-        <%= @model.send(a) %>
+        <%= show_object(@model.send(a)) %>
       </div>
     </div>
   <% elsif @has_many_fields.include?(a.to_sym) %>
