@@ -128,7 +128,7 @@ module RelaxAdmin
       params[:filters].each do |attr, query|
         unless query.blank?
           column = @model_class.arel_table[attr.to_sym]
-          case helpers.guess_field_type(@model, attr)
+          case helpers.guess_field_type(@model_class, attr)
           when 'string', 'text'
             # TODO: handle unnaccent if postgres and extensions installed
             # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
