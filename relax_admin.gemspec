@@ -12,8 +12,8 @@ Gem::Specification.new do |s|
   s.authors     = ['KOVACS Nicolas']
   s.email       = ['pro.nicovak@gmail.com']
   s.homepage    = 'http://relaxadmin.github.io'
-  s.summary     = 'A modern and overridable admin, just the rails way.'
-  s.description = 'A modern and overridable admin, just the rails way.'
+  s.summary     = 'A modern and overridable admin gem, just the rails way.'
+  s.description = 'A modern and overridable admin gem, just the rails way.'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib,vendor}/**/*', 'README.md', 'LICENSE.md']
@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'highcharts-rails'
   s.add_dependency 'selectize-rails'
   s.add_dependency 'font-awesome-rails'
-  s.add_dependency 'bootstrap', '~> 4.0.0.alpha6'
+  s.add_dependency 'bootstrap', '~> 4.0.0.beta'
   s.add_dependency 'cocoon'
   s.add_dependency 'datetime_picker_rails'
   s.add_dependency 'jquery-rails'
