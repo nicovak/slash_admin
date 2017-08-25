@@ -174,6 +174,8 @@ module RelaxAdmin
         end
       elsif form.object.class&.uploaders&.key?(attribute.to_sym)
         render partial: 'relax_admin/fields/carrierwave', locals: { f: form, a: attribute }
+      elsif type == Date || DateTime
+        render partial: 'relax_admin/fields/date', locals: { f: form, a: attribute }
       else
         type = form.object.class.type_for_attribute(attribute.to_s).type.to_s
         render partial: "relax_admin/fields/#{type}", locals: { f: form, a: attribute }
