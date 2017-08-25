@@ -4,7 +4,7 @@
   <%= render 'relax_admin/shared/errors_data_new' %>
 
   <% params.each do |a| %>
-    <%# <strong><%= @model_class.type_for_attribute(a).type.to_s </strong><br /> %>
+     <%# <strong><%= @model_class.type_for_attribute(a).type.to_s </strong> %>
     <%= render 'relax_admin/fields/form_group', f: f, a: a %>
   <% end %>
 

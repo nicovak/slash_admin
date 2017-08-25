@@ -1,0 +1,7 @@
+<%= f.label a, class: 'form-control-label label-has-one' %>
+
+<%= fields_for a, @model.send(a) do |association_form| %>
+  <% "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.update_params.each do |attribute| %>
+    <%= render 'relax_admin/fields/form_group', f: association_form, a: attribute %>
+  <% end %>
+<% end %>

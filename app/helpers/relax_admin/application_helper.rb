@@ -33,7 +33,12 @@ module RelaxAdmin
 
     def required?(obj, field_name)
       if field_name.is_a?(Hash)
-        field_name = field_name.keys.first
+        field_hash = field_name
+        field_name = field_hash.keys.first
+
+        if field_hash[field_name].key?(:required)
+          return field_hash[field_name][:required]
+        end
       end
 
       obj.class.validators_on(field_name.to_s).any? { |v| v.is_a? ActiveModel::Validations::PresenceValidator }
@@ -128,8 +133,10 @@ module RelaxAdmin
       else
         object_class = object.class
       end
+
       belongs_to_fields = object_class.reflect_on_all_associations(:belongs_to).map(&:name)
       has_many_fields = object_class.reflect_on_all_associations(:has_many).map(&:name)
+      has_one_fields = object_class.reflect_on_all_associations(:has_one).map(&:name)
 
       type = if object_class&.uploaders&.key?(attr.to_sym)
         'image'
@@ -137,12 +144,14 @@ module RelaxAdmin
         'belongs_to'
       elsif has_many_fields.include?(attr.to_sym)
         'has_many'
+      elsif has_one_fields.include?(attr.to_sym)
+        'has_one'
       else
         object_class.type_for_attribute(attr.to_s).type.to_s
       end
 
       # Virtual field default string eg password
-      return 'string' if type.blank? && object&.respond_to?(attr)
+      return 'string' if object_class.respond_to?(attr)
 
       # Raise exception if no type fouded
       raise Exception.new("Unable to guess field_type for attribute: #{attr} in model: #{object_class}") if type.blank?
@@ -159,6 +168,7 @@ module RelaxAdmin
       object_class = form.object.class
       belongs_to_fields = object_class.reflect_on_all_associations(:belongs_to).map(&:name)
       has_many_fields = object_class.reflect_on_all_associations(:has_many).map(&:name)
+      has_one_fields = object_class.reflect_on_all_associations(:has_one).map(&:name)
 
       # Handle custom field first and default after
       if attribute.is_a?(Hash)
@@ -172,6 +182,8 @@ module RelaxAdmin
         else
           render partial: 'relax_admin/fields/has_many', locals: { f: form, a: attribute }
         end
+      elsif has_one_fields.include?(attribute.to_sym)
+        render partial: 'relax_admin/fields/has_one', locals: { f: form, a: attribute }
       elsif form.object.class&.uploaders&.key?(attribute.to_sym)
         render partial: 'relax_admin/fields/carrierwave', locals: { f: form, a: attribute }
       else
@@ -179,6 +191,7 @@ module RelaxAdmin
         if type == 'date' || type == 'datetime'
           render partial: 'relax_admin/fields/date', locals: { f: form, a: attribute }
         else
+          raise Exception.new("Unable to guess field_type for attribute: #{attribute} in model: #{object_class}") if type.blank?
           render partial: "relax_admin/fields/#{type}", locals: { f: form, a: attribute }
         end
       end

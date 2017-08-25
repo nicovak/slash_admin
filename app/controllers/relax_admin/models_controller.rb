@@ -224,6 +224,7 @@ module RelaxAdmin
     def handle_assocations
       @belongs_to_fields = @model_class.reflect_on_all_associations(:belongs_to).map(&:name)
       @has_many_fields = @model_class.reflect_on_all_associations(:has_many).map(&:name)
+      @has_one_fields = @model_class.reflect_on_all_associations(:has_one).map(&:name)
     end
 
     # By default we are looking in RelaxAdmin:: namespace
