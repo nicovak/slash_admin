@@ -63,40 +63,28 @@ function init() {
   };
 
   // CounterUp plugin
-  $.fn.counterUp = function(options) {
-    var settings = $.extend(
+  $("[data-counter='counterup']").each(function() {
+    var $this = $(this),
+      countTo = $this.attr("data-value");
+    $({ countNum: $this.text() }).animate(
       {
-        time: 2000,
-        delay: 10
+        countNum: countTo
       },
-      options
-    );
-
-    return this.each(function() {
-      var initialCounter = 0;
-      var counterObject = $(this);
-      var counter = parseInt(counterObject.attr("data-value"), 10);
-      var animation = setInterval(frame, settings.delay);
-
-      function frame() {
-        if (initialCounter >= counter) {
-          counterObject.html(counter);
-          clearInterval(animation);
-        } else {
-          initialCounter += Math.round(
-            counter / settings.time * settings.delay
-          );
-          counterObject.html(initialCounter);
+      {
+        duration: 3000,
+        easing: "linear",
+        step: function() {
+          $this.text(Math.floor(this.countNum));
+        },
+        complete: function() {
+          $this.text(this.countNum);
         }
       }
-    });
-  };
+    );
+  });
 
   // MENU
   $(".sub-menu").has(".active").parent().addClass("active");
-
-  // DATA COUNTER
-  $("[data-counter='counterup']").counterUp();
 
   // BULK ACTIONS
   $(".toggle-all").on("change", function() {

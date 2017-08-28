@@ -22,7 +22,6 @@ module RelaxAdmin
 
       def destroy
         session[:admin_id] = nil
-        flash[:notice] = 'Déconnecté avec succès.'
         redirect_to relax_admin.login_url
       end
     end
