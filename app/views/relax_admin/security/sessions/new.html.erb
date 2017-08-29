@@ -20,6 +20,7 @@
             <%= f.password_field :password, required: false, label: false, placeholder: 'Mot de passe', class: 'form-control' %>
           </div>
           <div class="form-actions">
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
             <%= f.submit 'SE CONNECTER' %>
           </div>
         <% end %>
