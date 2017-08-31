@@ -117,3 +117,13 @@ def autocomplete_params
   ]
 end
 ```
+
+`before_validate_on_create` and `before_validate_on_update` are ready to use for adding logic between persist.
+
+Eg:
+
+```ruby
+def before_validate_on_update
+  params[:polymorphic_user]['user_attributes'].delete(:password) if params[:polymorphic_user]['user_attributes'][:password].blank?
+end
+```
