@@ -181,6 +181,27 @@ function init() {
     persist: false,
     plugins: {
       remove_button: {}
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      var model = $(this)[0].$input[0].getAttribute("data-model");
+      var fields = $(this)[0].$input[0].getAttribute("data-fields");
+      $.ajax({
+        url: "/admin/list",
+        type: "GET",
+        dataType: "json",
+        data: {
+          model_class: model,
+          q: query,
+          fields: fields.split(" ")
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
     }
   });
 

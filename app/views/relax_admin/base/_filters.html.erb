@@ -29,6 +29,19 @@
             </select>
           <% end %>
         </td>
+      <% elsif @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr) %>
+          <% if "RelaxAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.present? %>
+          <td>
+            <select name="filters[<%= attr %>]" class="selectize-multiple" multiple data-model="<%= attr.to_s.classify.constantize %>" data-fields='<%= "RelaxAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' ') %>'>
+              <option value="">Sélectionner un(e) <%= attr.to_s.classify.constantize.model_name.human.downcase %></option>
+              <% attr.to_s.classify.constantize.all.limit(20).each do |model_row| %>
+                <option value="<%= model_row.id %>"><%= show_object(model_row) %></option>
+              <% end %>
+            </select>
+          </td>
+          <% else %>
+            <td>&nbsp;</td>
+          <% end %>
       <% else %>
         <td>&nbsp;</td>
       <% end %>

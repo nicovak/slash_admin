@@ -71,6 +71,10 @@
               <td class="text-center">
                 <span class="tag tag-<%= m.send(attr) ? 'sucess' : 'danger' %> tag-boolean"><%= m.send(attr) ? 'Oui' : 'Non' %></span>
               </td>
+            <% elsif @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr) %>
+              <td>
+                <%= show_object(m.send(attr)) %>
+              </td>
             <% else %>
               <td>
                 <%= m.send(attr) %>

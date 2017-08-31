@@ -43,9 +43,13 @@ module RelaxAdmin
       @model = @model_class.new
     end
 
+    def before_validate_on_create; end
     def create
       authorize! :new, @model_class
       @model = @model_class.new(permit_params)
+
+      before_validate_on_create
+
       if @model.valid?
         if @model.save!
           respond_to do |format|
@@ -68,9 +72,13 @@ module RelaxAdmin
       @model = @model_class.find(params[:id])
     end
 
+    def before_validate_on_update; end
     def update
       authorize! :edit, @model_class
       @model = @model_class.find(params[:id])
+
+      before_validate_on_update
+
       if @model.update(permit_params)
         flash[:success] = "#{@model_name} mis(e) à jour."
         respond_to do |format|
@@ -146,6 +154,8 @@ module RelaxAdmin
             end
           when 'boolean'
             search = search.where(column.eq(to_boolean(query)))
+          when @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr)
+            search = search.where(attr.to_s + '_id IN ' + query)
           end
         end
       end
@@ -168,6 +178,8 @@ module RelaxAdmin
     def update_params
       create_params
     end
+
+    def autocomplete_params; end
 
   protected
 
@@ -259,7 +271,6 @@ module RelaxAdmin
     end
 
   private
-
     def list_params; end
 
     def export_params

@@ -93,3 +93,27 @@ Eg: I wanna change the @per values:
     @per = 20
   end
 ```
+
+Filter in list view for belongs_to and has_one relations, In the target controller:
+(eg: an article belongs_to a category)
+
+In `ArticlesController`:
+
+```ruby
+def list_params
+  [
+    :category,
+    :title,
+  ]
+end
+```
+
+In `CategoriesController`:
+
+```ruby
+def autocomplete_params
+  [
+    :title
+  ]
+end
+```

@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 module RelaxAdmin
-  class BatchActionsController < RelaxAdmin::BaseController
-    def delete
-      authorize! :destroy, model
-      model.where(id: params[:ids]).delete_all
+  class SelectizeController < RelaxAdmin::BaseController
+    def show
+      model_class = model
+      results = model_class.all
+      params[:fields].each do |f|
+        column = model_class.arel_table[f.to_sym]
+        results = results.where(column.matches("%#{params[:q]}%"))
+      end
+      render json: results
     end
 
     def model

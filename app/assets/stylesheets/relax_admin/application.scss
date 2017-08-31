@@ -601,6 +601,11 @@ h6 {
     }
   }
 
+  .selectize-input {
+    box-shadow: none;
+    border: 1px solid #c2cad8;
+  }
+
   .page-container {
     display: block;
 
@@ -953,6 +958,12 @@ h6 {
       th,
       td {
         border-bottom-width: 3px;
+      }
+
+      .selectize-input {
+        margin-top: 5px;
+        padding: 5px 8px;
+        border-radius: 0;
       }
 
       .input-group + .input-group {
