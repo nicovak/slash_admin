@@ -106,7 +106,7 @@ module RelaxAdmin
 
       method = 'to_s'
       object_label_methods.each do |m|
-        method = m if constantized_model.has_attribute?(m)
+        method = m if constantized_model.respond_to?(m)
       end
 
       method
@@ -117,7 +117,7 @@ module RelaxAdmin
 
       unless a.blank?
         object_label_methods.each do |m|
-          method = m if a.has_attribute?(m)
+          method = m if a.respond_to?(m)
         end
 
         a.send(method)
