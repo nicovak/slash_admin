@@ -249,17 +249,17 @@ module RelaxAdmin
     end
 
     def create_params
-      exclude_default_params(controller_name.classify.constantize.attribute_names).map { |attr| attr.gsub('_id', '') }
+      exclude_default_params(controller_name.classify.constantize.attribute_names).map { |attr| attr.gsub(/_id$/, '') }
     end
 
     def show_params
-      @model_class.attribute_names.map { |attr| attr.gsub('_id', '') }
+      @model_class.attribute_names.map { |attr| attr.gsub(/_id$/, '') }
     end
 
     def nested_params
       nested_params = []
       @model_class.nested_attributes_options.keys.each do |nested|
-        nested_params << { nested => exclude_default_params(nested.to_s.singularize.classify.constantize.attribute_names.map { |attr| attr.gsub('_id', '') }) - [@model.model_name.param_key] }
+        nested_params << { nested => exclude_default_params(nested.to_s.singularize.classify.constantize.attribute_names.map { |attr| attr.gsub(/_id$/, '') }) - [@model.model_name.param_key] }
       end
 
       nested_params
