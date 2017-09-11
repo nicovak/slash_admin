@@ -1,7 +1,7 @@
 <% nested_params.each do |association| %>
   <% if association.has_key?(model_ref) %>
     <% association[model_ref].each do |attribute| %>
-      <div class="form-group nested-fields
+      <div class="form-group
         <% if errors?(f, attribute.to_sym) %>has-danger<% end %>">
           <%= admin_field(f, attribute) %>
         <div class="form-control-feedback">
@@ -9,10 +9,10 @@
             - <%= msg %><br/>
           <% end %>
         </div>
-        <%= link_to_remove_association f, class: 'btn btn-danger btn-sm btn-remove'  do %>
-          <i class="icon-trash"></i> Supprimer
-        <% end %>
       </div>
+    <% end %>
+    <%= link_to_remove_association f, class: 'btn btn-danger btn-sm btn-remove'  do %>
+      <i class="icon-trash"></i> Supprimer
     <% end %>
   <% end %>
 <% end %>

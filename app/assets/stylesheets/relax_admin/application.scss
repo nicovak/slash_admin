@@ -932,6 +932,10 @@ h6 {
       width: 1px;
     }
 
+    .selectize-input {
+      max-width: 150px;
+    }
+
     tr.filters {
       ::-webkit-input-placeholder {
         color: #999aa6;
