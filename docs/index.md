@@ -46,8 +46,8 @@
 - [X] `belongs_to`
 - [X] `has_many`
 - [X] nested `has_many`
-- [ ] `has_one`
-- [ ] nested `has_one`
+- [X] `has_one`
+- [X] nested `has_one`
 - [X] `boolean`
 - [X] `carrierwave`
 - [X] `date`, `datetime`
