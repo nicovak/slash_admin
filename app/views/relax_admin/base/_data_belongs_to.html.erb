@@ -11,8 +11,13 @@
       <div class="modal-body">
         <div class="errors-json"></div>
         <%= render 'relax_admin/shared/errors_data_new' %>
-        <% "RelaxAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.update_params.each do |b| %>
-          <%= render 'relax_admin/fields/form_group', f: fs, a: b %>
+        <% if @model.id.blank? %>
+          <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
+        <% else %>
+          <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
+        <% end %>
+        <% params_assoc.each do |attribute| %>
+          <%= render 'relax_admin/fields/form_group', f: fs, a: attribute %>
         <% end %>
       </div>
       <div class="modal-footer">

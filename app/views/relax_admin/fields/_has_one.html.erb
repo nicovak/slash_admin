@@ -6,9 +6,9 @@
 
 <%= f.fields_for a do |association_form| %>
   <% if @model.id.blank? %>
-    <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.create_params.each %>
+    <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
   <% else %>
-    <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.update_params.each %>
+    <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
   <% end %>
   <% params_assoc.each do |attribute| %>
     <%= render 'relax_admin/fields/form_group', f: association_form, a: attribute %>
