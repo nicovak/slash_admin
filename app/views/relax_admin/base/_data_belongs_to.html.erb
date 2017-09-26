@@ -12,9 +12,17 @@
         <div class="errors-json"></div>
         <%= render 'relax_admin/shared/errors_data_new' %>
         <% if @model.id.blank? %>
-          <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
-        <% else %>
-          <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
+          <% if a.is_a?(Hash) %>
+            <% params_assoc = "RelaxAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
+          <% else %>
+            <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
+          <% end %>
+          <% else %>
+          <% if a.is_a?(Hash) %>
+            <% params_assoc = "RelaxAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
+          <% else %>
+            <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
+          <% end %>
         <% end %>
         <% params_assoc.each do |attribute| %>
           <%= render 'relax_admin/fields/form_group', f: fs, a: attribute %>

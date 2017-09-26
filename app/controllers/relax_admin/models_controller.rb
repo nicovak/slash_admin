@@ -175,8 +175,8 @@ module RelaxAdmin
       end
     end
 
-    def update_params
-      create_params
+    def update_params(options = {})
+      create_params(options = {})
     end
 
     def autocomplete_params; end
@@ -248,7 +248,7 @@ module RelaxAdmin
       end
     end
 
-    def create_params
+    def create_params(options = {})
       exclude_default_params(controller_name.classify.constantize.attribute_names).map { |attr| attr.gsub(/_id$/, '') }
     end
 

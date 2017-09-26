@@ -104,6 +104,8 @@ module RelaxAdmin
         constantized_model = a.to_s.singularize.classify.constantize
       end
 
+      constantized_model = constantized_model.new
+
       method = 'to_s'
       object_label_methods.each do |m|
         method = m if constantized_model.respond_to?(m)
