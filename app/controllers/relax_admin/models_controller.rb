@@ -176,7 +176,11 @@ module RelaxAdmin
     end
 
     def update_params(options = {})
-      create_params(options = {})
+      if (options.present?)
+        create_params(options)
+      else
+        create_params
+      end
     end
 
     def autocomplete_params; end

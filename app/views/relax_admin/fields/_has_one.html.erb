@@ -9,13 +9,13 @@
     <% if a.is_a?(Hash) %>
       <% params_assoc = "RelaxAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
     <% else %>
-      <% params_assoc = "RelaxAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
+      <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
     <% end %>
   <% else %>
   <% if a.is_a?(Hash) %>
     <% params_assoc = "RelaxAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
     <% else %>
-      <% params_assoc = "RelaxAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
+      <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
     <% end %>
   <% end %>
   <% params_assoc.each do |attribute| %>
