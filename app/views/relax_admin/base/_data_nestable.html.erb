@@ -4,7 +4,7 @@
     <% else %>
       <% @model_class.all.order("#{@position_field} ASC").each do |m| %>
         <li class="dd-item" data-id="<%= m.id %>">
-          <div class="dd-handle"><%= m.send(object_label(m)) %></div>
+          <div class="dd-handle"><%= show_object(m) %></div>
         </li>
       <% end %>
     <% end %>
