@@ -1,2 +1,2 @@
 <%= f.label a, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
-<%= f.collection_select a.to_s + '_id', a.to_s.classify.constantize.all.limit(20), :id, object_label(a), {prompt: "Sélectionner un(e) #{a.to_s.classify.constantize.model_name.human.downcase}"}, class: 'selectize-single', required: required?(f.object, a).present? %>
+<%= f.collection_select a.to_s + '_id', class_name_from_association(f.object, a).constantize.all.limit(20), :id, object_label(class_name_from_association(f.object, a)), {prompt: "Sélectionner un(e) #{class_name_from_association(f.object, a).constantize.model_name.human.downcase}"}, class: 'selectize-single', required: required?(f.object, a).present? %>

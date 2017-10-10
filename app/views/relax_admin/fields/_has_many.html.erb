@@ -1,2 +1,2 @@
 <%= f.label a, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
-<%= f.collection_select "#{a.to_s.singularize}_ids", "#{a.to_s.singularize}".classify.constantize.all.limit(20), :id, object_label(a), {include_blank: true}, {class: 'selectize-multiple', multiple: 'multiple', required: required?(f.object, a)} %>
+<%= f.collection_select "#{a.to_s.singularize}_ids", class_name_from_association(f.object, a).classify.constantize.all.limit(20), :id, object_label(class_name_from_association(f.object, a)), {include_blank: true}, {class: 'selectize-multiple', multiple: 'multiple', required: required?(f.object, a)} %>

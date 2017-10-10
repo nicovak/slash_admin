@@ -31,6 +31,19 @@ module RelaxAdmin
       true
     end
 
+    def class_name_from_association(obj, field_name)
+      [:belongs_to, :has_many, :has_one].each do |relation|
+        obj.class.reflect_on_all_associations(relation).each do |association|
+          p association.name
+          p field_name.to_sym
+          p association.class_name
+          return association.class_name if association.name == field_name.to_sym
+        end
+      end
+
+      raise Exception.new("Unable to guess association for attribute: #{field_name} in model: #{obj}")
+    end
+
     def required?(obj, field_name)
       if field_name.is_a?(Hash)
         field_hash = field_name
