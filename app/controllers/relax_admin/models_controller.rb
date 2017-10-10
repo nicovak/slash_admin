@@ -146,16 +146,16 @@ module RelaxAdmin
               search = search.where(column.eq(query))
             else
               if query['from'].present?
-                search = search.where(column.gteq(query['from']))
+                search = search.where(column.gteq(query['from'].to_date))
               end
-              if query['end'].present?
-                search = search.where(column.lteq(query['end']))
+              if query['to'].present?
+                search = search.where(column.lteq(query['to'].to_date))
               end
             end
           when 'boolean'
             search = search.where(column.eq(to_boolean(query)))
-          when @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr)
-            search = search.where(attr.to_s + '_id IN ' + query)
+          when 'belongs_to', 'has_one'
+            search = search.where(attr.to_s + '_id IN (' + query.join(',') + ')')
           end
         end
       end
