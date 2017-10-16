@@ -2,11 +2,11 @@ fr:
   relax_admin:
     controller:
       create:
-        success: %{model_name} created.
+        success: "%{model_name} created."
       update:
-        success: %{model_name} updated.
+        success: "%{model_name} updated."
       delete:
-        success: %{model_name} deleted.
+        success: "%{model_name} deleted."
       nestable:
         error: Impossible to create '%{model_name}'
         success: Operation successed.
@@ -14,18 +14,19 @@ fr:
       administration: Administration
       home: Home
       welcome: Alow you to administrate your application
-      create: New %{model_name}
-      create_success: %{model_name} successfully created
-      add: Add a %{model_name}
+      login: LOG IN
+      create: "New %{model_name}"
+      create_success: "%{model_name} successfully created"
+      add: "Add a %{model_name}"
       cancel: Cancel
       save: Save
       delete: Delete
       new: New
-      edit: Edit: %{model_name}
-      show: Show: %{model_name}
+      edit: "Edit: %{model_name}"
+      show: "Show: %{model_name}"
       tools: Tools
       order: Order
-      ordering: Order %{model_name}
+      ordering: "Order %{model_name}"
       export_xls: Export XLS
       export_csv: Export CSV
       save_and_return_html: Save &amp; Return to list
@@ -43,8 +44,8 @@ fr:
       no: No
       filter: Filter
       reset: Reset
-      select_model: Select a %{model_name}
-      list: %{model_name} list
+      select_model: "Select a %{model_name}"
+      list: "%{model_name} list"
       return_to_list: Return to list
     sessions:
       login_required: You must be logged to access this page.

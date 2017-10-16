@@ -2,11 +2,11 @@ fr:
   relax_admin:
     controller:
       create:
-        success: %{model_name} créé(e).
+        success: "%{model_name} créé(e)."
       update:
-        success: %{model_name} mis(e) à jour.
+        success: "%{model_name} mis(e) à jour."
       delete:
-        success: %{model_name} supprimé(e).
+        success: "%{model_name} supprimé(e)."
       nestable:
         error: Impossible de trier '%{model_name}'
         success: Opération réussi.
@@ -14,18 +14,19 @@ fr:
       administration: Administration
       home: Accueil
       welcome: Vous permet d'administrer votre application
-      create: Création d'un(e) %{model_name}
-      create_success: %{model_name} créé(e) avec succès
-      add: Ajouter un(e) %{model_name}
+      login: 'SE CONNECTER'
+      create: "Création d'un(e) %{model_name}"
+      create_success: "%{model_name} créé(e) avec succès"
+      add: "Ajouter un(e) %{model_name}"
       cancel: Annuler
       save: Enregistrer
       delete: Supprimer
       new: Nouveau
-      edit: Édition: %{model_name}
-      show: Affichage: %{model_name}
+      edit: "Édition: %{model_name}"
+      show: "Affichage: %{model_name}"
       tools: Outils
       order: Trier
-      ordering: Trier les %{model_name}
+      ordering: "Trier les %{model_name}"
       export_xls: Export XLS
       export_csv: Export CSV
       save_and_return_html: Enregistrer &amp; Retourner à la liste
@@ -43,8 +44,8 @@ fr:
       no: Non
       filter: Filtrer
       reset: Réinitialiser
-      select_model: Sélectionner un(e) %{model_name}
-      list: Liste des %{model_name}
+      select_model: "Sélectionner un(e) %{model_name}"
+      list: "Liste des %{model_name}"
       return_to_list: Retour à la liste
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.
