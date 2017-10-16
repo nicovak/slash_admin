@@ -47,5 +47,6 @@ fr:
       select_model: "Select a %{model_name}"
       list: "%{model_name} list"
       return_to_list: Return to list
+      no_image: No image
     sessions:
       login_required: You must be logged to access this page.

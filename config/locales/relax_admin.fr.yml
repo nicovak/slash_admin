@@ -47,5 +47,6 @@ fr:
       select_model: "Sélectionner un(e) %{model_name}"
       list: "Liste des %{model_name}"
       return_to_list: Retour à la liste
+      no_image: Aucune Image
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.

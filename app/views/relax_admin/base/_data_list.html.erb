@@ -62,8 +62,12 @@
                 <% if m.send(attr.keys.first).present? %>
                   <img src="<%= m.send(attr.keys.first) %>" class="img-fluid"/>
                 <% else %>
-                  <em><%= t() %></em>
+                  <em><%= t('relax_admin.view.no_image') %></em>
                 <% end %>
+              </td>
+              <% else %>
+              <td>
+                <%= render attr.keys.first.to_s, model: m %>
               </td>
             <% end %>
           <% else %>
