@@ -8,29 +8,27 @@
         <div class="caption">
           <% if @is_nestable %>
             <%= link_to(polymorphic_url([:nestable, :relax_admin, @model_class]), class: 'btn btn-circle btn-info btn-sm') do %>
-              <i class="fa fa-outdent"></i> Trier
+              <i class="fa fa-outdent"></i> <%= t('relax_admin.view.order') %>
             <% end %>
           <% end %>
 
-          Liste des <%= @model_class.model_name.human(count: 2) %>
+          <%= t('relax_admin.view.list', model_name: @model_class.model_name.human(count: 2)) %>
         </div>
         <div class="actions">
           <% if can? :create, @model_class %>
             <%= link_to(new_polymorphic_url([:relax_admin, @model_class]), class: 'btn btn-circle btn-primary btn-sm') do %>
-              <i class="fa fa-plus"></i> Nouveau
+              <i class="fa fa-plus"></i> <%= t('relax_admin.view.new') %>
             <% end rescue nil %>
           <% end %>
           <div class="dropdown">
             <a class="btn btn-circle btn-secondary btn-sm dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-share"></i>
-              <span class="">Outils</span>
+              <span class=""><%= t('relax_admin.view.tools') %></span>
               <i class="fa fa-angle-down fix-dropdown"></i>
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="<%= polymorphic_url([:relax_admin, @model_class], format: 'csv') %>">Export
-                CSV</a>
-              <a class="dropdown-item" href="<%= polymorphic_url([:relax_admin, @model_class], format: 'xls') %>">Export
-                XLS</a>
+              <a class="dropdown-item" href="<%= polymorphic_url([:relax_admin, @model_class], format: 'csv') %>"><%= t('relax_admin.view.export_csv') %></a>
+              <a class="dropdown-item" href="<%= polymorphic_url([:relax_admin, @model_class], format: 'xls') %>"><%= t('relax_admin.view.export_xls') %></a>
             </div>
           </div>
         </div>

@@ -22,7 +22,7 @@ module RelaxAdmin
 
     def authenticate_admin!
       return true if current_admin.present?
-      flash[:error] = 'Vous devez êtres connecté pour accéder à cette page.'
+      flash[:error] = t('relax_admin.sessions.login_required')
       redirect_to login_url unless controller_name == 'sessions'
     end
 

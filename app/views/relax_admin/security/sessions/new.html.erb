@@ -2,7 +2,7 @@
   <div class="login-form centered">
     <div class="row">
       <div class="col-sm-12 content bckg-dark-light">
-        <h2 class="text-center title-login">Administration</h2>
+        <h2 class="text-center title-login"><%= t('relax_admin.view.administration') %></h2>
         <%= form_for(:admin, url: '') do |f| %>
           <span class="failed-login">
             <%= @error_messages %>

@@ -6,11 +6,11 @@
     <div class="portlet">
       <div class="portlet-title">
         <div class="caption">
-          Affichage: <%= @model_name.pluralize %>
+          <%= t('relax_admin.view.show', model_name: @model_name.pluralize) %>
         </div>
         <div class="actions">
           <%= link_to(polymorphic_url([:relax_admin, @model_class]), class: 'btn btn-circle btn-primary btn-sm') do %>
-            <i class="icon-action-undo"></i> Retour à la liste
+            <i class="icon-action-undo"></i> <%= t('relax_admin.view.return_to_list') %>
           <% end %>
         </div>
       </div>

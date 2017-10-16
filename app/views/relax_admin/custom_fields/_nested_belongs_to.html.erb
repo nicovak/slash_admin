@@ -1,6 +1,6 @@
 <%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
 <%= f.collection_select a.keys.first.to_s + '_id', a.keys.first.to_s.classify.constantize.all, :id, object_label(a), {prompt: "Sélectionner un(e) #{a.keys.first.to_s.classify.constantize.model_name.human.downcase}"}, class: 'selectize-single ' + a.keys.first.to_s + '_id', required: required?(f.object, a).present? %>
-<a href="#" class="add-belongs-to" style="font-size: .9em;">Ajouter une(e) <%= a.keys.first.to_s.classify.constantize.model_name.human.downcase %></a>
+<a href="#" class="add-belongs-to" style="font-size: .9em;"><%= t('relax_admin.view.add', a.keys.first.to_s.classify.constantize.model_name.human.downcase) %></a>
 
 <script type="text/javascript">
   $(function() {
@@ -34,7 +34,7 @@
           });
           $('.errors-json').html(errors_html)
         } else {
-          toastr.success('<%= a.keys.first.to_s.classify.constantize.model_name.human %> créé(e) avec succés');
+          toastr.success("<%= t('relax_admin.view.create_success', model_name: a.keys.first.to_s.classify.constantize.model_name.human) %>");
           $(id).trigger("reset");
           closeModals();
           var select = $('.<%= a.keys.first.to_s + '_id' %>')[0].selectize;

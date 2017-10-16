@@ -57,7 +57,7 @@
       <div class="row line-show">
         <div class="col-sm-12">
           <span class="show-attr-title"><%= @model_class.human_attribute_name(a) %></span>
-          <%= @model.send(a) ? 'Oui' : 'Non' %>
+          <%= @model.send(a) ? t('relax_admin.view.yes') : t('relax_admin.view.no') %>
         </div>
       </div>
     <% when 'date', 'datetime' %>

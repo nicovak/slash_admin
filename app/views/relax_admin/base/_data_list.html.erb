@@ -44,7 +44,7 @@
           </th>
         <% end %>
       <% end %>
-      <th class="text-center">Actions</th>
+      <th class="text-center"><%= t('relax_admin.view.actions') %></th>
     </tr>
 
       <%= render 'filters', model: @model_class %>
@@ -62,7 +62,7 @@
                 <% if m.send(attr.keys.first).present? %>
                   <img src="<%= m.send(attr.keys.first) %>" class="img-fluid"/>
                 <% else %>
-                  <em>Aucune image</em>
+                  <em><%= t() %></em>
                 <% end %>
               </td>
             <% end %>

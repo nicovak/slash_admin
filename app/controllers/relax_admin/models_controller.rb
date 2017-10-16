@@ -54,7 +54,7 @@ module RelaxAdmin
         if @model.save!
           respond_to do |format|
             format.html do
-              flash[:success] = "#{@model_name} créé(e)."
+              flash[:success] = t("relax_admin.controller.create.success", model_name: @model_name)
               redirect_to handle_redirect_after_submit and return
             end
             format.js { render json: @model and return }
@@ -80,7 +80,7 @@ module RelaxAdmin
       before_validate_on_update
 
       if @model.update(permit_params)
-        flash[:success] = "#{@model_name} mis(e) à jour."
+        flash[:success] = t("relax_admin.controller.update.success", model_name: @model_name)
         respond_to do |format|
           format.html { redirect_to handle_redirect_after_submit and return }
           format.js
@@ -101,7 +101,7 @@ module RelaxAdmin
 
     def destroy
       @model_class.find(params[:id]).destroy!
-      flash[:success] = "#{@model_name} supprimé(e)."
+      flash[:success] = t("relax_admin.controller.delete.success", model_name: @model_name)
       respond_to do |format|
         format.html { redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) }
         format.js
@@ -110,7 +110,7 @@ module RelaxAdmin
 
     def nestable
       unless @is_nestable
-        flash[:error] = "Impossible de trier '#{@model_class}'"
+        flash[:error] = t("relax_admin.controller.nestable.error", model_name: @model_name)
         redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) and return
       end
 
@@ -123,7 +123,7 @@ module RelaxAdmin
           end
         end
 
-        flash[:success] = 'Opération réussi.'
+        flash[:success] = t("relax_admin.controller.nestable.success")
 
         redirect_to main_app.polymorphic_url(['relax_admin', @model_class]) and return if params.key?(:submit_redirect)
         redirect_to main_app.polymorphic_url([:nestable, :relax_admin, @model_class])

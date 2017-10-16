@@ -33,7 +33,7 @@
           <% if "RelaxAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.present? %>
           <td>
             <select name="filters[<%= attr %>][]" class="selectize-multiple" multiple data-model="<%= attr.to_s.classify.constantize %>" data-fields='<%= "RelaxAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' ') %>'>
-              <option value="">Sélectionner un(e) <%= attr.to_s.classify.constantize.model_name.human.downcase %></option>
+              <option value=""><%= t('relax_admin.view.select_model', model_name: attr.to_s.classify.constantize.model_name.human.downcase) %></option>
               <% attr.to_s.classify.constantize.all.limit(20).each do |model_row| %>
                 <% if params[:filter].present? %>
                   <% if params[:filters][attr]&.include? model_row.id.to_s %>
@@ -55,7 +55,7 @@
       <% end %>
     <% end %>
     <td>
-      <button type="submit" class="btn btn-sm btn-block btn-primary"><i class='fa fa-filter'></i> Filtrer</button>
-      <button id="reset-filters" class="btn btn-sm btn-block btn-secondary"><i class='fa fa-times'></i> Réinitialiser</button>
+      <button type="submit" class="btn btn-sm btn-block btn-primary"><i class='fa fa-filter'></i> <%= t('relax_admin.view.filter') %></button>
+      <button id="reset-filters" class="btn btn-sm btn-block btn-secondary"><i class='fa fa-times'></i> <%= t('relax_admin.view.reset') %></button>
     </td>
 </tr>

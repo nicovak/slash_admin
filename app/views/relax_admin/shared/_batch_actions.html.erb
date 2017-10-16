@@ -2,7 +2,7 @@
   <div class="dropdown">
     <a class="btn btn-circle btn-success btn-sm dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fa fa-share"></i>
-      <span class="">Actions groupées</span>
+      <span class=""><%= t('relax_admin.view.batch_actions') %></span>
       <i class="fa fa-angle-down fix-dropdown"></i>
     </a>
     <div class="dropdown-menu">
@@ -10,12 +10,12 @@
         <a
         class="dropdown-item batch-action"
         data-action="<%= relax_admin.batch_delete_path(@model_class.model_name.to_s.underscore) %>"
-        data-message="Vous ne serez pas capable de revenir en arrière." href="#"><i class="icon-trash">
-        </i> Supprimer</a>
+        data-message="<%= t('relax_admin.view.be_careful') %>" href="#"><i class="icon-trash">
+        </i> <%= t('relax_admin.view.delete') %></a>
       <% end %>
     </div>
   </div>
   <div class="count">
-    <span class="batch-current-selected">0</span> élément(s) sélectionné(s)
+    <span class="batch-current-selected">0</span> <%= t('relax_admin.view.selected_elements') %>
   </div>
 </div>

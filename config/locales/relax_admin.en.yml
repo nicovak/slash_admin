@@ -1,0 +1,50 @@
+fr:
+  relax_admin:
+    controller:
+      create:
+        success: %{model_name} created.
+      update:
+        success: %{model_name} updated.
+      delete:
+        success: %{model_name} deleted.
+      nestable:
+        error: Impossible to create '%{model_name}'
+        success: Operation successed.
+    view:
+      administration: Administration
+      home: Home
+      welcome: Alow you to administrate your application
+      create: New %{model_name}
+      create_success: %{model_name} successfully created
+      add: Add a %{model_name}
+      cancel: Cancel
+      save: Save
+      delete: Delete
+      new: New
+      edit: Edit: %{model_name}
+      show: Show: %{model_name}
+      tools: Tools
+      order: Order
+      ordering: Order %{model_name}
+      export_xls: Export XLS
+      export_csv: Export CSV
+      save_and_return_html: Save &amp; Return to list
+      save_and_add_html: Save &amp; Add a new
+      actions: Actions
+      batch_actions: Batch actions
+      total_of: Total
+      of: of
+      result_found: results found
+      show_by: Show by
+      be_careful: You won't be able to go back
+      selected_elements: element(s) selected
+      page: Page
+      yes: Yes
+      no: No
+      filter: Filter
+      reset: Reset
+      select_model: Select a %{model_name}
+      list: %{model_name} list
+      return_to_list: Return to list
+    sessions:
+      login_required: You must be logged to access this page.

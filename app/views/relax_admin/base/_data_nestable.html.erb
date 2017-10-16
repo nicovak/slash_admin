@@ -17,10 +17,10 @@
   <%= hidden_field(:nestable, :data) %>
 
   <%= button_tag(type: 'submit', class: 'btn btn btn-success', name: 'submit_redirect') do %>
-    <i class="fa fa-save"></i> <i class="icon-action-undo"></i> Enregistrer &amp; Retourner à la liste
+    <i class="fa fa-save"></i> <i class="icon-action-undo"></i> <%= t('relax_admin.view.save_and_return_html') %>
   <% end %>
   <button type="submit" class="btn btn-primary pull-right">
-    <i class="fa fa-save"></i> Enregistrer
+    <i class="fa fa-save"></i> <%= t('relax_admin.view.save') %>
   </button>
 <% end %>
 
