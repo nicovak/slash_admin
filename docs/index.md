@@ -1,13 +1,13 @@
 ### Techs
 
-- Rails 5
-- Bootstrap 4
-- Ruby 2.4.0
+- Rails >= 5
+- Bootstrap >= 4
+- Ruby >= 2.4.0
 
 ### Dashboard
 - [X] Charts
 - [X] Easy widget system
-- [ ] I18n
+- [X] I18n
 - [ ] Global search
 - [X] Integration of roles and permission with [cancancan](https://github.com/CanCanCommunity/cancancan)
 
@@ -20,7 +20,7 @@
 - [X] Filter system + search based on data type
 - [X] Batch action
 - [X] Pagination
-- [ ] Handle `has_one` and `belongs_to`
+- [ ] Handle `has_one`, `belongs_to`, `has_many`
 - [X] Sortable and nested list
 - [X] Better handling of field type
 

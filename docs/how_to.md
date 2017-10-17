@@ -2,8 +2,8 @@
 
 ### Routes
 
-No role or acccess security right now.
-You can define `except` and `only` on ressources
+You can define `except` and `only` on ressources.
+You can use `cancancan` for roles and permission [docs](https://github.com/nicovak/relax_admin/blob/master/docs/security.md)
 
 ```ruby
 namespace :relax_admin, path: 'admin' do
