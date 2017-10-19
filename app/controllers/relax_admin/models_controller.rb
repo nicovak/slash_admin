@@ -60,6 +60,8 @@ module RelaxAdmin
             format.js { render json: @model and return }
           end
         end
+      else
+        flash[:success] = t("relax_admin.controller.create.error", model_name: @model_name)
       end
       respond_to do |format|
         format.html { render :new }
@@ -85,6 +87,8 @@ module RelaxAdmin
           format.html { redirect_to handle_redirect_after_submit and return }
           format.js
         end
+      else
+        flash[:success] = t("relax_admin.controller.update.error", model_name: @model_name)
       end
       render :edit and return
     end

@@ -3,8 +3,10 @@ fr:
     controller:
       create:
         success: "%{model_name} créé(e)."
+        error: "Erreur lors de la création d'un(e) %{model_name}"
       update:
         success: "%{model_name} mis(e) à jour."
+        error: "Erreur lors de la mise à jour d'un(e) %{model_name}"
       delete:
         success: "%{model_name} supprimé(e)."
       nestable:

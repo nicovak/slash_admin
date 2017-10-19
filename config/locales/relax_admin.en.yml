@@ -3,8 +3,10 @@ fr:
     controller:
       create:
         success: "%{model_name} created."
+        error: "Error while creating a %{model_name}"
       update:
         success: "%{model_name} updated."
+        error: "Error while updating a %{model_name}"
       delete:
         success: "%{model_name} deleted."
       nestable:
