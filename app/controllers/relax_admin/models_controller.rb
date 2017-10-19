@@ -61,7 +61,7 @@ module RelaxAdmin
           end
         end
       else
-        flash[:success] = t("relax_admin.controller.create.error", model_name: @model_name)
+        flash[:error] = t("relax_admin.controller.create.error", model_name: @model_name)
       end
       respond_to do |format|
         format.html { render :new }
@@ -88,7 +88,7 @@ module RelaxAdmin
           format.js
         end
       else
-        flash[:success] = t("relax_admin.controller.update.error", model_name: @model_name)
+        flash[:error] = t("relax_admin.controller.update.error", model_name: @model_name)
       end
       render :edit and return
     end

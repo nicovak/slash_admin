@@ -162,6 +162,20 @@ h6 {
     }
   }
 
+  .field_with_errors {
+    label {
+      color: $red;
+    }
+
+    input {
+      border-color: $red !important;
+    }
+
+    .form-control-feedback {
+      color: $red;
+    }
+  }
+
   &.page-sidebar-closed {
     .navbar .navbar-brand {
       display: none !important;
