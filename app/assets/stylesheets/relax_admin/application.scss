@@ -171,7 +171,7 @@ h6 {
       border-color: $red !important;
     }
 
-    .form-control-feedback {
+    & + .form-control-feedback {
       color: $red;
     }
   }
