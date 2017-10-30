@@ -26,6 +26,7 @@ fr:
       new: Nouveau
       edit: "Édition: %{model_name}"
       show: "Affichage: %{model_name}"
+      see: Voir
       tools: Outils
       order: Trier
       ordering: "Trier les %{model_name}"
@@ -50,5 +51,8 @@ fr:
       list: "Liste des %{model_name}"
       return_to_list: Retour à la liste
       no_image: Aucune Image
+      close: Fermer
+      associations: Associations
+      no_associations: Pas d'associations
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.

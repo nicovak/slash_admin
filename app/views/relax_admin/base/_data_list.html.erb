@@ -79,6 +79,36 @@
               <td>
                 <%= show_object(m.send(attr)) %>
               </td>
+            <% elsif  @has_many_fields.include?(attr) %>
+              <td>
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-see-assoc-<%= m.id %>">
+                  <%= t('relax_admin.view.see') %>
+                </button>
+                <div class="modal fade" id="modal-see-assoc-<%= m.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><%= t('relax_admin.view.associations') %></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <% if m.send(attr).length == 0 %>
+                          <%= t('relax_admin.view.no_associations') %>
+                        <% else %>
+                          <% m.send(attr).each do |a| %>
+                            - <%= show_object(a) %><br />
+                          <% end %>
+                        <% end %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('relax_admin.view.close') %></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
             <% else %>
               <td>
                 <%= m.send(attr) %>
