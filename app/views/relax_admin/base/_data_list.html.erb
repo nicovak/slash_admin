@@ -82,7 +82,7 @@
             <% elsif  @has_many_fields.include?(attr) %>
               <td>
                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-see-assoc-<%= m.id %>">
-                  <%= t('relax_admin.view.see') %>
+                  <i class="fa fa-list"></i> <%= t('relax_admin.view.see') %>
                 </button>
                 <div class="modal fade" id="modal-see-assoc-<%= m.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">

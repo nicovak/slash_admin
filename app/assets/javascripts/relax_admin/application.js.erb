@@ -205,21 +205,28 @@ function init() {
     }
   });
 
+  $('.bootstrap-datepicker').datepicker({
+    language: '<%= I18n.locale %>',
+    format: 'yyyy-mm-dd'
+  });
+
   $(".bootstrap-material-date").bootstrapMaterialDatePicker({
-    lang: "fr",
+    lang: '<%= I18n.locale %>',
     weekStart: 1,
     cancelText: "ANNULER",
     time: false,
     clearButton: true,
-    clearText: "EFFACER"
+    clearText: "EFFACER",
+    format: 'yyyy-mm-dd'
   });
 
   $(".bootstrap-material-datetime").bootstrapMaterialDatePicker({
-    lang: "fr",
+    lang: '<%= I18n.locale %>',
     weekStart: 1,
     cancelText: "ANNULER",
     clearButton: true,
-    clearText: "EFFACER"
+    clearText: "EFFACER",
+    format: 'yyyy-mm-dd'
   });
 
   $(".colorpicker").minicolors();
