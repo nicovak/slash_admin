@@ -23,6 +23,8 @@
 $(document).on("turbolinks:load", init);
 
 function init() {
+  Turbolinks.clearCache();
+
   $(".tags").tagsInput({
     placeholder: "Ajouter un tag",
     delimiter: [",", ";", " "]
