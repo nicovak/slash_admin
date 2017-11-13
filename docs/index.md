@@ -8,6 +8,7 @@
 - [X] Charts
 - [X] Easy widget system
 - [X] I18n
+- [ ] Globalize and local based model
 - [ ] Global search
 - [X] Integration of roles and permission with [cancancan](https://github.com/CanCanCommunity/cancancan)
 
@@ -20,7 +21,7 @@
 - [X] Filter system + search based on data type
 - [X] Batch action
 - [X] Pagination
-- [ ] Handle `has_one`, `belongs_to`, `has_many`
+- [X] Handle `has_one`, `belongs_to`, `has_many`
 - [X] Sortable and nested list
 - [X] Better handling of field type
 
