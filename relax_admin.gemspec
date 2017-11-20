@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib,vendor}/**/*', 'README.md', 'LICENSE.md']
 
   s.add_dependency 'rails', '~> 5.0'
+  s.add_dependency 'globalize'
+  s.add_dependency 'http_accept_language'
   s.add_dependency 'kaminari'
   s.add_dependency 'cancancan'
   s.add_dependency 'groupdate'
