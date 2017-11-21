@@ -20,7 +20,6 @@ require 'momentjs-rails'
 require 'sass-rails'
 require 'tether-rails'
 require 'sweetalert-rails'
-require 'globalize'
 require 'http_accept_language'
 
 module RelaxAdmin
