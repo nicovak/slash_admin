@@ -54,14 +54,14 @@ module RelaxAdmin
         if @model.save!
           respond_to do |format|
             format.html do
-              flash[:success] = t("relax_admin.controller.create.success", model_name: @model_name)
+              flash[:success] = t('relax_admin.controller.create.success', model_name: @model_name)
               redirect_to handle_redirect_after_submit and return
             end
             format.js { render json: @model and return }
           end
         end
       else
-        flash[:error] = t("relax_admin.controller.create.error", model_name: @model_name)
+        flash[:error] = t('relax_admin.controller.create.error', model_name: @model_name)
       end
       respond_to do |format|
         format.html { render :new }
@@ -82,13 +82,13 @@ module RelaxAdmin
       before_validate_on_update
 
       if @model.update(permit_params)
-        flash[:success] = t("relax_admin.controller.update.success", model_name: @model_name)
+        flash[:success] = t('relax_admin.controller.update.success', model_name: @model_name)
         respond_to do |format|
           format.html { redirect_to handle_redirect_after_submit and return }
           format.js
         end
       else
-        flash[:error] = t("relax_admin.controller.update.error", model_name: @model_name)
+        flash[:error] = t('relax_admin.controller.update.error', model_name: @model_name)
       end
       render :edit and return
     end
@@ -105,7 +105,7 @@ module RelaxAdmin
 
     def destroy
       @model_class.find(params[:id]).destroy!
-      flash[:success] = t("relax_admin.controller.delete.success", model_name: @model_name)
+      flash[:success] = t('relax_admin.controller.delete.success', model_name: @model_name)
       respond_to do |format|
         format.html { redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) }
         format.js
@@ -114,7 +114,7 @@ module RelaxAdmin
 
     def nestable
       unless @is_nestable
-        flash[:error] = t("relax_admin.controller.nestable.error", model_name: @model_name)
+        flash[:error] = t('relax_admin.controller.nestable.error', model_name: @model_name)
         redirect_to main_app.polymorphic_url([:relax_admin, @model_class]) and return
       end
 
@@ -127,7 +127,7 @@ module RelaxAdmin
           end
         end
 
-        flash[:success] = t("relax_admin.controller.nestable.success")
+        flash[:success] = t('relax_admin.controller.nestable.success')
 
         redirect_to main_app.polymorphic_url(['relax_admin', @model_class]) and return if params.key?(:submit_redirect)
         redirect_to main_app.polymorphic_url([:nestable, :relax_admin, @model_class])

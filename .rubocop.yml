@@ -10,7 +10,7 @@ AllCops:
 
 # Prefer &&/|| over and/or.
 Style/AndOr:
-  Enabled: true
+  Enabled: false
 
 # Do not use braces for hash literals when they are the last argument of a
 # method call.
