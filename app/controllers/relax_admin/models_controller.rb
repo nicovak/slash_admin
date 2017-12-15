@@ -52,7 +52,6 @@ module RelaxAdmin
 
       if @model.valid?
         if @model.save!
-          handle_locale
           respond_to do |format|
             format.html do
               flash[:success] = t('relax_admin.controller.create.success', model_name: @model_name)
@@ -189,20 +188,6 @@ module RelaxAdmin
     end
 
     def autocomplete_params; end
-
-    def handle_locale
-      if should_add_locale?
-        if params[:locale].present?
-          locale = params[:locale].to_sym
-        else
-          locale = I18n.available_locales.first
-        end
-        hash = params[@model_class.name.split('::').last.underscore]
-        hash[:locale] = locale
-        @model.attributes = hash
-        @model.save!
-      end
-    end
 
   protected
 
