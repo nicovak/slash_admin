@@ -8,7 +8,7 @@ module RelaxAdmin
     before_action :handle_default_params
     before_action :handle_assocations
 
-    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_locale?, :translatable_params
+    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_translatable?, :translatable_params
 
     def index
       authorize! :index, @model_class
@@ -233,10 +233,9 @@ module RelaxAdmin
       @model_name = @model_class.model_name.human
     end
 
-    def should_add_locale?
+    def should_add_translatable?
       should = @model_class.respond_to?(:translated_attribute_names)
-
-      handle_default_translations
+      handle_default_translations if should
 
       should
     end

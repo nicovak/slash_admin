@@ -1,4 +1,4 @@
-<% if should_add_locale? %>
+<% if should_add_translatable? %>
   <h3 class="translations"><%= t('relax_admin.view.translations') %></h3>
   <nav class="nav nav-tabs" id="language-tabs" role="tablist">
     <% I18n.available_locales.each do |locale| %>
