@@ -59,6 +59,5 @@ fr:
       confirm: Êtes-vous sûr ?
       no_back: Vous ne serez pas capable de revenir en arrière
       yes_delete: Oui, supprimer
-      cancel: Annuler
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.

@@ -51,5 +51,9 @@ en:
       return_to_list: Return to list
       no_image: No image
       translations: Translations
+      add_tag: Add a tag
+      confirm: Are you sure ?
+      no_back: You won't be able to go back
+      yes_delete: Yes, delete
     sessions:
       login_required: You must be logged to access this page.
