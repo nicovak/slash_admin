@@ -55,5 +55,9 @@ en:
       confirm: Are you sure ?
       no_back: You won't be able to go back
       yes_delete: Yes, delete
+      enable_javascript_html: '
+      For full functionality of this site it is necessary to enable JavaScript.
+      Here are the <a href="https://www.enable-javascript.com/" target="_blank">
+      instructions how to enable JavaScript in your web browser</a>.'
     sessions:
       login_required: You must be logged to access this page.

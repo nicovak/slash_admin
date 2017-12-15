@@ -59,5 +59,9 @@ fr:
       confirm: Êtes-vous sûr ?
       no_back: Vous ne serez pas capable de revenir en arrière
       yes_delete: Oui, supprimer
+      enable_javascript_html: '
+      Pour accéder à toutes les fonctionnalités de ce site, vous devez activer JavaScript.
+      Voici les <a href="http://www.enable-javascript.com/fr/" target="_blank">
+      instructions pour activer JavaScript dans votre navigateur Web</a>.'
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.
