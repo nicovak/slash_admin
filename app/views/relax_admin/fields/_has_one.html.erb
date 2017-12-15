@@ -7,13 +7,13 @@
 <%= f.fields_for a do |association_form| %>
   <% if @model.id.blank? %>
     <% if a.is_a?(Hash) %>
-      <% params_assoc = "RelaxAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
+      <% params_assoc = "RelaxAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
     <% else %>
       <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
     <% end %>
   <% else %>
   <% if a.is_a?(Hash) %>
-    <% params_assoc = "RelaxAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
+    <% params_assoc = "RelaxAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
     <% else %>
       <% params_assoc = "RelaxAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
     <% end %>
