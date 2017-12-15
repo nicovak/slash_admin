@@ -11,6 +11,7 @@
   <div class="tab-content">
     <% I18n.available_locales.each do |locale| %>
       <div class="tab-pane fade <%= I18n.available_locales.first == locale ? 'show active' : '' %>" id="language-<%= locale %>" role="tabpanel" aria-labelledby="language-<%= locale %>-tab">
+      <%  %>
         <%= f.globalize_fields_for locale do |g| %>
           <% translatable_params.each do |a| %>
             <%= render 'relax_admin/fields/form_group', f: g, a: a %>

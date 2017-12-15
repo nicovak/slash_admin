@@ -234,7 +234,20 @@ module RelaxAdmin
     end
 
     def should_add_locale?
-      @model_class.respond_to?(:translated_attribute_names)
+      should = @model_class.respond_to?(:translated_attribute_names)
+
+      handle_default_translations
+
+      should
+    end
+
+    def handle_default_translations
+      I18n.available_locales.reject { |key| key == :root }.each do |locale|
+        translation = @model.translations.find_by_locale locale.to_s
+        if translation.nil?
+          @model.translations.build locale: locale
+        end
+      end
     end
 
     def handle_default_params
