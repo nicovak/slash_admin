@@ -94,10 +94,10 @@ Eg: I wanna change the @per values:
   end
 ```
 
-Filter in list view for belongs_to and has_one relations, In the target controller:
-(eg: an article belongs_to a category)
+Filter in list view for `belongs_to` and `has_one relations`, In the target controller:
+(eg: a post belongs_to a category)
 
-In `ArticlesController`:
+In `PostssController`:
 
 ```ruby
 def list_params
@@ -118,12 +118,46 @@ def autocomplete_params
 end
 ```
 
-`before_validate_on_create` and `before_validate_on_update` are ready to use for adding logic between persist.
-
-Eg:
+`before_validate_on_create` and `before_validate_on_update` are ready to use for adding logic before persist.
 
 ```ruby
 def before_validate_on_update
   params[:polymorphic_user]['user_attributes'].delete(:password) if params[:polymorphic_user]['user_attributes'][:password].blank?
 end
 ```
+
+### Translatable models ###
+
+You must use and set up [globalize gem](https://github.com/globalize/globalize)
+This gem allows you to translate your model.
+All translated attibutes must not be in the original model. According docs, you will have these translatable attributes in the created table.
+Don't forget validations.
+
+In your model:
+
+```ruby
+class Page < ApplicationRecord
+  translates :title
+  accepts_nested_attributes_for :translations
+
+  class Translation
+    validates :title, presence: true
+  end
+end
+```
+
+Relax admin will use the first locale in your `I18n.available_locales` as default.
+
+In `config/application.rb`
+
+```ruby
+config.i18n.available_locales = %w(fr en)
+```
+
+It will not use `I18n.default_locale` here is the explication :
+I'm french and my website is not entirely translated in all existing locales.
+The `default_locale` of my project is `:en` as it is the international locale (eg: spanish or german will mostly understand it).
+If the locale asked by the user is not available it will return the `:en` translation.
+In the back-end my main focus is `:fr` not `:en`
+
+You may want to use this [gem](https://github.com/iain/http_accept_language) to handle locale in front.

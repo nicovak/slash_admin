@@ -8,7 +8,7 @@ module RelaxAdmin
     before_action :handle_default_params
     before_action :handle_assocations
 
-    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params
+    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_locale?, :translatable_params
 
     def index
       authorize! :index, @model_class
@@ -52,6 +52,7 @@ module RelaxAdmin
 
       if @model.valid?
         if @model.save!
+          handle_locale
           respond_to do |format|
             format.html do
               flash[:success] = t('relax_admin.controller.create.success', model_name: @model_name)
@@ -189,6 +190,20 @@ module RelaxAdmin
 
     def autocomplete_params; end
 
+    def handle_locale
+      if should_add_locale?
+        if params[:locale].present?
+          locale = params[:locale].to_sym
+        else
+          locale = I18n.available_locales.first
+        end
+        hash = params[@model_class.name.split('::').last.underscore]
+        hash[:locale] = locale
+        @model.attributes = hash
+        @model.save!
+      end
+    end
+
   protected
 
     def prepend_view_paths
@@ -229,8 +244,12 @@ module RelaxAdmin
 
     def handle_internal_default
       @model_class = model
-      @model_name = @model_class.model_name.human
       @update_params = update_params
+      @model_name = @model_class.model_name.human
+    end
+
+    def should_add_locale?
+      @model_class.respond_to?(:translated_attribute_names)
     end
 
     def handle_default_params
@@ -258,6 +277,10 @@ module RelaxAdmin
 
     def create_params(options = {})
       exclude_default_params(controller_name.classify.constantize.attribute_names).map { |attr| attr.gsub(/_id$/, '') }
+    end
+
+    def translatable_params
+      controller_name.classify.constantize.translated_attribute_names
     end
 
     def show_params

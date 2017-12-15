@@ -8,7 +8,7 @@
 - [X] Charts
 - [X] Easy widget system
 - [X] I18n
-- [ ] Globalize and local based model
+- [X] Globalize and local based model
 - [ ] Global search
 - [X] Integration of roles and permission with [cancancan](https://github.com/CanCanCommunity/cancancan)
 

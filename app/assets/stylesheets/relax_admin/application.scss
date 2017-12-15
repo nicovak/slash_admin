@@ -52,6 +52,7 @@ h4,
 h5,
 h6 {
   font-family: "Open Sans", sans-serif;
+  font-weight: 300;
 }
 
 .turbolinks-progress-bar {
@@ -174,6 +175,18 @@ h6 {
     & + .form-control-feedback {
       color: $red;
     }
+  }
+
+  .block-language {
+    display: block;
+    margin: 15px 0;
+  }
+
+  .translations {
+    color: $primary;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1em;
   }
 
   &.page-sidebar-closed {

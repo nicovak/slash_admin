@@ -54,5 +54,6 @@ fr:
       close: Fermer
       associations: Associations
       no_associations: Pas d'associations
+      translations: Traductions
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.

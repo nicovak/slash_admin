@@ -9,7 +9,6 @@ Embeded admin user and authentication system, devise is not needed.
 #### Motivation:
 - Provide to rails the admin it deserves without DSL or obscure logic.
 - Provide an easy to use and modern experience to final users.
-- Improve my personal skill and try rails engine
 
 I tried to take the best from two greats existing gem:
 - [rails_admin](https://github.com/sferik/rails_admin)

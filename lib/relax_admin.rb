@@ -21,6 +21,7 @@ require 'sass-rails'
 require 'tether-rails'
 require 'sweetalert-rails'
 require 'http_accept_language'
+require 'batch_translation'
 
 module RelaxAdmin
 end
