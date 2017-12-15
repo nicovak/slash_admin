@@ -26,7 +26,7 @@ function init() {
   Turbolinks.clearCache();
 
   $(".tags").tagsInput({
-    placeholder: "Ajouter un tag",
+    placeholder: "<%= t('relax_admin.view.add_tag') %>",
     delimiter: [",", ";", " "]
   });
 
@@ -113,14 +113,14 @@ function init() {
 
     swal(
       {
-        title: "Êtes-vous sûr ?",
-        text: "Vous ne serez pas capable de revenir en arrière",
+        title: "<%= t('relax_admin.view.confirm') %>",
+        text: "<%= t('relax_admin.view.no_back') %>",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
         cancelButtonClass: "btn-primary",
-        confirmButtonText: "Oui, supprimer",
-        cancelButtonText: "Annuler",
+        confirmButtonText: "<%= t('relax_admin.view.yes_delete') %>",
+        cancelButtonText: "<%= t('relax_admin.view.cancel') %>",
         closeOnConfirm: false
       },
       function() {
@@ -152,14 +152,14 @@ function init() {
     if (ids.length > 0) {
       swal(
         {
-          title: "Êtes-vous sûr ?",
+          title: "<%= t('relax_admin.view.confirm') %>",
           text: message,
           type: "warning",
           showCancelButton: true,
           confirmButtonClass: "btn-danger",
           cancelButtonClass: "btn-primary",
-          confirmButtonText: "Oui, supprimer",
-          cancelButtonText: "Annuler",
+          confirmButtonText: "<%= t('relax_admin.view.yes_delete') %>",
+          cancelButtonText: "<%= t('relax_admin.view.cancel') %>",
           closeOnConfirm: false
         },
         function() {
@@ -232,7 +232,6 @@ function init() {
   });
 
   $(".colorpicker").minicolors();
-  //$(':file').filestyle({buttonBefore: true, buttonText: 'Choisissez un fichier', buttonName: 'btn-primary'});
 
   $("#reset-filters").on("click", function(e) {
     e.preventDefault();
