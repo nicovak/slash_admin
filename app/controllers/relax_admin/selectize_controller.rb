@@ -1,13 +1,15 @@
 # frozen_string_literal: true
+# params
+# :model_class
+# :field
+# :q
 module RelaxAdmin
   class SelectizeController < RelaxAdmin::BaseController
-    def show
+    def search
       model_class = model
       results = model_class.all
-      params[:fields].each do |f|
-        column = model_class.arel_table[f.to_sym]
-        results = results.where(column.matches("%#{params[:q]}%"))
-      end
+      column = model_class.arel_table[params[:field].to_sym]
+      results = results.where(column.matches("%#{params[:q]}%")).limit(20)
       render json: results
     end
 

@@ -6,7 +6,7 @@ RelaxAdmin::Engine.routes.draw do
     get 'logout' => 'security/sessions#destroy'
     get 'dashboard/toggle' => 'dashboard#toggle', as: 'toggle_dashboard'
 
-    get 'list' => 'selectize#show', as: 'remote-selectize'
+    get 'search' => 'selectize#search', as: 'remote_selectize'
 
     # Batch actions
 
