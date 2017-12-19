@@ -44,15 +44,17 @@ $border-radius: .15rem !default;
 @import url("https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-body,
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 300;
+  font-weight: 200;
 }
 
 .turbolinks-progress-bar {

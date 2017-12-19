@@ -63,5 +63,6 @@ fr:
       Pour accéder à toutes les fonctionnalités de ce site, vous devez activer JavaScript.
       Voici les <a href="http://www.enable-javascript.com/fr/" target="_blank">
       instructions pour activer JavaScript dans votre navigateur Web</a>.'
+      administration_login: Administration - Login
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.
