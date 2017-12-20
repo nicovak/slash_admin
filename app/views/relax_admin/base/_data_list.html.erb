@@ -146,7 +146,7 @@
 <script type="text/javascript">
   $(document).on('turbolinks:load', function() {
     $('.bootstrap-datepicker').datepicker({
-      language: 'fr',
+      language: '<%= I18n.locale.to_s %>',
       format: 'yyyy/mm/dd',
       templates: {
         leftArrow: '<i class="icon-arrow-left"></i>',
@@ -200,9 +200,9 @@
       }
     });
 
-
     // Select range value per
     $('select[name="per"]').on('change', function () {
+      $('select[name="per"]').val($(this).val());
       $('input[name="page"]').val(1);
     });
 
