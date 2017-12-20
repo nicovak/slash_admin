@@ -139,25 +139,32 @@ module RelaxAdmin
 
       params[:filters].each do |attr, query|
         unless query.blank?
-          column = @model_class.arel_table[attr.to_sym]
+          # column = @model_class.arel_table[attr.to_sym]
           case helpers.guess_field_type(@model_class, attr)
           when 'string', 'text'
             # TODO: handle unnaccent if postgres and extensions installed
             # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
-            search = search.where(column.matches("%#{query}%"))
+            search = search.where("lower(#{attr}) LIKE lower(:query)", query: "%#{query}%")
           when 'date', 'datetime', 'integer', 'decimal', 'number'
             if query.is_a?(String)
-              search = search.where(column.eq(query))
+              search = search.where("#{attr} = :query", query: query)
             else
-              if query['from'].present?
-                search = search.where(column.gteq(query['from'].to_date))
+              if query['from'].present? || query['to'].present?
+                if query['from'].to_date != query['to'].to_date
+                  if query['from'].present?
+                    search = search.where("#{attr} >= :query", query: query['from'].to_date)
+                  end
+                  if query['to'].present?
+                    search = search.where("#{attr} <= :query", query: query['to'].to_date)
+                  end
+                else
+                  search = search.where("#{attr} = :query", query: query['from'].to_date)
+                end
               end
-              if query['to'].present?
-                search = search.where(column.lteq(query['to'].to_date))
-              end
+
             end
           when 'boolean'
-            search = search.where(column.eq(to_boolean(query)))
+            search = search.where("#{attr} = :query", query: to_boolean(query))
           when 'belongs_to', 'has_one'
             search = search.where(attr.to_s + '_id IN (' + query.join(',') + ')')
           end
