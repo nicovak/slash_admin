@@ -77,14 +77,16 @@
               </td>
             <% elsif @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr) %>
               <td>
-                <%= show_object(m.send(attr)) %>
+                <%= link_to(edit_polymorphic_url([:relax_admin, m.send(attr)]), class: 'link', target: '_blank') do %>
+                    <%= show_object(m.send(attr)) %>
+                <% end rescue nil %>
               </td>
             <% elsif  @has_many_fields.include?(attr) %>
               <td>
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-see-assoc-<%= m.id %>">
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-see-assoc-<%= attr.to_s %>-<%= m.id %>">
                   <i class="fa fa-list"></i> <%= t('relax_admin.view.see') %>
                 </button>
-                <div class="modal fade" id="modal-see-assoc-<%= m.id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal-see-assoc-<%= attr.to_s %>-<%= m.id %>" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -98,7 +100,9 @@
                           <%= t('relax_admin.view.no_associations') %>
                         <% else %>
                           <% m.send(attr).each do |a| %>
-                            - <%= show_object(a) %><br />
+                            <%= link_to(edit_polymorphic_url([:relax_admin, a]), class: 'link', target: '_blank') do %>
+                              <%= show_object(a) %><br />
+                            <% end rescue nil %>
                           <% end %>
                         <% end %>
                       </div>
