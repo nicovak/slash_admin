@@ -2,14 +2,14 @@
 
 <div class="image-field">
   <%# TODO handle file that are not image eg pdf %>
-  <% if f.object.send(a).url.present? %>
+  <% if f.object.send(a).try(:url).present? %>
     <img src="<%= f.object.send(a) %>" class="image"/>
   <% end %>
   <%= f.hidden_field (a.to_s + '_cache').to_sym %>
   <%= f.file_field a %>
 </div>
 
-<% if f.object.send(a).url.present? && required?(f.object, a).blank? %>
+<% if f.object.send(a).try(:url).present? && required?(f.object, a).blank? %>
   <%= f.check_box ('remove_' + a.to_s).to_sym %>
   Supprimer l'image
 <% end %>
