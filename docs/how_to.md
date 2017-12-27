@@ -61,7 +61,7 @@ module RelaxAdmin
     class PagesController < RelaxAdmin::ModelsController
       def list_params
         [
-          image: {type: 'image'}
+          { image: { type: :image } },
           :title,
         ]
       end
@@ -142,6 +142,23 @@ class Page < ApplicationRecord
 
   class Translation
     validates :title, presence: true
+  end
+end
+```
+
+In controller (for custom type eg: `image`, `wysiwyg` ...)
+
+```ruby
+module RelaxAdmin
+  module Models
+    class PagesController < RelaxAdmin::ModelsController
+      def translatable_params
+        [
+          { image: { type: :image } },
+          :title,
+        ]
+      end
+    end
   end
 end
 ```
