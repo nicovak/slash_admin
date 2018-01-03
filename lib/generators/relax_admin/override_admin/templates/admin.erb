@@ -15,10 +15,16 @@ module RelaxAdmin
     validates_format_of :email, with: EMAIL_REGEX, multiline: true
     validates_format_of :username, with: USERNAME_REGEX, multiline: true
 
+    before_create :handle_default_role
+
     serialize :roles, JSON
 
     def has_role?(role)
       roles.include?(role)
+    end
+
+    def handle_default_role
+      self.roles = 'superadmin'
     end
 
     def login=(login)

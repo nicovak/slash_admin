@@ -25,6 +25,10 @@ $(document).on("turbolinks:load", init);
 function init() {
   Turbolinks.clearCache();
 
+  $('.page-sidebar a[href$="#"]').on('click', function(e) {
+    e.preventDefault()
+  });
+
   $(".tags").tagsInput({
     placeholder: "<%= I18n.t('relax_admin.view.add_tag') %>",
     delimiter: [",", ";", " "]
