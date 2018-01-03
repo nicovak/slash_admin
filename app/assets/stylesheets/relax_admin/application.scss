@@ -1405,8 +1405,11 @@ h6 {
       border-bottom: 1px solid #47566c;
       color: #fff;
       margin-top: 15px;
-      padding: 8px 12px;
+      padding: 8px 12px 8px 35px;
       width: 100%;
+      float: left;
+      margin-left: -20px;
+      caret-color: $primary;
     }
 
     .input-group-addon {
