@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= yield(:page_title) ? 'ADMIN | ' + yield(:page_title) : t('relax_admin.view.administration') %></title>
+  <title><%= yield(:page_title) ? yield(:page_title) : t('relax_admin.view.administration') %></title>
   <%= stylesheet_link_tag    "relax_admin/application", media: "all", 'data-turbolinks-track' => true %>
   <%= javascript_include_tag "relax_admin/application", 'data-turbolinks-track' => true %>
   <%= favicon_link_tag 'relax_admin/favicon.png' %>

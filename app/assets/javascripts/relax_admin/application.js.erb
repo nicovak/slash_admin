@@ -181,9 +181,12 @@ function init() {
     }
   });
 
-  $(".selectize-single").selectize({});
+  $(".selectize-single").selectize({
+    allowEmptyOption: true
+  });
 
   $(".selectize-multiple").selectize({
+    allowEmptyOption: true,
     persist: false,
     plugins: {
       remove_button: {}

@@ -950,6 +950,10 @@ h6 {
     }
   }
 
+  .selectize-dropdown [data-selectable], .selectize-dropdown .optgroup-header {
+    min-height: 28px;
+  }
+
   .table-data-list {
     border-color: #e7ecf1 !important;
     margin-top: 1rem;
