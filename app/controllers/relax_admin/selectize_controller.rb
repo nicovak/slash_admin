@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-# params
+
+# :params
 # :model_class
 # :field
 # :q

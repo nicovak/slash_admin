@@ -163,7 +163,7 @@ module RelaxAdmin
       end
 
       # Virtual field default string eg password
-      return 'string' if object_class.new.respond_to?(attr)
+      return 'string' if object_class.new.respond_to?(attr) && type.blank?
 
       # Raise exception if no type fouded
       raise Exception.new("Unable to guess field_type for attribute: #{attr} in model: #{object_class}") if type.blank?
