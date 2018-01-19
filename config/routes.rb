@@ -1,6 +1,6 @@
 RelaxAdmin::Engine.routes.draw do
   scope :admin do
-    get '/' => 'dashboard#index', as: 'dashboard'
+    get '/' => 'dashboard#home', as: 'dashboard'
     get 'login' => 'security/sessions#new'
     post 'login', to: 'security/sessions#create'
     get 'logout' => 'security/sessions#destroy'

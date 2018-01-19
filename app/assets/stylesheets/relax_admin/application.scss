@@ -812,7 +812,7 @@ h6 {
     background-color: #fff;
     margin: 20px 0;
     border-radius: 0;
-    display: block;
+    display: flex;
     overflow: hidden;
 
     .breadcrumb-item {
@@ -822,10 +822,6 @@ h6 {
 
       i {
         margin-right: 2px;
-      }
-
-      a {
-        color: #888;
       }
     }
   }
