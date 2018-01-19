@@ -197,18 +197,18 @@ function init() {
 
   $(".selectize-model-single").selectize({
     allowEmptyOption: true,
-    render: {
-      option: function(item, escape) {
-        return "<div>" + escape(item.text) + "</div>";
-      }
-    },
+    valueField: "id",
+    labelField: "name",
+    searchField: "name",
+    create: false,
     load: function(query, callback) {
       if (!query.length) return callback();
       var model = $(this)[0].$input[0].getAttribute("data-model");
       var fields = $(this)[0].$input[0].getAttribute("data-fields");
       $.ajax({
-        url: Routes.relax_admin_remote_selectize_path({ format: "json" }),
-        type: "GET",
+        url: Routes.relax_admin_remote_selectize_path({
+          format: "json"
+        }),
         dataType: "json",
         data: {
           model_class: model,
@@ -222,6 +222,11 @@ function init() {
           callback(res);
         }
       });
+    },
+    render: {
+      option: function(item, escape) {
+        return "<div>" + escape(item.name) + "</div>";
+      }
     }
   });
 
@@ -231,18 +236,18 @@ function init() {
     plugins: {
       remove_button: {}
     },
-    render: {
-      option: function(item, escape) {
-        return "<div>" + escape(item.text) + "</div>";
-      }
-    },
+    valueField: "id",
+    labelField: "name",
+    searchField: "name",
+    create: false,
     load: function(query, callback) {
       if (!query.length) return callback();
       var model = $(this)[0].$input[0].getAttribute("data-model");
       var fields = $(this)[0].$input[0].getAttribute("data-fields");
       $.ajax({
-        url: Routes.relax_admin_remote_selectize_path({ format: "json" }),
-        type: "GET",
+        url: Routes.relax_admin_remote_selectize_path({
+          format: "json"
+        }),
         dataType: "json",
         data: {
           model_class: model,
@@ -256,6 +261,11 @@ function init() {
           callback(res);
         }
       });
+    },
+    render: {
+      option: function(item, escape) {
+        return "<div>" + escape(item.name) + "</div>";
+      }
     }
   });
 
