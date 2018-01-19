@@ -94,7 +94,7 @@ Eg: I wanna change the @per values:
   end
 ```
 
-Filter in list view for `belongs_to` and `has_one relations`, In the target controller:
+Filters in list view for `belongs_to` and `has_one relations`, In the target controller:
 (eg: a post belongs_to a category)
 
 In `PostssController`:
@@ -118,7 +118,10 @@ def autocomplete_params
 end
 ```
 
-`before_validate_on_create` and `before_validate_on_update` are ready to use for adding logic before persist.
+By default, autocomplete_params will take `:name` or `:title` column for search target.
+Override this method to add any column you are looking for.
+
+`before_validate_on_create` and `before_validate_on_update` are ready to use methods for adding logic before persist.
 
 ```ruby
 def before_validate_on_update

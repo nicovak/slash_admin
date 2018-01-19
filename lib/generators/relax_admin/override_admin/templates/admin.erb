@@ -20,11 +20,15 @@ module RelaxAdmin
     serialize :roles, JSON
 
     def has_role?(role)
-      roles.include?(role)
+      if roles.blank?
+        false
+      else
+        roles.include?(role)
+      end
     end
 
     def handle_default_role
-      self.roles = 'superadmin'
+      self.roles = 'superadmin' unless roles.present?
     end
 
     def login=(login)

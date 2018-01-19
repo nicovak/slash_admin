@@ -40,12 +40,12 @@ $border-radius: .15rem !default;
 @import 'https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css';
 @import 'https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css';
 
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css");
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 h1,
@@ -72,6 +72,7 @@ h6 {
 .btn-info,
 .btn-warning {
   color: #fff;
+
   &:focus,
   &:hover {
     color: #fff;
@@ -160,6 +161,7 @@ h6 {
   .errors {
     color: $red;
     display: block;
+
     &:not(:empty) {
       margin-bottom: 10px;
     }
@@ -250,7 +252,7 @@ h6 {
     overflow: hidden;
     margin: 0;
 
-    input[type=file] {
+    input[type='file'] {
       position: absolute;
       top: 0;
       right: 0;
@@ -273,7 +275,7 @@ h6 {
       outline: 0;
     }
 
-    input[type="text"] {
+    input[type='text'] {
       color: #9e9e9e;
     }
   }
@@ -368,7 +370,6 @@ h6 {
   a.menu-toggler {
     color: #eee !important;
     transition: all .6s;
-    display: inline-block;
     float: right;
     margin: 23px 0 0;
 
@@ -447,7 +448,6 @@ h6 {
         float: left;
         margin-right: 7px;
         height: 39px;
-        display: inline-block;
       }
 
       .dropdown-toggle i {
@@ -499,8 +499,8 @@ h6 {
         color: #7f96ac;
       }
 
-      input[type="text"] {
-        transition: all .6s;
+      input[type='text'] {
+        transition: all .6s ease;
         width: 150px;
 
         &:focus {
@@ -591,17 +591,14 @@ h6 {
 
     .status-title {
       float: left;
-      display: inline-block;
     }
 
     .status-number {
       float: right;
-      display: inline-block;
     }
 
     .number {
       float: left;
-      display: inline-block;
 
       small {
         font-size: 14px;
@@ -612,7 +609,6 @@ h6 {
     }
 
     .icon {
-      display: inline-block;
       float: right;
       padding: 7px 0 0;
 
@@ -780,7 +776,6 @@ h6 {
                   font-weight: 300;
                   text-align: center;
                   color: #5d7bad;
-                  display: inline-block;
                   float: left;
                 }
 
@@ -793,7 +788,6 @@ h6 {
                 .title {
                   margin-top: 0;
                   font-size: 13px;
-                  display: inline-block;
                   float: left;
                 }
               }
@@ -883,7 +877,6 @@ h6 {
 
     .actions {
       float: right;
-      display: inline-block;
       padding: 10px 0;
 
       .dropdown {
@@ -957,6 +950,7 @@ h6 {
     border-radius: 0;
     text-shadow: none;
     box-shadow: none;
+    margin-bottom: 3px;
   }
 
   .selectize-dropdown [data-selectable], .selectize-dropdown .optgroup-header {
@@ -1126,6 +1120,12 @@ h6 {
 
   .pagination-panel {
     font-size: .9em;
+    display: flex;
+    align-items: center;
+
+    *:not(i) {
+      margin-right: 5px;
+    }
 
     .btn,
     .input-group,
@@ -1143,6 +1143,7 @@ h6 {
       border-radius: 0;
       cursor: pointer;
       height: 30px;
+      line-height: 18px;
 
       &.disabled {
         background-color: #f7f8fa;

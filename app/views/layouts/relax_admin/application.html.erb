@@ -6,6 +6,10 @@
   <%= javascript_include_tag "relax_admin/application", 'data-turbolinks-track' => true %>
   <%= favicon_link_tag 'relax_admin/favicon.png' %>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script type="text/javascript">
+    I18n.defaultLocale = "<%= I18n.default_locale %>";
+    I18n.locale = "<%= I18n.locale %>";
+  </script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/js/froala_editor.pkgd.min.js"></script>
   <%= csrf_meta_tags %>
 </head>

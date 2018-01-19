@@ -194,7 +194,14 @@ module RelaxAdmin
       end
     end
 
-    def autocomplete_params; end
+    def autocomplete_params
+      aut_params = []
+      helpers.object_label_methods.each do |m|
+        aut_params << m if @model_class.respond_to? m
+      end
+
+      aut_params
+    end
 
   protected
 

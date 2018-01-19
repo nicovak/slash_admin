@@ -32,7 +32,7 @@
       <% elsif @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr) %>
           <% if "RelaxAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.present? %>
           <td>
-            <select name="filters[<%= attr %>][]" class="selectize-multiple selectize-model" multiple data-model="<%= attr.to_s.classify.constantize %>" data-fields='<%= "RelaxAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' ') %>' placeholder="<%= t('relax_admin.view.select_model', model_name: attr.to_s.classify.constantize.model_name.human.downcase) %>">
+            <select name="filters[<%= attr %>][]" class="selectize-model-multiple" multiple data-model="<%= attr.to_s.classify.constantize.model_name.to_s.underscore %>" data-fields='<%= "RelaxAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' ') %>' placeholder="<%= t('relax_admin.view.select_model', model_name: attr.to_s.classify.constantize.model_name.human.downcase) %>">
               <% attr.to_s.classify.constantize.all.limit(20).each do |model_row| %>
                 <% if params[:filter].present? %>
                   <% if params[:filters][attr]&.include? model_row.id.to_s %>

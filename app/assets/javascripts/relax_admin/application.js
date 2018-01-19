@@ -1,3 +1,5 @@
+//= require js-routes
+//= require i18n
 //= require jquery3
 //= require jquery_ujs
 //= require popper
@@ -30,7 +32,7 @@ function init() {
   });
 
   $(".tags").tagsInput({
-    placeholder: "<%= I18n.t('relax_admin.view.add_tag') %>",
+    placeholder: I18n.t('relax_admin.view.add_tag'),
     delimiter: [",", ";", " "]
   });
 
@@ -117,14 +119,14 @@ function init() {
 
     swal(
       {
-        title: "<%= I18n.t('relax_admin.view.confirm') %>",
-        text: "<%= I18n.t('relax_admin.view.no_back') %>",
+        title: I18n.t('relax_admin.view.confirm'),
+        text: I18n.t('relax_admin.view.no_back'),
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
         cancelButtonClass: "btn-primary",
-        confirmButtonText: "<%= I18n.t('relax_admin.view.yes_delete') %>",
-        cancelButtonText: "<%= I18n.t('relax_admin.view.cancel') %>",
+        confirmButtonText: I18n.t('relax_admin.view.yes_delete'),
+        cancelButtonText: I18n.t('relax_admin.view.cancel'),
         closeOnConfirm: false
       },
       function() {
@@ -156,14 +158,14 @@ function init() {
     if (ids.length > 0) {
       swal(
         {
-          title: "<%= I18n.t('relax_admin.view.confirm') %>",
+          title: I18n.t('relax_admin.view.confirm'),
           text: message,
           type: "warning",
           showCancelButton: true,
           confirmButtonClass: "btn-danger",
           cancelButtonClass: "btn-primary",
-          confirmButtonText: "<%= I18n.t('relax_admin.view.yes_delete') %>",
-          cancelButtonText: "<%= I18n.t('relax_admin.view.cancel') %>",
+          confirmButtonText: I18n.t('relax_admin.view.yes_delete'),
+          cancelButtonText: I18n.t('relax_admin.view.cancel'),
           closeOnConfirm: false
         },
         function() {
@@ -190,13 +192,22 @@ function init() {
     persist: false,
     plugins: {
       remove_button: {}
+    }
+  });
+
+  $(".selectize-model-single").selectize({
+    allowEmptyOption: true,
+    render: {
+      option: function(item, escape) {
+        return "<div>" + escape(item.text) + "</div>";
+      }
     },
     load: function(query, callback) {
       if (!query.length) return callback();
       var model = $(this)[0].$input[0].getAttribute("data-model");
       var fields = $(this)[0].$input[0].getAttribute("data-fields");
       $.ajax({
-        url: "/admin/list",
+        url: Routes.relax_admin_remote_selectize_path({ format: "json" }),
         type: "GET",
         dataType: "json",
         data: {
@@ -214,28 +225,62 @@ function init() {
     }
   });
 
-  $('.bootstrap-datepicker').datepicker({
-    language: '<%= I18n.locale %>',
-    format: 'yyyy-mm-dd'
+  $(".selectize-model-multiple").selectize({
+    allowEmptyOption: true,
+    persist: false,
+    plugins: {
+      remove_button: {}
+    },
+    render: {
+      option: function(item, escape) {
+        return "<div>" + escape(item.text) + "</div>";
+      }
+    },
+    load: function(query, callback) {
+      if (!query.length) return callback();
+      var model = $(this)[0].$input[0].getAttribute("data-model");
+      var fields = $(this)[0].$input[0].getAttribute("data-fields");
+      $.ajax({
+        url: Routes.relax_admin_remote_selectize_path({ format: "json" }),
+        type: "GET",
+        dataType: "json",
+        data: {
+          model_class: model,
+          q: query,
+          fields: fields.split(" ")
+        },
+        error: function() {
+          callback();
+        },
+        success: function(res) {
+          callback(res);
+        }
+      });
+    }
+  });
+
+  $(".bootstrap-datepicker").datepicker({
+    language: I18n.currentLocale(),
+    format: "yyyy-mm-dd"
   });
 
   $(".bootstrap-material-date").bootstrapMaterialDatePicker({
-    lang: '<%= I18n.locale %>',
+    lang: I18n.currentLocale(),
     weekStart: 1,
-    cancelText: "ANNULER",
+    cancelText: I18n.t("relax_admin.view.cancel"),
     time: false,
     clearButton: true,
-    clearText: "EFFACER",
-    format: 'yyyy-mm-dd'
+    clearText: I18n.t("relax_admin.view.erase"),
+    format: "yyyy-mm-dd"
   });
 
   $(".bootstrap-material-datetime").bootstrapMaterialDatePicker({
-    lang: '<%= I18n.locale %>',
+    lang: I18n.currentLocale(),
     weekStart: 1,
-    cancelText: "ANNULER",
+    cancelText: I18n.t("relax_admin.view.cancel"),
     clearButton: true,
-    clearText: "EFFACER",
-    format: 'yyyy-mm-dd'
+    clearText: I18n.t("relax_admin.view.erase"),
+    format: "yyyy-mm-dd"
   });
 
   $(".colorpicker").minicolors();

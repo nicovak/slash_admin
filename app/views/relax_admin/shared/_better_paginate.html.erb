@@ -1,7 +1,7 @@
 <% if @models.total_pages >= 1 %>
   <form method="GET" class="admin-pagination" url="">
     <div class="pagination-panel">
-      <%= t('relax_admin.view.page')%>
+      <%= t('relax_admin.view.page')%>&nbsp;&nbsp;
       <a class="btn btn-sm btn-prev prev-page
         <% if @models.current_page == 1 %>disabled
         <% end %>">
@@ -12,17 +12,17 @@
         <% if @models.current_page == @models.total_pages %>disabled<% end %>">
         <i class="fa fa-angle-right"></i>
       </a>
-      <%= t('relax_admin.view.of') %>
-      <span class="pagination-panel-total"><%= @models.total_pages %> &nbsp;</span>|
+      <%= t('relax_admin.view.of') %>&nbsp;
+      <span class="pagination-panel-total"><%= @models.total_pages %></span>|
 
-      <%= t('relax_admin.view.show_by') %>&nbsp;
+      <%= t('relax_admin.view.show_by') %>&nbsp;&nbsp;
       <select class="form-input input-sm form-control" name="per">
         <% @per_values.each do |per| %>
           <option value="<%= per %>"
           <% if params[:per].to_i == per %>selected<% end %>><%= per %></option>
         <% end %>
       </select>
-      <%= t('relax_admin.view.total_of') %><%= t('relax_admin.view.total_of') %>
+      <%= t('relax_admin.view.total_of') %>&nbsp;
       <span class="pagination-panel-total-count"><%= @models.total_count %></span>
       <%= t('relax_admin.view.result_found') %>
     </div>
