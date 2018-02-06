@@ -29,6 +29,7 @@ fr:
       see: Voir
       tools: Outils
       order: Trier
+      erase: Effacer
       ordering: "Trier les %{model_name}"
       export_xls: Export XLS
       export_csv: Export CSV

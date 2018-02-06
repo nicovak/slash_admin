@@ -1,5 +1,6 @@
 //= require js-routes
 //= require i18n
+//= require i18n/translations
 //= require jquery3
 //= require jquery_ujs
 //= require popper
@@ -271,7 +272,7 @@ function init() {
 
   $(".bootstrap-datepicker").datepicker({
     language: I18n.currentLocale(),
-    format: "yyyy-mm-dd"
+    format: "YYYY-MM-DD"
   });
 
   $(".bootstrap-material-date").bootstrapMaterialDatePicker({
@@ -281,7 +282,7 @@ function init() {
     time: false,
     clearButton: true,
     clearText: I18n.t("relax_admin.view.erase"),
-    format: "yyyy-mm-dd"
+    format: "YYYY-MM-DD"
   });
 
   $(".bootstrap-material-datetime").bootstrapMaterialDatePicker({
@@ -290,7 +291,7 @@ function init() {
     cancelText: I18n.t("relax_admin.view.cancel"),
     clearButton: true,
     clearText: I18n.t("relax_admin.view.erase"),
-    format: "yyyy-mm-dd"
+    format: "YYYY-MM-DD HH:mm:ss"
   });
 
   $(".colorpicker").minicolors();
