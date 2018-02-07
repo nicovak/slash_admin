@@ -197,9 +197,10 @@ module RelaxAdmin
     def autocomplete_params
       aut_params = []
       helpers.object_label_methods.each do |m|
-        aut_params << m if @model_class.respond_to? m
+        aut_params << m if model.respond_to? m
       end
 
+      raise Exception.new('You have to defined autocomplete_params in your admin model controller') if aut_params.blank?
       aut_params
     end
 
