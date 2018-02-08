@@ -163,10 +163,8 @@ module RelaxAdmin
               end
             end
           when 'decimal', 'number', 'integer'
-            if query['from'].present? || query['to'].present?
-              search = search.where("#{attr} >= :query", query: query['from']) if query['from'].present?
-              search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
-            end
+            search = search.where("#{attr} >= :query", query: query['from']) if query['from'].present?
+            search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
           when 'boolean'
             search = search.where("#{attr} = :query", query: to_boolean(query))
           when 'belongs_to', 'has_one'
