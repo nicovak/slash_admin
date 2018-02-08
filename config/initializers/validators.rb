@@ -1,0 +1,13 @@
+class JsonValidator < ActiveModel::EachValidator
+  def validate_each(record, attribute, value)
+    record.errors[attribute] << (options[:message] || I18n.t('relax_admin.view.json_not_valid')) unless valid_json?(value) 
+  end
+
+  def valid_json?(string)
+    begin
+      !!JSON.parse(string)
+    rescue JSON::ParserError
+      false
+    end
+  end
+end

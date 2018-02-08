@@ -56,6 +56,7 @@
 - [X] `text`
 - [X] `integer`
 - [X] `number`
+- [X] `json`
 
 ### Custom fields form
 
@@ -68,6 +69,7 @@ eg: `roles: {type: :select, choices: %w(superadmin admin editor), multiple: fals
 - [X] Google Map
 - [X] nested `belongs_to`
 - [X] Tags (string delimited with ';', ',', '.', ' ')
+- [X] Email
 
 ### How to ?
 

@@ -17,6 +17,11 @@
 //= require sweetalert
 //= require cocoon
 //= require toastr
+//= require codemirror/codemirror
+//= require codemirror/lint/lint
+//= require codemirror/lint/jsonlint
+//= require codemirror/lint/json-lint
+//= require codemirror/mode/javascript
 //= require jquery.nestable
 //= require jquery.minicolors
 //= require turbolinks

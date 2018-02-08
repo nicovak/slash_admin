@@ -65,5 +65,6 @@ fr:
       Voici les <a href="http://www.enable-javascript.com/fr/" target="_blank">
       instructions pour activer JavaScript dans votre navigateur Web</a>.'
       administration_login: Administration - Login
+      json_not_valid: Le JSON n'est pas valide
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.
