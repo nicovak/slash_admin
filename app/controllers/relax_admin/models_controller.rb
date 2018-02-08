@@ -145,7 +145,7 @@ module RelaxAdmin
             # TODO: handle unnaccent if postgres and extensions installed
             # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
             search = search.where("lower(#{attr}) LIKE lower(:query)", query: "%#{query}%")
-          when 'date', 'datetime', 'integer', 'decimal', 'number'
+          when 'date', 'datetime'
             if query.is_a?(String)
               search = search.where("#{attr} = :query", query: query)
             else
@@ -161,7 +161,11 @@ module RelaxAdmin
                   search = search.where("#{attr} = :query", query: query['from'].to_date)
                 end
               end
-
+            end
+          when 'decimal', 'number', 'integer'
+            if query['from'].present? || query['to'].present?
+              search = search.where("#{attr} >= :query", query: query['from']) if query['from'].present?
+              search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
             end
           when 'boolean'
             search = search.where("#{attr} = :query", query: to_boolean(query))
