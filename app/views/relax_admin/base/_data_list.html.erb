@@ -151,7 +151,7 @@
   $(document).on('turbolinks:load', function() {
     $('.bootstrap-datepicker').datepicker({
       language: '<%= I18n.locale.to_s %>',
-      format: 'yyyy/mm/dd',
+      format: "YYYY-MM-DD",
       templates: {
         leftArrow: '<i class="icon-arrow-left"></i>',
         rightArrow: '<i class="icon-arrow-right"></i>'
@@ -195,7 +195,14 @@
       var a = [];
       var k = e.which;
       var val = $(this).val();
+      
+      // Allow Backspace
+      a.push(8);
 
+      // Allow Enter
+      a.push(13);
+
+      // Allow number
       for (i = 48; i < 58; i++)
         a.push(i);
 
