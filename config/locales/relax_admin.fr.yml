@@ -66,5 +66,7 @@ fr:
       instructions pour activer JavaScript dans votre navigateur Web</a>.'
       administration_login: Administration - Login
       json_not_valid: Le JSON n'est pas valide
+      username: Nom d'utilisateur
+      password: Mot de passe
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.

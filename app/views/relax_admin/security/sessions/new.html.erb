@@ -11,13 +11,13 @@
             <span class="input-group-addon">
               <i class="fa fa-user"></i>
             </span>
-            <%= f.text_field :login, required: false, autofocus: true, label: false, placeholder: "Adresse e-mail ou nom d'utilisateur", class: 'form-control' %>
+            <%= f.text_field :login, required: false, autofocus: true, label: false, placeholder: t('relax_admin.view.username'), class: 'form-control' %>
           </div>
           <div class="input-group">
             <span class="input-group-addon">
               <i class="fa fa-lock"></i>
             </span>
-            <%= f.password_field :password, required: false, label: false, placeholder: 'Mot de passe', class: 'form-control' %>
+            <%= f.password_field :password, required: false, label: false, placeholder: t('relax_admin.view.password'), class: 'form-control' %>
           </div>
           <div class="form-actions">
             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>

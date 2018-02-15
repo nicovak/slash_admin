@@ -61,5 +61,7 @@ en:
       instructions how to enable JavaScript in your web browser</a>.'
       administration_login: Administration - Login
       json_not_valid: JSON is not valid
+      username: Username
+      password: Password
     sessions:
       login_required: You must be logged to access this page.
