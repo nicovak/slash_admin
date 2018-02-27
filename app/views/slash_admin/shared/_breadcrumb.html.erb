@@ -19,11 +19,11 @@
         </li>
       <% end %>
       <% if params[:action] == 'new' %>
-        <li class="breadcrumb-item"><%= t('view.new').capitalize %></li>
+        <li class="breadcrumb-item"><%= t('relax_admin.view.new', model_name: @model_class.model_name.human.pluralize.capitalize) %></li>
       <% elsif params[:action] == 'edit' %>
-        <li class="breadcrumb-item"><%= t('view.edit').capitalize %></li>
+        <li class="breadcrumb-item"><%= t('relax_admin.view.edit', model_name: @model_class.model_name.human.pluralize.capitalize) %></li>
       <% elsif params[:action] == 'show' %>
-        <li class="breadcrumb-item"><%= t('view.show').capitalize %></li>
+        <li class="breadcrumb-item"><%= t('relax_admin.view.show', model_name: @model_class.model_name.human.pluralize.capitalize) %></li>
       <% end %>
     </ol>
   </nav>
