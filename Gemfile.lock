@@ -271,9 +271,9 @@ DEPENDENCIES
   factory_girl_rails
   i18n-tasks
   pry-rails
-  slash_admin!
   rspec-rails (~> 3.5.0)
   rspec_junit_formatter
+  slash_admin!
   sqlite3
 
 BUNDLED WITH
