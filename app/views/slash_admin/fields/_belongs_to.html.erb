@@ -1,0 +1,9 @@
+<%= f.label a, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
+<%= f.collection_select a.to_s + '_id',
+class_name_from_association(f.object, a).constantize.all.limit(20), :id, object_label(class_name_from_association(f.object, a)),
+{ 
+  prompt: t('slash_admin.view.select_model', model_name: class_name_from_association(f.object, a).constantize.model_name.human.downcase),
+},
+'data-model': class_name_from_association(f.object, a).constantize.model_name.to_s.underscore,
+'data-fields': "SlashAdmin::Models::#{class_name_from_association(f.object, a).classify.pluralize}Controller".constantize.new.autocomplete_params.join(' '),
+class: 'selectize-model-single', required: required?(f.object, a).present? %>

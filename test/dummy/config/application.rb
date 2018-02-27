@@ -3,7 +3,7 @@ require_relative 'boot'
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "relax_admin"
+require "slash_admin"
 
 module Dummy
   class Application < Rails::Application

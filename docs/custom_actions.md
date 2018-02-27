@@ -3,7 +3,7 @@ Custom action: (eg a menu builder section) without a linked existing model
 ```ruby
 ...
 sub_menu: [
-  {path: relax_admin_menu_builder_path, icon: 'icon-organization', title: 'Menu'},
+  {path: slash_admin_menu_builder_path, icon: 'icon-organization', title: 'Menu'},
 ...
 ```
 
@@ -16,12 +16,12 @@ post 'menu' => 'menus#builder', as: 'menu_builder_action'
 ...
 ```
 
-Controller in `app/controllers/relax_admin/models/menus_controller.rb`
+Controller in `app/controllers/slash_admin/models/menus_controller.rb`
 
 ```ruby
-module RelaxAdmin
+module SlashAdmin
   module Models
-    class MenusController < RelaxAdmin::BaseController
+    class MenusController < SlashAdmin::BaseController
       def builder
       end
 
@@ -36,7 +36,7 @@ module RelaxAdmin
 end
 ```
 
-Finally create your view in `app/views/relax_admin/models/builder.html.erb`
+Finally create your view in `app/views/slash_admin/models/builder.html.erb`
 
 ```erb
 <% page_title(@title) %>

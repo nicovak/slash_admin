@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    relax_admin (0.1.0)
+    slash_admin (0.1.0)
       bcrypt
       bootstrap (~> 4.0.0)
       bootstrap-datepicker-rails
@@ -271,7 +271,7 @@ DEPENDENCIES
   factory_girl_rails
   i18n-tasks
   pry-rails
-  relax_admin!
+  slash_admin!
   rspec-rails (~> 3.5.0)
   rspec_junit_formatter
   sqlite3

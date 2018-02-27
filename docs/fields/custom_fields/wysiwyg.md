@@ -3,7 +3,7 @@
 Add in your route.rb
 
 ```ruby
-namespace :relax_admin, path: '/admin' do
+namespace :slash_admin, path: '/admin' do
     # FROALA (WYSIWYG)
     post   'froala_upload' => 'froala#upload'
     post   'froala_manage' => 'froala#manage'
@@ -18,12 +18,12 @@ namespace :relax_admin, path: '/admin' do
 
 Create a froala dedicated controller (for image uploads and file uploads)
 
-In `app/controllers/relax_admin/froala_controller.rb`
+In `app/controllers/slash_admin/froala_controller.rb`
 
 ```ruby
 # frozen_string_literal: true
-module RelaxAdmin
-  class FroalaController < RelaxAdmin::BaseController
+module SlashAdmin
+  class FroalaController < SlashAdmin::BaseController
     def upload
       uploader = FroalaUploader.new(params[:type].pluralize)
       uploader.store!(params[:file])
@@ -88,9 +88,9 @@ class FroalaUploader < CarrierWave::Uploader::Base
 end
 ```
 
-Finally, in your `app/assets/javascripts/relax_admin/custom.js`
+Finally, in your `app/assets/javascripts/slash_admin/custom.js`
 
-Don't forget `//= stub relax_admin/custom` at the end of your `app/assets/javascripts/application.js`
+Don't forget `//= stub slash_admin/custom` at the end of your `app/assets/javascripts/application.js`
 
 ```javascript
 $(document).on("turbolinks:load", initCustom);

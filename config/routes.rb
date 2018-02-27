@@ -1,4 +1,4 @@
-RelaxAdmin::Engine.routes.draw do
+SlashAdmin::Engine.routes.draw do
   scope :admin do
     get '/' => 'dashboard#home', as: 'dashboard'
     get 'login' => 'security/sessions#new'

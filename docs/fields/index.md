@@ -1,4 +1,4 @@
-Type field for model attributes is automatically set by relax_admin. It depends of the database type of field and the model.
+Type field for model attributes is automatically set by slash_admin. It depends of the database type of field and the model.
 
 - Date
 - Datetime

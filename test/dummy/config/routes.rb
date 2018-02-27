@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  mount RelaxAdmin::Engine => "/relax_admin"
+  mount SlashAdmin::Engine => "/slash_admin"
 end

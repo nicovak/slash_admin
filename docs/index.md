@@ -60,7 +60,7 @@
 
 ### Custom fields form
 
-You can create your own custom field within `app/views/relax_admin/custom_fields/_{type (see below)}.html.erb`
+You can create your own custom field within `app/views/slash_admin/custom_fields/_{type (see below)}.html.erb`
 eg: `roles: {type: :select, choices: %w(superadmin admin editor), multiple: false}`
 
 - [X] Color
@@ -73,4 +73,4 @@ eg: `roles: {type: :select, choices: %w(superadmin admin editor), multiple: fals
 
 ### How to ?
 
-[Read the docs](https://github.com/nicovak/relax_admin/tree/master/docs/how_to.md)
+[Read the docs](https://github.com/nicovak/slash_admin/tree/master/docs/how_to.md)

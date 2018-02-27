@@ -3,10 +3,10 @@
 ### Routes
 
 You can define `except` and `only` on ressources.
-You can use `cancancan` for roles and permission [docs](https://github.com/nicovak/relax_admin/blob/master/docs/security.md)
+You can use `cancancan` for roles and permission [docs](https://github.com/nicovak/slash_admin/blob/master/docs/security.md)
 
 ```ruby
-namespace :relax_admin, path: 'admin' do
+namespace :slash_admin, path: 'admin' do
   scope module: 'models' do
     resources :pages
   end
@@ -16,13 +16,13 @@ end
 ### Menu
 
 ```ruby
-module RelaxAdmin
+module SlashAdmin
   class MenuHelper
     def menu_entries
       [
         {
           title: 'Dashboard',
-          path: relax_admin.dashboard_path,
+          path: slash_admin.dashboard_path,
           icon: 'icon-home',
         },
         {
@@ -42,7 +42,7 @@ Icons available:
 - http://fontawesome.io/ (eg: `fa fa-home`)
 - http://simplelineicons.com/ (eg: `icon-home`)
 
-## Sample controller (mandatory), in `app/controllers/relax_admin/models` folder
+## Sample controller (mandatory), in `app/controllers/slash_admin/models` folder
 
 For references see: app/controllers/admin/models_controller.rb and app/controllers/admin/base_controller.rb
 Everything is overridable for each controller and each model (params, views, field, etc)
@@ -52,13 +52,13 @@ Everything is overridable for each controller and each model (params, views, fie
 You can generate an admin controller (e.g for page model):
 
 ```bash
-rails g relax_admin:controllers pages
+rails g slash_admin:controllers pages
 ```
 
 ```ruby
-module RelaxAdmin
+module SlashAdmin
   module Models
-    class PagesController < RelaxAdmin::ModelsController
+    class PagesController < SlashAdmin::ModelsController
       def list_params
         [
           { image: { type: :image } },
@@ -152,9 +152,9 @@ end
 In controller (for custom type eg: `image`, `wysiwyg` ...)
 
 ```ruby
-module RelaxAdmin
+module SlashAdmin
   module Models
-    class PagesController < RelaxAdmin::ModelsController
+    class PagesController < SlashAdmin::ModelsController
       def translatable_params
         [
           { image: { type: :image } },

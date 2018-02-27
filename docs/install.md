@@ -2,7 +2,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'relax_admin'
+gem 'slash_admin'
 ```
 
 And then execute:
@@ -12,7 +12,7 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install relax_admin
+$ gem install slash_admin
 ```
 
 Gemfile
@@ -22,8 +22,8 @@ gem 'carrierwave'
 
 Then:
 ```bash
-rails g relax_admin:install
-rails relax_admin:install:migrations
+rails g slash_admin:install
+rails slash_admin:install:migrations
 rails db:migrate
 ```
 
@@ -34,7 +34,7 @@ Mime::Type.register "application/xls", :xls
 
 ```ruby
 Rails.application.routes.draw do
-  mount RelaxAdmin::Engine => "/"
+  mount SlashAdmin::Engine => "/"
 end
 ```
 
@@ -51,7 +51,7 @@ friendly_id :title, use: :history, routes: :default
 Example of create admin in `seed.rb` in your app:
 
 ```ruby
-RelaxAdmin::Admin.create!(
+SlashAdmin::Admin.create!(
   username:               'admin',
   email:                  'contact@mysite.com',
   password:               'admin@admin',
