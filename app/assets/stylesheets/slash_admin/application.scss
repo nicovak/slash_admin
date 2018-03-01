@@ -1360,7 +1360,13 @@ h6 {
   .login-form {
     background: #1c2c41;
     color: #fff;
-    width: 45%;
+    width: 25%;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     h2 {
       margin-bottom: 25px;
@@ -1444,26 +1450,53 @@ h6 {
   }
 }
 
-@media (max-width: 768px) {
-  #admin-user {
-    .login-form {
-      width: 85%;
-    }
-  }
-}
-
-@media (min-width: 769px) and (max-width: 992px) {
-  #admin-user {
-    .login-form {
-      width: 35%;
-    }
-  }
-}
-
-@media (min-width: 993px) {
+  /* Small devices (tablets, 768px and up) */
+  @media (max-width: 768px) {
     #admin-user {
-    .login-form {
-      width: 30%;
+      .login-form {
+        width: 80%;
+      }
     }
   }
-} 
+
+  /* Medium devices (desktops, 992px and up) */
+  @media (min-width: 992px) {
+    #admin-user {
+      .login-form {
+        width: 45%;
+      }
+    }
+  }
+
+  /* Large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+    #admin-user {
+      .login-form {
+        width: 26%;
+
+        input[type="submit"] {
+          width: 100%;
+        }
+      }
+
+      .app-logo {
+        margin: 0 0 25px;
+      }
+    }
+  }
+
+  @media (min-width: 1600px) {
+    #admin-user {
+      .login-form {
+        width: 15%;
+
+        input[type="submit"] {
+          width: 100%;
+        }
+      }
+
+      .app-logo {
+        margin: 0 0 25px;
+      }
+    }
+  }
