@@ -2,7 +2,7 @@
   <div class="modal-content">
     <%= form_for [:slash_admin, class_name_from_association(f.object, a).constantize.new], remote: true, html: {'data-type': 'json'} do |fs| %>
       <div class="modal-header">
-        <%= t('slash_admin.view.create') %>
+        <%= t('slash_admin.view.create', model_name: class_name_from_association(f.object, a).constantize.model_name.human.downcase) %>
         <%= class_name_from_association(f.object, a).constantize.model_name.human.downcase %>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -11,21 +11,20 @@
       <div class="modal-body">
         <div class="errors-json"></div>
         <%= render 'slash_admin/shared/errors_data_new' %>
-        <% if @model.id.blank? %>
-          <% if a.is_a?(Hash) %>
-            <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
-          <% else %>
-            <% params_assoc = "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
-          <% end %>
-          <% else %>
-          <% if a.is_a?(Hash) %>
-            <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
-          <% else %>
-            <% params_assoc = "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
-          <% end %>
+        <% if f.object.id.blank? %>
+          <% method = 'create_params' %>
+        <% else %>
+          <% method = 'update_params' %>
         <% end %>
+
+        <% if a.is_a?(Hash) %>
+          <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.send(method, from: @model_class).each %>
+        <% else %>
+          <% params_assoc = "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.send(method).each %>
+        <% end %>
+
         <% params_assoc.each do |attribute| %>
-          <%= render 'slash_admin/fields/form_group', f: fs, a: attribute %>
+          <%= render 'slash_admin/fields/form_group', f: fs, a: attribute  %>
         <% end %>
       </div>
       <div class="modal-footer">

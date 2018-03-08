@@ -1,23 +1,22 @@
 <%= f.label a, class: 'form-control-label label-has-one' %>
 
-<% if @model.send(a).blank? %>
-  <% @model.send("#{a.to_s}=", a.to_s.classify.constantize.new) %>
+<% if f.object.send(a).blank? %>
+  <% f.object.send("#{a.to_s}=", a.to_s.classify.constantize.new) %>
 <% end %>
 
 <%= f.fields_for a do |association_form| %>
-  <% if @model.id.blank? %>
-    <% if a.is_a?(Hash) %>
-      <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
-    <% else %>
-      <% params_assoc = "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.create_params(from: @model_class).each %>
-    <% end %>
+  <% if f.object.id.blank? %>
+    <% method = 'create_params' %>
   <% else %>
-  <% if a.is_a?(Hash) %>
-    <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
-    <% else %>
-      <% params_assoc = "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.update_params(from: @model_class).each %>
-    <% end %>
+    <% method = 'create_params' %>
   <% end %>
+
+  <% if a.is_a?(Hash) %>
+    <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.send(method, from: @model_class).each %>
+  <% else %>
+    <% params_assoc = "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.send(method).each %>
+  <% end %>
+
   <% params_assoc.each do |attribute| %>
     <%= render 'slash_admin/fields/form_group', f: association_form, a: attribute %>
   <% end %>

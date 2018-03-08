@@ -186,7 +186,11 @@ module SlashAdmin
       if attribute.is_a?(Hash)
         admin_custom_field(form, attribute)
       elsif belongs_to_fields.include?(attribute.to_sym)
-        render partial: 'slash_admin/fields/belongs_to', locals: { f: form, a: attribute }
+        if form.object.class.nested_attributes_options.key?(attribute.to_sym)
+          render partial: 'slash_admin/fields/nested_belongs_to', locals: { f: form, a: attribute }
+        else
+          render partial: 'slash_admin/fields/belongs_to', locals: { f: form, a: attribute }
+        end
       elsif has_many_fields.include?(attribute.to_sym)
         # if has nested_attributes_options for has_many field
         if form.object.class.nested_attributes_options.key?(attribute.to_sym)

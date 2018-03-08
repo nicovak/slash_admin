@@ -1,24 +1,24 @@
-<%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
-<%= f.collection_select a.keys.first.to_s + '_id',
-class_name_from_association(f.object, a).constantize.all.where('id = :object or id is not null', object: f.object.send(a).try(:id)).limit(20), :id, object_label(a),
+<%= f.label a, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
+<%= f.collection_select a.to_s + '_id',
+class_name_from_association(f.object, a).constantize.all.where('id = :object or id is not null', object: f.object.send(a).try(:id)).order(id: :desc).limit(20), :id, object_label(a),
 {
   prompt: t('slash_admin.view.select_model', model_name: class_name_from_association(f.object, a).constantize.model_name.human.downcase),
 },
 'data-model': class_name_from_association(f.object, a).constantize.model_name.to_s.underscore,
-'data-fields': "SlashAdmin::Models::#{a.keys.first.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' '),
-class: "selectize-model-single #{a.keys.first.to_s}_id", required: required?(f.object, a).present? %>
+'data-fields': "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' '),
+class: "selectize-model-single #{a.to_s}_id", required: required?(f.object, a).present? %>
 
-<a href="#" class="add-belongs-to" style="font-size: .9em;"><%= t('slash_admin.view.add', class_name_from_association(f.object, a).constantize.model_name.human.downcase) %></a>
+<a href="#" class="add-belongs-to" style="font-size: .9em;"><%= t('slash_admin.view.add', model_name: class_name_from_association(f.object, a).constantize.model_name.human.downcase) %></a>
 
 <script type="text/javascript">
   $(function() {
     $('.add-belongs-to').on('click', function(e) {
       e.preventDefault();
       $('.modal-belongs-to').html();
-      $('.modal-belongs-to').html("<%= escape_javascript(render 'slash_admin/base/data_belongs_to', a: a) %>");
+      $('.modal-belongs-to').html("<%= escape_javascript(render 'slash_admin/base/data_belongs_to', f: f, a: a) %>");
       $('.modal-belongs-to').modal('show');
 
-      var id = "form#new_<%= a.keys.first.to_s.singularize %>";
+      var id = "form#new_<%= a.to_s.singularize %>";
 
       function closeModals() {
         $(".modal").modal("hide");
@@ -45,8 +45,10 @@ class: "selectize-model-single #{a.keys.first.to_s}_id", required: required?(f.o
           toastr.success("<%= t('slash_admin.view.create_success', model_name: class_name_from_association(f.object, a).constantize.model_name.human) %>");
           $(id).trigger("reset");
           closeModals();
-          var select = $('.<%= a.keys.first.to_s + '_id' %>')[0].selectize;
-          select.addOption({value: data.id, text: data.title});
+          var select = $('.<%= a.to_s + '_id' %>')[0].selectize;
+          console.log('test');
+          select.addOption({value: data.id, text: data.name});
+          select.refreshOption();
           select.addItem(data.id);
         }
       });

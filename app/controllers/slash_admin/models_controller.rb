@@ -57,7 +57,7 @@ module SlashAdmin
               flash[:success] = t('slash_admin.controller.create.success', model_name: @model_name)
               redirect_to handle_redirect_after_submit and return
             end
-            format.js { render json: @model and return }
+            format.js { render json: { id: @model.id, name: helpers.show_object(@model) } and return }
           end
         end
       else
