@@ -46,7 +46,6 @@ class: "selectize-model-single #{a.to_s}_id", required: required?(f.object, a).p
           $(id).trigger("reset");
           closeModals();
           var select = $('.<%= a.to_s + '_id' %>')[0].selectize;
-          console.log('test');
           select.addOption({value: data.id, text: data.name});
           select.refreshOption();
           select.addItem(data.id);
