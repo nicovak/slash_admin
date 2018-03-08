@@ -1,6 +1,6 @@
 <%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
 <%= f.collection_select a.keys.first.to_s + '_id',
-class_name_from_association(f.object, a).constantize.all.limit(20), :id, object_label(a),
+class_name_from_association(f.object, a).constantize.all.where('id = :object or id is not null', object: f.object.send(a).try(:id)).limit(20), :id, object_label(a),
 {
   prompt: t('slash_admin.view.select_model', model_name: class_name_from_association(f.object, a).constantize.model_name.human.downcase),
 },

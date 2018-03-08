@@ -1,6 +1,6 @@
 <%= f.label a, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
 <%= f.collection_select "#{a.to_s.singularize}_ids",
-class_name_from_association(f.object, a).classify.constantize.all.limit(20), :id,
+class_name_from_association(f.object, a).constantize.all.where('id = :object or id is not null', object: f.object.send(a).try(:id)).limit(20), :id,
 object_label(class_name_from_association(f.object, a)),
 {include_blank: true},
 {
