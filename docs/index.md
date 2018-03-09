@@ -45,6 +45,7 @@
 ### Fields form
 
 - [X] `belongs_to`
+- [X] nested `belongs_to`
 - [X] `has_many`
 - [X] nested `has_many`
 - [X] `has_one`
@@ -67,7 +68,6 @@ eg: `roles: {type: :select, choices: %w(superadmin admin editor), multiple: fals
 - [X] WYSIWYG
 - [X] Select
 - [X] Google Map
-- [X] nested `belongs_to`
 - [X] Tags (string delimited with ';', ',', '.', ' ')
 - [X] Email
 
