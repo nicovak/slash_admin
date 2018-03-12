@@ -20,7 +20,7 @@
         <% if a.is_a?(Hash) %>
           <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.send(method, from: @model_class).each %>
         <% else %>
-          <% params_assoc = "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.send(method, from: @model_class).each %>
+          <% params_assoc = "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.send(method).each %>
         <% end %>
 
         <% params_assoc.each do |attribute| %>
