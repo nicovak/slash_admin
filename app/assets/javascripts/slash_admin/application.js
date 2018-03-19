@@ -277,7 +277,7 @@ function init() {
 
   $(".bootstrap-datepicker").datepicker({
     language: I18n.currentLocale(),
-    format: "YYYY-MM-DD"
+    format: "yyyy-mm-dd"
   });
 
   $(".bootstrap-material-date").bootstrapMaterialDatePicker({
