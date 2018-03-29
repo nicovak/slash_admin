@@ -163,8 +163,12 @@ module SlashAdmin
               end
             end
           when 'decimal', 'number', 'integer'
-            search = search.where("#{attr} >= :query", query: query['from']) if query['from'].present?
-            search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
+            if query['from'].present? || query['to'].present?
+              search = search.where("#{attr} >= :query", query: query['from']) if query['from'].present?
+              search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
+            else
+              search = search.where("#{attr} = :query", query: query)
+            end
           when 'boolean'
             search = search.where("#{attr} = :query", query: to_boolean(query))
           when 'belongs_to', 'has_one'
