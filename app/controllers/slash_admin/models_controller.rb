@@ -32,7 +32,7 @@ module SlashAdmin
 
       respond_to do |format|
         format.html
-        format.csv { send_data export_csv.encode('iso-8859-1'), filename: "#{@model_name.pluralize.upcase}_#{Date.today}.csv", type: 'text/csv; charset=iso-8859-1; header=present' }
+        format.csv { stream_csv_report }
         format.xls { send_data render_to_string, filename: "#{@model_name.pluralize.upcase}_#{Date.today}.xls" }
         format.js { @models }
       end
@@ -140,7 +140,8 @@ module SlashAdmin
       params[:filters].each do |attr, query|
         unless query.blank?
           # column = @model_class.arel_table[attr.to_sym]
-          case helpers.guess_field_type(@model_class, attr)
+          attr_type = helpers.guess_field_type(@model_class, attr)
+          case attr_type
           when 'string', 'text'
             # TODO: handle unnaccent if postgres and extensions installed
             # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
@@ -167,6 +168,11 @@ module SlashAdmin
               search = search.where("#{attr} >= :query", query: query['from']) if query['from'].present?
               search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
             else
+              if attr_type = 'decimal' || attr_type = 'number'
+                query = query.to_f
+              elsif attr_type = 'integer'
+                query = query.to_i
+              end
               search = search.where("#{attr} = :query", query: query)
             end
           when 'boolean'
@@ -182,14 +188,7 @@ module SlashAdmin
 
     # Export CSV
     def export_csv(options = {})
-      CSV.generate(options) do |csv|
-        header = @fields.map { |f| @model_class.human_attribute_name(f) }
-        csv << header
-        @models_export.each do |m|
-          csv << m.attributes.values_at(*@fields)
-        end
-        csv
-      end
+      @models_export.to_sql
     end
 
     def update_params(options = {})
@@ -319,11 +318,40 @@ module SlashAdmin
       params - %w(id created_at updated_at slug position)
     end
 
+    def stream_file(filename, extension)
+      response.headers['Content-Type'] = 'application/octet-stream'
+      response.headers['Content-Disposition'] = "attachment; filename=#{filename}.#{extension}"
+
+      yield response.stream
+    ensure
+      response.stream.close
+    end
+
+    def stream_csv_report
+      query = @models_export.to_sql
+      query_options = 'WITH CSV HEADER'
+
+      stream_file("#{@model_name.pluralize.underscore.gsub!(/( )/, '_').upcase}_#{Date.today}", 'csv') do |stream|
+        stream_query_rows(query, query_options) do |row_from_db|
+          stream.write row_from_db
+        end
+      end
+    end
+
   private
     def list_params; end
 
     def export_params
       list_params
+    end
+
+    def stream_query_rows(sql_query, options = 'WITH CSV HEADER')
+      conn = ActiveRecord::Base.connection.raw_connection
+      conn.copy_data "COPY (#{sql_query}) TO STDOUT #{options};" do
+        while row = conn.get_copy_data
+          yield row
+        end
+      end
     end
   end
 end

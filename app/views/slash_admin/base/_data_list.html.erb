@@ -66,9 +66,7 @@
                 <% end %>
               </td>
               <% else %>
-              <td>
-                <%= render attr.keys.first.to_s, model: m %>
-              </td>
+              <td><%= render attr.keys.first.to_s, model: m %></td>
             <% end %>
           <% else %>
             <% if m.send(attr).is_a?(TrueClass) || m.send(attr).is_a?(FalseClass) %>
@@ -78,10 +76,10 @@
             <% elsif @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr) %>
               <td>
                 <%= link_to(edit_polymorphic_url([:slash_admin, m.send(attr)]), class: 'link', target: '_blank') do %>
-                    <%= show_object(m.send(attr)) %>
+                  <%= show_object(m.send(attr)) %>
                 <% end rescue nil %>
               </td>
-            <% elsif  @has_many_fields.include?(attr) %>
+            <% elsif @has_many_fields.include?(attr) %>
               <td>
                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-see-assoc-<%= attr.to_s %>-<%= m.id %>">
                   <i class="fa fa-list"></i> <%= t('slash_admin.view.see') %>
@@ -114,9 +112,7 @@
                 </div>
               </td>
             <% else %>
-              <td>
-                <%= m.send(attr) %>
-              </td>
+              <td><%= m.send(attr) %></td>
             <% end %>
           <% end %>
         <% end %>
