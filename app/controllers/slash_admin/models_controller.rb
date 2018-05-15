@@ -164,9 +164,11 @@ module SlashAdmin
               end
             end
           when 'decimal', 'number', 'integer'
-            if query['from'].present? || query['to'].present?
-              search = search.where("#{attr} >= :query", query: query['from']) if query['from'].present?
-              search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
+            if query.instance_of?(ActionController::Parameters)
+              if query['from'].present? || query['to'].present?
+                search = search.where("#{attr} >= :query", query: query['from']) if query['from'].present?
+                search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
+              end
             else
               if attr_type = 'decimal' || attr_type = 'number'
                 query = query.to_f
