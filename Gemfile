@@ -14,7 +14,6 @@ gemspec
 
 group :development, :test do
   gem 'byebug'
-  gem 'factory_girl_rails'
   gem 'i18n-tasks'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.5.0'
