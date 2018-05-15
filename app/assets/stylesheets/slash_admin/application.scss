@@ -639,12 +639,13 @@ h6 {
 
   .page-container {
     display: table;
+    table-layout: fixed;
+    overflow: hidden;
     width: 100%;
 
     .page-sidebar {
       width: 195px;
       position: relative;
-      margin-right: -100%;
       display: table-cell;
 
       ul.nav > {
@@ -736,7 +737,7 @@ h6 {
           }
 
           ul.sub-menu {
-            width: 194px;
+            width: 195px;
             margin-left: 195px;
             background: #1c2637;
             top: 0;
@@ -809,7 +810,7 @@ h6 {
       margin-left: 195px;
       display: table-cell;
       margin-top: 0;
-      min-height: calc(100vh - 68px);
+      height: 100vh;
       padding: 25px 20px 10px;
       background: $tertiary;
     }
