@@ -44,6 +44,7 @@ module SlashAdmin
     end
 
     def before_validate_on_create; end
+    def after_save_on_create; end
     def create
       authorize! :new, @model_class
       @model = @model_class.new(permit_params)
@@ -52,6 +53,7 @@ module SlashAdmin
 
       if @model.valid?
         if @model.save!
+          after_save_on_create
           respond_to do |format|
             format.html do
               flash[:success] = t('slash_admin.controller.create.success', model_name: @model_name)
@@ -75,6 +77,7 @@ module SlashAdmin
     end
 
     def before_validate_on_update; end
+    def after_save_on_update; end
     def update
       authorize! :edit, @model_class
       @model = @model_class.find(params[:id])
@@ -82,6 +85,7 @@ module SlashAdmin
       before_validate_on_update
 
       if @model.update(permit_params)
+        after_save_on_update
         flash[:success] = t('slash_admin.controller.update.success', model_name: @model_name)
         respond_to do |format|
           format.html { redirect_to handle_redirect_after_submit and return }
