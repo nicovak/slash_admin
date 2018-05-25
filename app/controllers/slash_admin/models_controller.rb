@@ -2,6 +2,7 @@ require 'csv'
 
 module SlashAdmin
   class ModelsController < SlashAdmin::BaseController
+    skip_before_action :verify_authenticity_token, only: :nestable
     before_action :handle_internal_default
     before_action :handle_default
     before_action :nestable_config

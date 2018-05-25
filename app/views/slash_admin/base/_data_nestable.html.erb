@@ -13,7 +13,7 @@
 
 <br />
 
-<%= form_tag('', method: 'post') do %>
+<%= form_tag(nil, method: 'post') do %>
   <%= hidden_field(:nestable, :data) %>
 
   <%= button_tag(type: 'submit', class: 'btn btn btn-success', name: 'submit_redirect') do %>
