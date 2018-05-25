@@ -139,12 +139,18 @@ module SlashAdmin
     end
 
     def handle_filtered_search
-      search = @model_class.all
+      if @model_class.respond_to? :translated_attribute_names
+        search = @model_class.with_translations(I18n.locale).all
+      else
+        search = @model_class.all
+      end
 
       params[:filters].each do |attr, query|
         unless query.blank?
-          # column = @model_class.arel_table[attr.to_sym]
           attr_type = helpers.guess_field_type(@model_class, attr)
+          if @model_class.respond_to?(:translated_attribute_names)&& @model_class.translated_attribute_names.include?(attr.to_sym)
+            attr = "#{@model_class.name.singularize.underscore}_translations.#{attr}"
+          end
           case attr_type
           when 'belongs_to', 'has_one'
             search = search.where(attr.to_s + '_id IN (' + query.join(',') + ')')
