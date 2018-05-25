@@ -33,15 +33,21 @@
           <% if "SlashAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.present? %>
           <td>
             <select name="filters[<%= attr %>][]" class="selectize-model-multiple" multiple data-model="<%= attr.to_s.classify.constantize.model_name.to_s.underscore %>" data-fields='<%= "SlashAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' ') %>' placeholder="<%= t('slash_admin.view.select_model', model_name: attr.to_s.classify.constantize.model_name.human.downcase) %>">
-              <% attr.to_s.classify.constantize.all.limit(20).each do |model_row| %>
-                <% if params[:filter].present? %>
-                  <% if params[:filters][attr]&.include? model_row.id.to_s %>
-                    <option value="<%= model_row.id %>" selected><%= show_object(model_row) %></option>
+              <% if params[:filters].present? && params[:filters][attr].present? %>
+                <% params[:filters][attr].each do |value| %>
+                  <option value="<%= value %>" selected><%= attr.to_s.classify.constantize.find(value).name %></option>
+                <% end %>
+              <% else %>
+                <% attr.to_s.classify.constantize.all.limit(20).each do |model_row| %>
+                  <% if params[:filter].present? %>
+                    <% if params[:filters][attr]&.include? model_row.id.to_s %>
+                      <option value="<%= model_row.id %>" selected><%= show_object(model_row) %></option>
+                    <% else %>
+                      <option value="<%= model_row.id %>"><%= show_object(model_row) %></option>
+                    <% end %>
                   <% else %>
                     <option value="<%= model_row.id %>"><%= show_object(model_row) %></option>
                   <% end %>
-                <% else %>
-                  <option value="<%= model_row.id %>"><%= show_object(model_row) %></option>
                 <% end %>
               <% end %>
             </select>

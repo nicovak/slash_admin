@@ -966,6 +966,9 @@ h6 {
 
   .selectize-control.plugin-remove_button [data-value] .remove {
     border-color: #d4d4d4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .selectize-control.multi .selectize-input > div {

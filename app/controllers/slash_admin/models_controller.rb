@@ -146,6 +146,8 @@ module SlashAdmin
           # column = @model_class.arel_table[attr.to_sym]
           attr_type = helpers.guess_field_type(@model_class, attr)
           case attr_type
+          when 'belongs_to', 'has_one'
+            search = search.where(attr.to_s + '_id IN (' + query.join(',') + ')')
           when 'string', 'text'
             # TODO: handle unnaccent if postgres and extensions installed
             # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
@@ -183,8 +185,6 @@ module SlashAdmin
             end
           when 'boolean'
             search = search.where("#{attr} = :query", query: to_boolean(query))
-          when 'belongs_to', 'has_one'
-            search = search.where(attr.to_s + '_id IN (' + query.join(',') + ')')
           end
         end
       end

@@ -21,6 +21,10 @@ module SlashAdmin
           if model_class.translated_attribute_names.include?(f.to_sym)
             f = "#{params[:model_class].singularize.underscore}_translations.#{f}"
           end
+        else
+          unless model_class.column_names.include? f
+            raise Exception.new("Unable to find attribute: #{f} in model_column: #{model_class}, you may need to override autocomplete_params in you target's model controller")
+          end
         end
 
         if index == 0
