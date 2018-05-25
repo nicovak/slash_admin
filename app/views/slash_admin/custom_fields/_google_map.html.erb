@@ -18,7 +18,11 @@
       scrollwheel: false
     };
     map = new google.maps.Map(document.getElementById("<%= f.options[:html][:id] %>_map"), myOptions);
-    document.getElementById("<%= f.options[:html][:id] %>_search").value = '';
+    <% if f.object.send(a.keys.first.to_s).present? %>
+      document.getElementById("<%= f.options[:html][:id] %>_search").value = "<%= JSON.parse(f.object.send(a.keys.first.to_s))['formatted_address'] %>";
+    <% else %>
+      document.getElementById("<%= f.options[:html][:id] %>_search").value = '';
+    <% end  %>
     initializeAutocomplete('<%= f.options[:html][:id] %>_search');
     function initializeAutocomplete(id) {
       var element = document.getElementById(id);

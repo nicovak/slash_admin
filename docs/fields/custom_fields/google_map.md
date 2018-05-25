@@ -1,19 +1,15 @@
 ## Google map
-Strategy: use a serialized field to store all datas returned by Google.
+Strategy: use a json field to store all datas returned by Google.
 
 ### Migration example:
+
 ```ruby
 def change
-  add_column :users, :google_map, :text
+  add_column :users, :google_map, :json
 end
 ```
 
 #### In your model:
-```ruby
-class User < ActiveRecord::Base
-  serialize :google_map, JSON
-end
-```
 
 Needed configuration for field:
 
@@ -35,7 +31,7 @@ end
 
 Example of JSON stored values, everything is built dynamically.
 
-```javascript
+```json
 {
   "location":{
       "latitude":45.5016889,
@@ -53,7 +49,15 @@ Example of JSON stored values, everything is built dynamically.
 
 Example of usage in a view
 
+*You should create a method that parse google map directly*
+
+```ruby
+def google_map_json
+  JSON.parse(google_map)
+end
 ```
+
+```erb
 <%= u.google_map['location']['latitude'] %>
 <%= u.google_map['country'] %>
 <%= u.google_map['formatted_address'] %>
