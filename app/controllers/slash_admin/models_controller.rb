@@ -149,7 +149,7 @@ module SlashAdmin
       params[:filters].each do |attr, query|
         unless query.blank?
           attr_type = helpers.guess_field_type(@model_class, attr)
-          if @model_class.respond_to?(:translated_attribute_names)&& @model_class.translated_attribute_names.include?(attr.to_sym)
+          if @model_class.respond_to?(:translated_attribute_names) && @model_class.translated_attribute_names.include?(attr.to_sym)
             attr = "#{@model_class.name.singularize.underscore}_translations.#{attr}"
           end
           case attr_type
