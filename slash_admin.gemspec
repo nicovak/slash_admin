@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'font-awesome-rails'
   s.add_dependency 'js-routes'
   s.add_dependency 'i18n-js'
-  s.add_dependency 'bootstrap', '~> 4.0.0'
+  s.add_dependency 'bootstrap', '~> 4.1'
   s.add_dependency 'cocoon'
   s.add_dependency 'datetime_picker_rails'
   s.add_dependency 'jquery-rails'
