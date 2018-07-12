@@ -329,6 +329,10 @@ module SlashAdmin
     # Exclude default params for edit and create
     def exclude_default_params(params)
       params - %w(id created_at updated_at slug position)
+      if @model_class.translated_attribute_names.present?
+        params = params - @model_class.translated_attribute_names.map(&:to_s)
+      end
+      params
     end
 
     def stream_file(filename, extension)
