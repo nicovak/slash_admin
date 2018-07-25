@@ -1,6 +1,6 @@
 <%= f.label a, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
 <%= f.collection_select "#{a.to_s.singularize}_ids",
-class_name_from_association(f.object, a).constantize.all.order(f.object.send(a).present? ? "CASE WHEN id = #{f.object.send(a).try(:id)} THEN 1 ELSE 0 END DESC" : "id DESC").limit(20), :id,
+class_name_from_association(f.object, a).constantize.all.order(f.object.send(a).present? ? "CASE WHEN id IN(#{f.object.send(a).pluck(:id).join(',')}) THEN 1 ELSE 0 END DESC" : "id DESC").limit(20), :id,
 object_label(class_name_from_association(f.object, a)),
 {include_blank: true},
 {
