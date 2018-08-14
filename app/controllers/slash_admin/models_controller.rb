@@ -345,7 +345,7 @@ module SlashAdmin
     end
 
     def stream_csv_report
-      query = @models_export.to_sql
+      query = @models_export.limit(1000).to_sql
       query_options = 'WITH CSV HEADER'
 
       stream_file("#{@model_name.pluralize.underscore.gsub!(/( )/, '_').upcase}_#{Date.today}", 'csv') do |stream|
