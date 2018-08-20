@@ -156,6 +156,8 @@ module SlashAdmin
           when 'belongs_to', 'has_one'
             search = search.where(attr.to_s + '_id IN (' + query.join(',') + ')')
           when 'string', 'text'
+            # TODO: Handle virtual field
+            
             # TODO: handle unnaccent if postgres and extensions installed
             # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
             search = search.where("lower(#{attr}) LIKE lower(:query)", query: "%#{query}%")
@@ -345,7 +347,7 @@ module SlashAdmin
     end
 
     def stream_csv_report
-      query = @models_export.limit(1000).to_sql
+      query = @models_export.limit(5000).to_sql
       query_options = 'WITH CSV HEADER'
 
       stream_file("#{@model_name.pluralize.underscore.gsub!(/( )/, '_').upcase}_#{Date.today}", 'csv') do |stream|
