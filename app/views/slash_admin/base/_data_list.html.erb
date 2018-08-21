@@ -58,7 +58,7 @@
         <% list_params.each do |attr| %>
           <% if attr.is_a?(Hash) %>
             <% if attr[attr.keys.first][:type].to_s == 'image' %>
-              <td class="text-center <%= attr.to_s %>">
+              <td class="text-center <%= attr.to_s.parameterize.underscore.downcase %>">
                 <% if m.send(attr.keys.first).present? %>
                   <img src="<%= m.send(attr.keys.first) %>" class="img-fluid"/>
                 <% else %>
@@ -66,21 +66,21 @@
                 <% end %>
               </td>
               <% else %>
-              <td class="<%= attr.to_s %>"><%= render attr.keys.first.to_s, model: m %></td>
+              <td class="<%= attr.to_s.parameterize.underscore.downcase %>"><%= render attr.keys.first.to_s, model: m %></td>
             <% end %>
           <% else %>
             <% if m.send(attr).is_a?(TrueClass) || m.send(attr).is_a?(FalseClass) %>
-              <td class="text-center <%= attr.to_s %>">
+              <td class="text-center <%= attr.to_s.underscore.downcase %>">
                 <span class="tag tag-<%= m.send(attr) ? 'sucess' : 'danger' %> tag-boolean"><%= m.send(attr) ? 'Oui' : 'Non' %></span>
               </td>
             <% elsif @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr) %>
-              <td class="<%= attr.to_s %>">
+              <td class="<%= attr.to_s.underscore.downcase %>">
                 <%= link_to(edit_polymorphic_url([:slash_admin, m.send(attr)]), class: 'link', target: '_blank') do %>
                   <%= show_object(m.send(attr)) %>
                 <% end rescue nil %>
               </td>
             <% elsif @has_many_fields.include?(attr) %>
-              <td class="<%= attr.to_s %>">
+              <td class="<%= attr.to_s.parameterize.underscore.downcase %>">
                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-see-assoc-<%= attr.to_s %>-<%= m.id %>">
                   <i class="fa fa-list"></i> <%= t('slash_admin.view.see') %>
                 </button>
@@ -112,7 +112,7 @@
                 </div>
               </td>
             <% else %>
-              <td class="<%= attr.to_s %>"><%= m.send(attr) %></td>
+              <td class="<%= attr.to_s.parameterize.underscore.downcase %>"><%= m.send(attr) %></td>
             <% end %>
           <% end %>
         <% end %>
