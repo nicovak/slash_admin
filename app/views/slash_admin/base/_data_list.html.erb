@@ -77,7 +77,7 @@
               <td class="<%= attr.to_s.underscore.downcase %>">
                 <%= link_to(edit_polymorphic_url([:slash_admin, m.send(attr)]), class: 'link', target: '_blank') do %>
                   <%= show_object(m.send(attr)) %>
-                <% end rescue nil %>
+                <% end rescue show_object(m.send(attr)) %>
               </td>
             <% elsif @has_many_fields.include?(attr) %>
               <td class="<%= attr.to_s.parameterize.underscore.downcase %>">
@@ -100,7 +100,7 @@
                           <% m.send(attr).each do |a| %>
                             <%= link_to(edit_polymorphic_url([:slash_admin, a]), class: 'link', target: '_blank') do %>
                               <%= show_object(a) %><br />
-                            <% end rescue nil %>
+                            <% end rescue show_object(a) %>
                           <% end %>
                         <% end %>
                       </div>
