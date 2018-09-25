@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SlashAdmin
   module ApplicationHelper
     def page_title(content)
@@ -79,6 +80,7 @@ module SlashAdmin
       return true unless object.errors.messages[field_name].blank?
     end
 
+    # Type must be 'warning' or 'success' or 'error'
     def toastr_bootstrap
       flash_messages = []
       flash.each do |type, message|
