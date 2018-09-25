@@ -635,6 +635,10 @@ h6 {
   .selectize-input {
     box-shadow: none;
     border: 1px solid #c2cad8;
+
+    > input {
+      width: 100%;
+    }
   }
 
   .page-container {
