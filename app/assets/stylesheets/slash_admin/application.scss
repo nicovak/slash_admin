@@ -635,6 +635,7 @@ h6 {
   .selectize-input {
     box-shadow: none;
     border: 1px solid #c2cad8;
+    display: flex;
 
     > input {
       width: 100% !important;
@@ -1032,7 +1033,6 @@ h6 {
       }
 
       .selectize-input {
-        margin-top: 5px;
         padding: 5px 8px;
         border-radius: 0;
       }

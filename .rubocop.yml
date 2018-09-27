@@ -4,13 +4,13 @@ AllCops:
   # to ignore them, so only the ones explicitly set in this file are enabled.
   DisabledByDefault: true
   Exclude:
-    - '**/templates/**/*'
-    - '**/vendor/**/*'
-    - 'actionpack/lib/action_dispatch/journey/parser.rb'
+  - '**/templates/**/*'
+  - '**/vendor/**/*'
+  - 'actionpack/lib/action_dispatch/journey/parser.rb'
 
 # Prefer &&/|| over and/or.
 Style/AndOr:
-  Enabled: false
+  EnforcedStyle: conditionals
 
 # Do not use braces for hash literals when they are the last argument of a
 # method call.
@@ -77,7 +77,7 @@ Layout/SpaceAroundOperators:
   Enabled: true
 
 Layout/SpaceBeforeFirstArg:
-    Enabled: true
+  Enabled: true
 
 # Defining a method with parameters needs parentheses.
 Style/MethodDefParentheses:
@@ -87,19 +87,19 @@ Style/FrozenStringLiteralComment:
   Enabled: true
   EnforcedStyle: always
   Include:
-    - 'activesupport/**/*'
-    - 'activemodel/**/*'
-    - 'actioncable/**/*'
-    - 'activejob/**/*'
-    - 'activerecord/**/*'
-    - 'actionmailer/**/*'
-    - 'actionview/**/*'
-    - 'actionpack/**/*'
+  - 'activesupport/**/*'
+  - 'activemodel/**/*'
+  - 'actioncable/**/*'
+  - 'activejob/**/*'
+  - 'activerecord/**/*'
+  - 'actionmailer/**/*'
+  - 'actionview/**/*'
+  - 'actionpack/**/*'
   Exclude:
-    - 'actionview/test/**/*.builder'
-    - 'actionview/test/**/*.ruby'
-    - 'actionpack/test/**/*.builder'
-    - 'actionpack/test/**/*.ruby'
+  - 'actionview/test/**/*.builder'
+  - 'actionview/test/**/*.ruby'
+  - 'actionpack/test/**/*.builder'
+  - 'actionpack/test/**/*.ruby'
 
 # Use `foo {}` not `foo{}`.
 Layout/SpaceBeforeBlockBraces:
