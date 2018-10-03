@@ -636,9 +636,10 @@ h6 {
     box-shadow: none;
     border: 1px solid #c2cad8;
     display: flex;
+    flex-wrap: wrap;
 
     > input {
-      width: 100% !important;
+      width: auto !important;
     }
   }
 
