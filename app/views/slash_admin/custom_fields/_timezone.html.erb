@@ -1,0 +1,2 @@
+<%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
+<%= f.select(a.keys.first, ActiveSupport::TimeZone::MAPPING.values, { include_blank: true, required: required?(f.object, a) }, class: 'selectize-single') %>
