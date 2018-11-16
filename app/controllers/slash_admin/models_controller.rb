@@ -216,10 +216,8 @@ module SlashAdmin
 
       params[:filters].each do |attr, query|
         unless query.blank?
-          if virtual_fields.present?
-            if virtual_fields.include? attr.to_s
-              search = search.select { |s| s.send(attr).present? ? s.send(attr).downcase.include?(query.downcase) : nil }
-            end
+          if virtual_fields.present? && virtual_fields.include?(attr.to_s)
+            search = search.select { |s| s.send(attr).present? ? s.send(attr).downcase.include?(query.downcase) : nil }
           end
         end
       end
