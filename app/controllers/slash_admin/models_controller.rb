@@ -22,7 +22,16 @@ module SlashAdmin
       column = @model_class.arel_table[params[:order_field].to_sym]
       order = params[:order].downcase
       if %w(asc desc).include?(order)
-        @models = @models_export.order(column.send(params[:order].downcase)).page(params[:page]).per(params[:per])
+        if @models_export.is_a? Array
+          if order == 'asc'
+            @models = @models_export.sort {|m1, m2| m1.send(params[:order_field]) <=> m2.send(params[:order_field])}
+          else
+            @models = @models_export.sort {|m1, m2| m2.send(params[:order_field]) <=> m1.send(params[:order_field])}
+          end
+          @models = Kaminari.paginate_array(@models).page(params[:page]).per(params[:per])
+        else
+          @models = @models_export.order(column.send(params[:order].downcase)).page(params[:page]).per(params[:per])
+        end
       end
 
       @fields = if @use_export_params
@@ -146,6 +155,8 @@ module SlashAdmin
         search = @model_class.all
       end
 
+      virtual_fields = []
+
       params[:filters].each do |attr, query|
         unless query.blank?
           attr_type = helpers.guess_field_type(@model_class, attr)
@@ -156,11 +167,16 @@ module SlashAdmin
           when 'belongs_to', 'has_one'
             search = search.where(attr.to_s + '_id IN (' + query.join(',') + ')')
           when 'string', 'text'
-            # TODO: Handle virtual field
-            
-            # TODO: handle unnaccent if postgres and extensions installed
-            # search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
-            search = search.where("lower(#{attr}) LIKE lower(:query)", query: "%#{query}%")
+            attributes = @model_class.new.attributes.keys
+            if !attributes.include?(attr.to_s) && @model_class.method_defined?(attr.to_s)
+              virtual_fields << attr.to_s
+            else
+              begin
+                search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
+              rescue
+                search = search.where("lower(#{attr}) LIKE lower(:query)", query: "%#{query}%")
+              end
+            end
           when 'date', 'datetime'
             if query.is_a?(String)
               search = search.where("#{attr} = :query", query: query)
@@ -185,15 +201,25 @@ module SlashAdmin
                 search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
               end
             else
-              if attr_type = 'decimal' || attr_type = 'number'
+              if attr_type == 'decimal' || attr_type == 'number'
                 query = query.to_f
-              elsif attr_type = 'integer'
+              elsif attr_type == 'integer'
                 query = query.to_i
               end
               search = search.where("#{attr} = :query", query: query)
             end
           when 'boolean'
             search = search.where("#{attr} = :query", query: to_boolean(query))
+          end
+        end
+      end
+
+      params[:filters].each do |attr, query|
+        unless query.blank?
+          if virtual_fields.present?
+            if virtual_fields.include? attr.to_s
+              search = search.select { |s| s.send(attr).present? ? s.send(attr).downcase.include?(query.downcase) : nil }
+            end
           end
         end
       end
