@@ -24,9 +24,9 @@ module SlashAdmin
       if %w(asc desc).include?(order)
         if @models_export.is_a? Array
           if order == 'asc'
-            @models = @models_export.sort {|m1, m2| m1.send(params[:order_field]) <=> m2.send(params[:order_field])}
+            @models = @models_export.sort { |m1, m2| m1.send(params[:order_field]) <=> m2.send(params[:order_field]) }
           else
-            @models = @models_export.sort {|m1, m2| m2.send(params[:order_field]) <=> m1.send(params[:order_field])}
+            @models = @models_export.sort { |m1, m2| m2.send(params[:order_field]) <=> m1.send(params[:order_field]) }
           end
           @models = Kaminari.paginate_array(@models).page(params[:page]).per(params[:per])
         else

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'slash_admin/engine'
 require 'cancancan'
 require 'kaminari'

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SlashAdmin
   module Generators
     class OverrideAdminGenerator < Rails::Generators::Base
