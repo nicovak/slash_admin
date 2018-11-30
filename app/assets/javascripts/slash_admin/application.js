@@ -33,12 +33,12 @@ $(document).on("turbolinks:load", init);
 function init() {
   Turbolinks.clearCache();
 
-  $('.page-sidebar a[href$="#"]').on('click', function(e) {
-    e.preventDefault()
+  $('.page-sidebar a[href$="#"]').on("click", function(e) {
+    e.preventDefault();
   });
 
   $(".tags").tagsInput({
-    placeholder: I18n.t('slash_admin.view.add_tag'),
+    placeholder: I18n.t("slash_admin.view.add_tag"),
     delimiter: [",", ";", " "]
   });
 
@@ -58,9 +58,11 @@ function init() {
 
   // Automatic hide alert
   window.setTimeout(function() {
-    $(".alert").fadeTo(500, 0).slideUp(500, function() {
-      $(this).remove();
-    });
+    $(".alert")
+      .fadeTo(500, 0)
+      .slideUp(500, function() {
+        $(this).remove();
+      });
   }, 1500);
 
   // clearForm
@@ -98,7 +100,10 @@ function init() {
   });
 
   // MENU
-  $(".sub-menu").has(".active").parent().addClass("active");
+  $(".sub-menu")
+    .has(".active")
+    .parent()
+    .addClass("active");
 
   // BULK ACTIONS
   $(".toggle-all").on("change", function() {
@@ -125,15 +130,16 @@ function init() {
 
     swal(
       {
-        title: I18n.t('slash_admin.view.confirm'),
-        text: I18n.t('slash_admin.view.no_back'),
+        title: I18n.t("slash_admin.view.confirm"),
+        text: I18n.t("slash_admin.view.no_back"),
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
         cancelButtonClass: "btn-primary",
-        confirmButtonText: I18n.t('slash_admin.view.yes_delete'),
-        cancelButtonText: I18n.t('slash_admin.view.cancel'),
-        closeOnConfirm: false
+        confirmButtonText: I18n.t("slash_admin.view.yes_delete"),
+        cancelButtonText: I18n.t("slash_admin.view.cancel"),
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
       },
       function() {
         $.ajax({
@@ -164,15 +170,16 @@ function init() {
     if (ids.length > 0) {
       swal(
         {
-          title: I18n.t('slash_admin.view.confirm'),
+          title: I18n.t("slash_admin.view.confirm"),
           text: message,
           type: "warning",
           showCancelButton: true,
           confirmButtonClass: "btn-danger",
           cancelButtonClass: "btn-primary",
-          confirmButtonText: I18n.t('slash_admin.view.yes_delete'),
-          cancelButtonText: I18n.t('slash_admin.view.cancel'),
-          closeOnConfirm: false
+          confirmButtonText: I18n.t("slash_admin.view.yes_delete"),
+          cancelButtonText: I18n.t("slash_admin.view.cancel"),
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true
         },
         function() {
           $.ajax({
@@ -315,7 +322,9 @@ function init() {
     var url = window.location.href.split("?")[0];
 
     var filtersParams = $("#filters").serialize();
-    var paginationParams = $(".admin-pagination").first().serialize();
+    var paginationParams = $(".admin-pagination")
+      .first()
+      .serialize();
     var orderParams = $("#order").serialize();
 
     parameters = "";
