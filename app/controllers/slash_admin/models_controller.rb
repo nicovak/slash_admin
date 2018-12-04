@@ -167,6 +167,7 @@ module SlashAdmin
           when 'belongs_to', 'has_one'
             search = search.where(attr.to_s + '_id IN (' + query.join(',') + ')')
           when 'string', 'text'
+            query = query.strip!
             attributes = @model_class.new.attributes.keys
             if !attributes.include?(attr.to_s) && @model_class.method_defined?(attr.to_s)
               virtual_fields << attr.to_s
