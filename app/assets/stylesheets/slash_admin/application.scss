@@ -40,8 +40,8 @@ $border-radius: 0.15rem !default;
 @import "bootstrap";
 @import "font-awesome";
 
-@import "https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css";
-@import "https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css";
+@import url("https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css");
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css");
