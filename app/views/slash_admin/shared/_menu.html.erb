@@ -10,45 +10,48 @@
               <% end %>
             <% end %>">
           <a class="nav-link"
-              <%= s.key?(:turbolinks) ? "data-turbolinks="+ boolean_to_string(s[:turbolinks]) +"" : '' %>
-              href="<%= s[:path].present? ? s[:path] : '#' %>">
+             <%= s.key?(:turbolinks) ? "data-turbolinks=" + boolean_to_string(s[:turbolinks]) + "" : '' %>
+             href="<%= s[:path].present? ? s[:path] : '#' %>"
+             <% s[:blank].present? ? 'target="_blank"' : '' %>
+          >
             <% if s[:icon] %>
-            <i class="<%= s[:icon] %>"></i>
+              <i class="<%= s[:icon] %>"></i>
             <% end %>
             <span class="title"><%= s[:title] %></span>
           </a>
           <% if s[:sub_menu] %>
-          <ul class="sub-menu">
-            <% s[:sub_menu].each do |sub| %>
-              <% if sub[:path].present? %>
-                <li class="nav-item">
-                  <a class="nav-link <%= request.fullpath == sub[:path] ? 'active' : '' %>"
-                    <%= sub.key?(:turbolinks) ? "data-turbolinks="+ boolean_to_string(sub[:turbolinks]) +"" : '' %>
-                    href="<%= sub[:path] %>">
-                  <% if sub[:icon] %>
-                    <i class="<%= sub[:icon] %>"></i>
-                  <% end %>
-                  <span class="title"><%= sub[:title] %></span>
-                </a>
-                </li>
-              <% else %>
-                <% if access_model?(sub) %>
-                <li class="nav-item">
-                  <a class="nav-link
-                              <%= controller.controller_name == sub[:model].name.split('::').last.tableize ? 'active' : '' %>"
-                              <%= sub.key?(:turbolinks) ? "data-turbolinks="+ boolean_to_string(sub[:turbolinks]) +"" : '' %>
-                              href="<%= polymorphic_url([:slash_admin, sub[:model]]) %>">
+            <ul class="sub-menu">
+              <% s[:sub_menu].each do |sub| %>
+                <% if sub[:path].present? %>
+                  <li class="nav-item">
+                    <a class="nav-link <%= request.fullpath == sub[:path] ? 'active' : '' %>"
+                       <%= sub.key?(:turbolinks) ? "data-turbolinks=" + boolean_to_string(sub[:turbolinks]) + "" : '' %>
+                       href="<%= sub[:path] %>"
+                    <% s[:blank].present? ? 'target="_blank"' : '' %>
                     <% if sub[:icon] %>
-                    <i class="<%= sub[:icon] %>"></i>
+                      <i class="<%= sub[:icon] %>"></i>
                     <% end %>
-                    <span class="title"><%= sub[:model].model_name.human(count: 2) %></span>
-                    <%# <span class="badge badge-pill badge-success">1</span> %>
-                  </a>
-                </li>
+                    <span class="title"><%= sub[:title] %></span>
+                    </a>
+                  </li>
+                <% else %>
+                  <% if access_model?(sub) %>
+                    <li class="nav-item">
+                      <a class="nav-link
+                              <%= controller.controller_name == sub[:model].name.split('::').last.tableize ? 'active' : '' %>"
+                         <%= sub.key?(:turbolinks) ? "data-turbolinks=" + boolean_to_string(sub[:turbolinks]) + "" : '' %>
+                         href="<%= polymorphic_url([:slash_admin, sub[:model]]) %>">
+                        <% if sub[:icon] %>
+                          <i class="<%= sub[:icon] %>"></i>
+                        <% end %>
+                        <span class="title"><%= sub[:model].model_name.human(count: 2) %></span>
+                        <%# <span class="badge badge-pill badge-success">1</span> %>
+                      </a>
+                    </li>
+                  <% end %>
                 <% end %>
               <% end %>
-            <% end %>
-          </ul>
+            </ul>
           <% end %>
         </li>
       <% end %>
