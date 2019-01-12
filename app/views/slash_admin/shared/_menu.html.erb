@@ -11,9 +11,8 @@
             <% end %>">
           <a class="nav-link"
              <%= s.key?(:turbolinks) ? "data-turbolinks=" + boolean_to_string(s[:turbolinks]) + "" : '' %>
-             href="<%= s[:path].present? ? s[:path] : '#' %>"
              <% s[:blank].present? ? 'target="_blank"' : '' %>
-          >
+             href="<%= s[:path].present? ? s[:path] : '#' %>">
             <% if s[:icon] %>
               <i class="<%= s[:icon] %>"></i>
             <% end %>
@@ -26,8 +25,8 @@
                   <li class="nav-item">
                     <a class="nav-link <%= request.fullpath == sub[:path] ? 'active' : '' %>"
                        <%= sub.key?(:turbolinks) ? "data-turbolinks=" + boolean_to_string(sub[:turbolinks]) + "" : '' %>
-                       href="<%= sub[:path] %>"
-                    <% s[:blank].present? ? 'target="_blank"' : '' %>
+                       <% s[:blank].present? ? 'target="_blank"' : '' %>
+                       href="<%= sub[:path] %>">
                     <% if sub[:icon] %>
                       <i class="<%= sub[:icon] %>"></i>
                     <% end %>
@@ -40,6 +39,7 @@
                       <a class="nav-link
                               <%= controller.controller_name == sub[:model].name.split('::').last.tableize ? 'active' : '' %>"
                          <%= sub.key?(:turbolinks) ? "data-turbolinks=" + boolean_to_string(sub[:turbolinks]) + "" : '' %>
+                         <% s[:blank].present? ? 'target="_blank"' : '' %>
                          href="<%= polymorphic_url([:slash_admin, sub[:model]]) %>">
                         <% if sub[:icon] %>
                           <i class="<%= sub[:icon] %>"></i>
