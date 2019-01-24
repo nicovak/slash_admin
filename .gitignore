@@ -8,3 +8,8 @@ test/dummy/log/*.log
 test/dummy/tmp/
 Gemfile.lock
 .idea
+tmp/**/*
+*.gem
+*.rbc
+*.swp
+.bundle

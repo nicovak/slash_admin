@@ -8,13 +8,13 @@
             <%= @error_messages %>
           </span>
           <div class="input-group">
-            <span class="input-group-addon">
+            <span class="input-group-prepend">
               <i class="fa fa-user"></i>
             </span>
             <%= f.text_field :login, required: false, autofocus: true, label: false, placeholder: t('slash_admin.view.username'), class: 'form-control' %>
           </div>
           <div class="input-group">
-            <span class="input-group-addon">
+            <span class="input-group-prepend">
               <i class="fa fa-lock"></i>
             </span>
             <%= f.password_field :password, required: false, label: false, placeholder: t('slash_admin.view.password'), class: 'form-control' %>

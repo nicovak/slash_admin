@@ -10,7 +10,6 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require font-awesome
  *= require animate
  *= require toastr
  *= require jquery.nestable
@@ -38,7 +37,8 @@ $pagination-border-width: 0 !default;
 $border-radius: 0.15rem !default;
 
 @import "bootstrap";
-@import "font-awesome";
+
+@import url("https://use.fontawesome.com/releases/v5.6.3/css/all.css");
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css");
@@ -737,7 +737,6 @@ h6 {
               top: 2px;
               font-size: 24px;
               text-shadow: none;
-              font-weight: 300;
               text-align: center;
               color: #4d5d7c;
             }
@@ -789,7 +788,6 @@ h6 {
                   font-size: 16px;
                   line-height: 16px;
                   text-shadow: none;
-                  font-weight: 300;
                   text-align: center;
                   color: #5d7bad;
                   float: left;
@@ -1068,7 +1066,7 @@ h6 {
         height: auto;
       }
 
-      .input-group-addon {
+      .input-group-prepend {
         height: 30px;
         border-radius: 0;
         background: #ececec;
@@ -1115,7 +1113,7 @@ h6 {
 
       &::after {
         content: "\f0dc";
-        font-family: "FontAwesome";
+        font-family: "Font Awesome 5 Free";
         color: $lightgrey;
         float: right;
       }
@@ -1124,7 +1122,7 @@ h6 {
     .asc {
       &::after {
         content: "\f0dd";
-        font-family: "FontAwesome";
+        font-family: "Font Awesome 5 Free";
         color: $blue;
         float: right;
       }
@@ -1133,7 +1131,7 @@ h6 {
     .desc {
       &::after {
         content: "\f0de";
-        font-family: "FontAwesome";
+        font-family: "Font Awesome 5 Free";
         color: $blue;
         float: right;
       }
@@ -1212,11 +1210,9 @@ h6 {
   }
 
   .head-data-list {
+    display: flex;
+    justify-content: space-between;
     overflow: visible;
-  }
-
-  .fix-block-head {
-    display: inline-block;
   }
 
   .block-batch {
@@ -1416,7 +1412,7 @@ h6 {
     }
 
     .input-group {
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
 
     .content {
@@ -1427,7 +1423,7 @@ h6 {
       padding: inherit;
     }
 
-    .input-group-addon {
+    .input-group-prepend {
       border-radius: 0;
       padding-bottom: 15px;
     }
@@ -1462,7 +1458,7 @@ h6 {
       caret-color: $primary;
     }
 
-    .input-group-addon {
+    .input-group-prepend {
       background-color: transparent;
       border: 0;
       color: #fff;
@@ -1509,7 +1505,7 @@ h6 {
 @media (min-width: 1600px) {
   #admin-user {
     .login-form {
-      width: 15%;
+      width: 20%;
 
       input[type="submit"] {
         width: 100%;

@@ -39,7 +39,7 @@ end
 ```
 
 Icons available:
-- http://fontawesome.io/ (eg: `fa fa-home`)
+- http://fontawesome.io/ (eg: `fas fa-home`)
 - http://simplelineicons.com/ (eg: `icon-home`)
 
 ## Sample controller (mandatory), in `app/controllers/slash_admin/models` folder

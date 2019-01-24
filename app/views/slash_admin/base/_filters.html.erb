@@ -16,11 +16,11 @@
             <% when 'date', 'datetime' %>
               <div class="input-group">
                 <input type="text" name="filters[<%= attr %>][from]" value="<%= params[:filters][attr]['from'] rescue nil %>" class="form-control form-control-sm bootstrap-datepicker" placeholder="Du"/>
-                <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                <span class="input-group-prepend"><i class="icon-calendar"></i></span>
               </div>
               <div class="input-group">
                 <input type="text" name="filters[<%= attr %>][to]" value="<%= params[:filters][attr]['to'] rescue nil %>" class="form-control form-control-sm bootstrap-datepicker" placeholder="Au"/>
-                <span class="input-group-addon"><i class="icon-calendar"></i></span>
+                <span class="input-group-prepend"><i class="icon-calendar"></i></span>
               </div>
             <% when 'boolean' %>
               <select name="filters[<%= attr %>]" class="form-control form-control-sm">
