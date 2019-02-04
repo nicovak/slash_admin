@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.imgur.com/MVtWioS.jpg" />
+  <img width="250" src="https://i.imgur.com/MVtWioS.jpg" />
 </a>
 
 # [W.I.P] SlashAdmin
