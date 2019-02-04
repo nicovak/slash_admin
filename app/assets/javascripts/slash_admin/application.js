@@ -197,19 +197,19 @@ function init() {
   });
 
   $(".selectize-single").selectize({
+    plugins: ['remove_button'],
     allowEmptyOption: true
   });
 
   $(".selectize-multiple").selectize({
     allowEmptyOption: true,
     persist: false,
-    plugins: {
-      remove_button: {}
-    }
+    plugins: ['remove_button'],
   });
 
   $(".selectize-model-single").selectize({
     allowEmptyOption: true,
+    plugins: ['remove_button'],
     valueField: "id",
     labelField: "name",
     searchField: "name",
@@ -245,10 +245,8 @@ function init() {
 
   $(".selectize-model-multiple").selectize({
     allowEmptyOption: true,
+    plugins: ['remove_button'],
     persist: false,
-    plugins: {
-      remove_button: {}
-    },
     valueField: "id",
     labelField: "name",
     searchField: "name",

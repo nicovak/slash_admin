@@ -47,7 +47,7 @@ fr:
       yes: Oui
       no: Non
       filter: Filtrer
-      reset: Réinitialiser
+      reset: Réinit.
       select_model: "Sélectionner un(e) %{model_name}"
       list: "Liste des %{model_name}"
       return_to_list: Retour à la liste

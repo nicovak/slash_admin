@@ -83,7 +83,7 @@ h6 {
 }
 
 #admin-dashboard {
-  background: $secondary;
+  background: $tertiary;
   padding-top: 68px;
   margin: 0;
 
@@ -206,14 +206,16 @@ h6 {
     }
 
     .navbar .page-logo {
-      width: 54px;
+      width: 58px;
     }
 
     .page-container {
       .page-sidebar {
-        width: 54px;
+        width: 58px;
 
         ul.nav {
+          display: flex;
+
           li.nav-item {
             &.active::after,
             &:hover::after {
@@ -221,7 +223,7 @@ h6 {
             }
 
             a.nav-link {
-              min-height: 54px;
+              min-height: 58px;
 
               [class^="icon-"] {
                 margin: 0;
@@ -233,14 +235,10 @@ h6 {
             }
 
             ul.sub-menu {
-              margin-left: 54px;
+              margin-left: 58px;
             }
           }
         }
-      }
-
-      .page-content {
-        margin-left: 54px;
       }
     }
   }
@@ -561,7 +559,7 @@ h6 {
 
   .dashboard-panel {
     background: #fff;
-    border: 1px solid #e7ecf1;
+    border-radius: 10px;
     padding: 15px 15px 30px;
   }
 
@@ -608,7 +606,6 @@ h6 {
       float: left;
 
       small {
-        font-size: 14px;
         color: #aab5bc;
         font-weight: 600;
         text-transform: uppercase;
@@ -645,29 +642,30 @@ h6 {
   }
 
   .page-container {
-    display: table;
+    display: flex;
     table-layout: fixed;
     overflow: hidden;
     width: 100%;
 
     .page-sidebar {
       width: 195px;
+      background: $secondary;
       position: relative;
-      display: table-cell;
+      display: flex;
+
+      ul {
+        flex: 1;
+      }
 
       ul.nav > {
         li.nav-item {
           position: relative;
 
           &.active {
-            background: #1f2b3d;
+            background: darken($secondary, 8%);
 
             a.nav-link {
               color: #fff;
-
-              i {
-                color: $primary;
-              }
             }
 
             &::after {
@@ -688,7 +686,7 @@ h6 {
           }
 
           &:hover {
-            background: #232f44;
+            background: darken($secondary, 8%);
 
             > ul.sub-menu {
               display: inline-block;
@@ -698,8 +696,8 @@ h6 {
               content: "";
               float: right;
               position: absolute;
+              top: 30px;
               right: 0;
-              top: 26px;
               background: 0 0;
               width: 0;
               height: 0;
@@ -707,7 +705,7 @@ h6 {
               border-top: 12px double transparent;
               border-bottom: 12px double transparent;
               border-left: 0;
-              border-right: 8px solid #1c2637;
+              border-right: 8px solid $red;
             }
           }
 
@@ -722,8 +720,7 @@ h6 {
             font-size: 13px;
             font-weight: 300;
             text-align: center;
-            color: #c3cee0;
-            border-top: 1px solid #2b3b55;
+            color: $textColor;
             overflow: hidden;
             border-radius: 0;
 
@@ -738,37 +735,36 @@ h6 {
               font-size: 24px;
               text-shadow: none;
               text-align: center;
-              color: #4d5d7c;
+              color: $blue;
             }
           }
 
           ul.sub-menu {
             width: 195px;
             margin-left: 195px;
-            background: #1c2637;
+            background: darken($secondary, 8%);
             top: 0;
             z-index: 9999;
             position: absolute;
             padding: 0;
             list-style: none;
             display: none;
-            box-shadow: 5px 5px rgba(48, 48, 48, 0.2);
 
             li.nav-item {
               background: none;
-              color: #c3cee0;
+              color: $textColor;
 
               &::after {
                 border: 0;
               }
 
               a.nav-link.active {
-                background: #212d41;
+                background: darken($secondary, 15%);
               }
 
               &:hover {
                 a.nav-link {
-                  background: #212d41;
+                  background: darken($secondary, 15%);
                 }
               }
 
@@ -777,7 +773,7 @@ h6 {
                 padding: 9px 15px;
                 margin: 3px;
                 border: 0;
-                color: #c3cee0;
+                color: $textColor;
 
                 &.active {
                   color: #fff;
@@ -789,7 +785,7 @@ h6 {
                   line-height: 16px;
                   text-shadow: none;
                   text-align: center;
-                  color: #5d7bad;
+                  color: $blue;
                   float: left;
                 }
 
@@ -813,18 +809,16 @@ h6 {
     }
 
     .page-content {
-      margin-left: 195px;
-      display: table-cell;
+      flex: 1;
       margin-top: 0;
-      height: 100vh;
+      min-height: 100vh;
       padding: 25px 20px 10px;
-      background: $tertiary;
     }
   }
 
   .breadcrumb {
     padding: 10px 15px;
-    border: 1px solid #e7ecf1;
+    border: 1px solid rgba(121,133,166,0.1);
     background-color: #fff;
     margin: 20px 0;
     border-radius: 0;
@@ -845,7 +839,7 @@ h6 {
   .portlet {
     background: #fff;
     margin-bottom: 25px;
-    border: 1px solid #e7ecf1;
+    border: 1px solid rgba(121,133,166,0.1);
   }
 
   .btn-circle {
@@ -867,7 +861,7 @@ h6 {
   }
 
   .portlet-title {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(121,133,166,0.1);
     padding: 10px 20px;
     margin-bottom: 10px;
     display: flex;
@@ -946,7 +940,6 @@ h6 {
     * {
       border-radius: 0 !important;
       margin: 0 5px;
-      font-size: 14px;
       text-transform: capitalize;
     }
 
@@ -991,9 +984,10 @@ h6 {
   }
 
   .table-data-list {
-    border-color: #e7ecf1 !important;
+    border-color: rgba(121,133,166,0.1) !important;
     margin-top: 1rem;
-    font-size: 0.95em;
+    background: #fff;
+    font-size: .9em;
 
     .fit {
       white-space: nowrap;
@@ -1025,11 +1019,6 @@ h6 {
       :-ms-input-placeholder {
         color: #999aa6;
         font-weight: 300;
-      }
-
-      th,
-      td {
-        border-bottom-width: 3px;
       }
 
       .selectize-input {
@@ -1081,7 +1070,6 @@ h6 {
     td {
       padding: 8px 10px;
       vertical-align: middle;
-      font-size: 14px;
       border-color: #e7ecf1;
     }
 
@@ -1095,7 +1083,6 @@ h6 {
 
     tr.heading th {
       background: #fbfcfd;
-      font-size: 14px;
       font-weight: 600;
       border-bottom: 0;
     }
@@ -1257,7 +1244,6 @@ h6 {
     border-radius: 2px;
 
     .btn {
-      font-size: 14px;
       padding: 8px 14px;
       border-radius: 2px;
     }
@@ -1356,7 +1342,7 @@ h6 {
   }
 
   .container-fluid-admin {
-    height: 100vh;
+    min-height: 100vh;
   }
 
   .bckg-dark {

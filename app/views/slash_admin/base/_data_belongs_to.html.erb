@@ -16,7 +16,6 @@
         <% else %>
           <% method = 'update_params' %>
         <% end %>
-
         <% if a.is_a?(Hash) %>
           <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.send(method, from: @model_class) %>
         <% else %>

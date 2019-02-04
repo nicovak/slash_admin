@@ -119,7 +119,7 @@
           <td class="actions fit">
             <div class="btn-group">
               <% if can? :show, @model_class %>
-                <%= link_to(polymorphic_url([:slash_admin, m]), class: 'btn btn-primary btn-sm') do %>
+                <%= link_to(polymorphic_url([:slash_admin, m]), class: 'btn btn-info btn-sm') do %>
                   <i class="icon-magnifier"></i>
                 <% end rescue nil %>
               <% end %>

@@ -271,7 +271,7 @@ module SlashAdmin
     def handle_default
       @title = @model_name.present? ? @model_class.model_name.human(count: 2) : nil
       @sub_title = nil
-      @per = 10
+      @per = 20
       @page = 1
       @per_values = [10, 20, 50, 100, 150]
       @use_export_params = false
