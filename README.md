@@ -2,7 +2,7 @@
   <img width="250" src="https://i.imgur.com/MVtWioS.jpg" />
 </a>
 
-# [W.I.P] SlashAdmin
+# SlashAdmin
 [![Code Climate](https://codeclimate.com/github/nicovak/slash_admin/badges/gpa.svg)](https://codeclimate.com/github/nicovak/slash_admin)
 [![CircleCI](https://circleci.com/gh/nicovak/slash_admin/tree/master.svg?style=svg&circle-token=6e9ebd7fef3ebc881c75a769b0970808024a2ae9)](https://circleci.com/gh/nicovak/slash_admin/tree/master)
 
