@@ -21,8 +21,7 @@ Design inspired from the awesome metronic admin theme:
 - [keenthemes](http://keenthemes.com/preview/metronic/)
 
 #### Screenshots
-
-![Image of Login screen](http://i.imgur.com/HFQ9hfw.jpg)
+![Image of Login screen](https://i.imgur.com/K2715pV.jpg)
 ![Image of List](http://i.imgur.com/p34HUU5.png)
 ![Image of Create / Edit](http://i.imgur.com/TzOx3i8.png)
 

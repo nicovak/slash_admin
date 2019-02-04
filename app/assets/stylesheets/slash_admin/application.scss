@@ -1363,34 +1363,33 @@ h6 {
   }
 
   .login-form {
-    background: #1c2c41;
+    background: $secondary;
     color: #fff;
     width: 25%;
-    margin: 0 auto;
-    margin-bottom: 25px;
+    margin: 0 auto 25px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
     h2 {
-      margin-bottom: 25px;
+      color: $textColor;
     }
 
     .links-form {
       a {
-        color: #47566c;
+        color: $textColor;
         text-decoration: none;
 
         &:hover {
-          color: #47566c;
+          color: darken($textColor, 5%);
         }
       }
     }
 
     i {
       font-size: 1.5em;
-      color: $primary;
+      color: $blue;
     }
 
     .form-control {
@@ -1416,7 +1415,7 @@ h6 {
 
     input[type="submit"] {
       cursor: pointer;
-      background: #304158;
+      background: $red;
       color: #fff;
       border-radius: 3px;
       border: 0;
@@ -1426,7 +1425,7 @@ h6 {
       margin-top: 35px;
 
       &:hover {
-        background: darken(#304158, 5%);
+        background: darken($red, 5%);
       }
     }
 
@@ -1435,6 +1434,7 @@ h6 {
     input[type="password"] {
       background-color: transparent;
       border: 0;
+      border-radius: 0;
       border-bottom: 1px solid #47566c;
       color: #fff;
       padding: 8px 12px 8px 35px;
