@@ -273,7 +273,7 @@ module SlashAdmin
       @sub_title = nil
       @per = 20
       @page = 1
-      @per_values = [10, 20, 50, 100, 150]
+      @per_values = [20, 30, 50, 100, 150]
       @use_export_params = false
       @order_field = :id
       @order = 'DESC'
