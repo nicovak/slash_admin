@@ -41,6 +41,4 @@ Gem::Specification.new do |s|
   s.add_dependency 'sassc-rails'
   s.add_dependency 'tether-rails'
   s.add_dependency 'sweetalert-rails'
-
-  s.add_development_dependency 'sqlite3'
 end
