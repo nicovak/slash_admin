@@ -705,7 +705,7 @@ h6 {
               border-top: 12px double transparent;
               border-bottom: 12px double transparent;
               border-left: 0;
-              border-right: 8px solid $red;
+              border-right: 8px solid $pink;
             }
           }
 
@@ -1416,7 +1416,7 @@ h6 {
 
     input[type="submit"] {
       cursor: pointer;
-      background: $red;
+      background: $pink;
       color: #fff;
       border-radius: 3px;
       border: 0;
@@ -1426,7 +1426,7 @@ h6 {
       margin-top: 35px;
 
       &:hover {
-        background: darken($red, 5%);
+        background: darken($pink, 5%);
       }
     }
 
