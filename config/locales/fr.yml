@@ -68,5 +68,8 @@ fr:
       json_not_valid: Le JSON n'est pas valide
       username: Nom d'utilisateur
       password: Mot de passe
+      delete_image: Supprimer l'image
+      website_hompage: Accueil du site
+      sign_out: Se déconnecter
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.

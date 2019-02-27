@@ -19,7 +19,7 @@ def create_params
     {
       my_field: {
       type: :google_map,
-      default_zoom_level: 13,
+      default_zoom: 13,
       google_api_key: 'API KEY FROM GOOGLE',
       default_latitude: '48.8534',
       default_longitude: '2.3488'

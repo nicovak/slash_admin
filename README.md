@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="250" src="https://i.imgur.com/dCOoGbv.jpg" />
+  <img width="250" src="https://i.imgur.com/Rok5Ocf.png" />
 </p>
 
 # SlashAdmin
@@ -7,7 +7,7 @@
 [![Code Climate](https://codeclimate.com/github/nicovak/slash_admin/badges/gpa.svg)](https://codeclimate.com/github/nicovak/slash_admin)
 [![CircleCI](https://circleci.com/gh/nicovak/slash_admin/tree/master.svg?style=svg&circle-token=6e9ebd7fef3ebc881c75a769b0970808024a2ae9)](https://circleci.com/gh/nicovak/slash_admin/tree/master)
 
-A modern and overridable admin, just the rails way.
+A modern and fully overridable admin, just the rails way.
 Embeded admin user and authentication system, devise is not needed.
 
 #### Motivation:
@@ -22,9 +22,14 @@ Design inspired from the awesome metronic admin theme:
 - [keenthemes](http://keenthemes.com/preview/metronic/)
 
 #### Screenshots
-![Image of Login screen](https://i.imgur.com/K2715pV.jpg)
-![Image of List](http://i.imgur.com/p34HUU5.png)
-![Image of Create / Edit](http://i.imgur.com/TzOx3i8.png)
+##### Login
+![Image of Login screen](https://i.imgur.com/MJerQSR.jpg)
+##### Dashboard
+![Image of Dashboard](https://i.imgur.com/0g3wSjw.png)
+##### List
+![Image of List](https://i.imgur.com/s1egSS3.png)
+##### Edit / Create
+![Image of Create / Edit](https://i.imgur.com/wf72pZz.png)
 
 ### Installation
 Add this line to your application's Gemfile:

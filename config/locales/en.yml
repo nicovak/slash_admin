@@ -63,5 +63,8 @@ en:
       json_not_valid: JSON is not valid
       username: Username
       password: Password
+      delete_image: Delete image
+      website_homepage: Website homepage
+      sign_out: Sign out
     sessions:
       login_required: You must be logged to access this page.

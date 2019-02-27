@@ -1,25 +1,32 @@
 <%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
 <input type="text" class="form-control" id="<%= f.options[:html][:id] %>_search" />
 <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=<%= a[a.keys.first.to_sym][:google_api_key] %>&libraries=places&callback=initMap">
+  src="https://maps.googleapis.com/maps/api/js?key=<%= a[a.keys.first.to_sym][:google_api_key] %>&libraries=places&callback=initMap&language=<%= I18n.locale %>">
 </script>
 <div class="google-map-container" id="<%= f.options[:html][:id] %>_map" style="width:100%; min-height:350px"></div>
-<%= f.hidden_field a.keys.first, class: 'form-control', id: f.options[:html][:id] + '_' + a.keys.first.to_s, required: required?(f.object, a) %>
-
+<% if guess_field_type(f.object, a.keys.first.to_s) == 'json' || guess_field_type(f.object, a.keys.first.to_s) == 'jsonb' %>
+  <%= f.hidden_field a.keys.first, class: 'form-control', id: f.options[:html][:id] + '_' + a.keys.first.to_s, required: required?(f.object, a), value: f.object.send(a.keys.first.to_s).to_json %>
+<% else %>
+  <%= f.hidden_field a.keys.first, class: 'form-control', id: f.options[:html][:id] + '_' + a.keys.first.to_s, required: required?(f.object, a) %>
+<% end %>
 <script type="text/javascript">
   var map = {};
   var markers;
   function initMap() {
     markers = [];
     var myOptions = {
-      zoom: <%= a[a.keys.first.to_sym][:default_zoom_level] %>,
+      zoom: <%= a[a.keys.first.to_sym][:default_zoom] %>,
       center: new google.maps.LatLng(<%= a[a.keys.first.to_sym][:default_latitude] %>, <%= a[a.keys.first.to_sym][:default_longitude] %>),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       scrollwheel: false
     };
     map = new google.maps.Map(document.getElementById("<%= f.options[:html][:id] %>_map"), myOptions);
     <% if f.object.send(a.keys.first.to_s).present? %>
-      document.getElementById("<%= f.options[:html][:id] %>_search").value = "<%= JSON.parse(f.object.send(a.keys.first.to_s))['formatted_address'] %>";
+      <% if guess_field_type(f.object, a.keys.first.to_s) == 'json' || guess_field_type(f.object, a.keys.first.to_s) == 'jsonb' %>
+        document.getElementById("<%= f.options[:html][:id] %>_search").value = "<%= f.object.send(a.keys.first.to_s)['formatted_address'] %>";
+      <% else %>
+        document.getElementById("<%= f.options[:html][:id] %>_search").value = "<%= JSON.parse(f.object.send(a.keys.first.to_s))['formatted_address'] %>";
+      <% end %>
     <% else %>
       document.getElementById("<%= f.options[:html][:id] %>_search").value = '';
     <% end  %>
@@ -35,15 +42,15 @@
   }
   function onPlaceChanged() {
     cleanAllMarkers();
-    var final_datas = {}
+    var final_datas = {};
     var place = this.getPlace();
-    if (place.length == 0) {
+    if (place.length === 0) {
       return;
     }
     var location = place.geometry.location;
     final_datas.location = {
-      latitude: location.lat(),
-      longitude: location.lng()
+      lat: location.lat(),
+      lng: location.lng()
     };
     final_datas.formatted_address = place.formatted_address;
     for (var i in place.address_components) {
@@ -60,11 +67,11 @@
       var json = JSON.parse(document.getElementById("<%= f.options[:html][:id] + '_' + a.keys.first.to_s %>").value);
       if (json.location) {
         var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(json.location.latitude, json.location.longitude),
+          position: new google.maps.LatLng(json.location.lat, json.location.lng),
           map: map
         });
         markers.push(marker);
-        map.setCenter(new google.maps.LatLng(json.location.latitude, json.location.longitude));
+        map.setCenter(new google.maps.LatLng(json.location.lat, json.location.lng));
       }
     }
   }

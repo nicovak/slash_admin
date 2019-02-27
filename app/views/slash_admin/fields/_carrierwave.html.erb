@@ -1,15 +1,37 @@
 <%= f.label a.to_sym, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
 
-<div class="image-field">
-  <%# TODO handle file that are not image eg pdf %>
-  <% if f.object.send(a).try(:url).present? %>
-    <img src="<%= f.object.send(a) %>" class="image"/>
-  <% end %>
-  <%= f.hidden_field (a.to_s + '_cache').to_sym %>
-  <%= f.file_field a %>
+<% extension = f.object.send(a).file.try(:extension).try(:downcase) %>
+<div class="row row-end">
+  <div class="col-3">
+    <% if extension.present? %>
+      <% if %w{jpg png jpg gif bmp}.include?(extension) %>
+        <% if f.object.send(a).try(:url).present? %>
+          <a href="#" class="image-link-modal" data-toggle="modal" data-target="#imageModal" data-src="<%= f.object.send(a) %>">
+            <div class="block cover-image" style="background: url(<%= f.object.send(a) %>) no-repeat center center;">
+              <div class="image-overlay">
+                <i class="fa-2x icon-magnifier icon-zoom-image"></i>
+              </div>
+            </div>
+          </a>
+        <% end %>
+      <% else %>
+        <a href="<%= f.object.send(a) %>" target="_blank"><%= f.object.send(a) %></a>
+      <% end %>
+    <% else %>
+      <%= t('slash_admin.view.no_image') %>
+    <% end %>
+  </div>
+  <div class="col-9">
+    <%= f.hidden_field (a.to_s + '_cache').to_sym %>
+    <%= f.file_field a %>
+  </div>
 </div>
 
 <% if f.object.send(a).try(:url).present? && required?(f.object, a).blank? %>
-  <%= f.check_box ('remove_' + a.to_s).to_sym %>
-  Supprimer l'image
+  <div class="form-check image-delete">
+    <%= f.check_box ('remove_' + a.to_s).to_sym, class: 'form-check-input' %>
+    <label class="form-check-label" for="<%= f.object.model_name.param_key + '_remove_' + a.to_s %>">
+      <%= t('slash_admin.view.delete_image') %>
+    </label>
+  </div>
 <% end %>

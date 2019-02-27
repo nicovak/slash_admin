@@ -57,7 +57,7 @@ module SlashAdmin
     def after_save_on_create; end
     def create
       authorize! :new, @model_class
-      @model = @model_class.new(permit_params)
+      @model = @model_class.new(handle_specific_field(permit_params))
 
       before_validate_on_create
 
@@ -88,13 +88,24 @@ module SlashAdmin
 
     def before_validate_on_update; end
     def after_save_on_update; end
+
+    def handle_specific_field(params_passed)
+      params_update = params_passed
+      @model_class.columns_hash.each do |k,v|
+        if v.type == :json || v.type == :jsonb
+          params_update[k] = JSON.parse(params_update[k])
+        end
+      end
+      params_update
+    end
+
     def update
       authorize! :edit, @model_class
       @model = @model_class.find(params[:id])
 
       before_validate_on_update
 
-      if @model.update(permit_params)
+      if @model.update(handle_specific_field(permit_params))
         after_save_on_update
         flash[:success] = t('slash_admin.controller.update.success', model_name: @model_name)
         respond_to do |format|
