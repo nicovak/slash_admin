@@ -10,6 +10,9 @@
 A modern and fully overridable admin, just the rails way.
 Embeded admin user and authentication system, devise is not needed.
 
+[DEMO REPOSITORY](https://github.com/nicovak/slash_admin_demo)
+[LIVE RUNNING](https://slashadmin.herokuapp.com/admin)
+
 #### Motivation:
 - Provide to rails the admin it deserves without DSL or obscure logic.
 - Provide an easy to use and modern experience to final users.
