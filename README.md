@@ -10,8 +10,11 @@
 A modern and fully overridable admin, just the rails way.
 Embeded admin user and authentication system, devise is not needed.
 
-[DEMO REPOSITORY](https://github.com/nicovak/slash_admin_demo)
-[LIVE RUNNING](https://slashadmin.herokuapp.com/admin)
+❤️ [DEMO REPOSITORY](https://github.com/nicovak/slash_admin_demo)  
+🚀 [LIVE RUNNING](https://slashadmin.herokuapp.com/admin)
+
+User: `admin`  
+Password: `admin@admin`
 
 #### Motivation:
 - Provide to rails the admin it deserves without DSL or obscure logic.
@@ -25,6 +28,7 @@ Design inspired from the awesome metronic admin theme:
 - [keenthemes](http://keenthemes.com/preview/metronic/)
 
 #### Screenshots
+
 ##### Login
 ![Image of Login screen](https://i.imgur.com/MJerQSR.jpg)
 ##### Dashboard
@@ -35,28 +39,28 @@ Design inspired from the awesome metronic admin theme:
 ![Image of Create / Edit](https://i.imgur.com/wf72pZz.png)
 
 ### Installation
-Add this line to your application's Gemfile:
 
+Add this line to your application's Gemfile:  
 ```ruby
 gem 'slash_admin'
 ```
 
-And then execute:
+And then execute:  
 ```bash
 $ bundle
 ```
 
-Or install it yourself as:
+Or install it yourself as:  
 ```bash
 $ gem install slash_admin
 ```
 
-Gemfile
+Gemfile  
 ```
 gem 'carrierwave'
 ```
 
-Then:
+Then:  
 ```bash
 rails g slash_admin:install
 rails slash_admin:install:migrations
@@ -64,6 +68,7 @@ rails db:migrate
 ```
 
 `config/initializers/mime_types.rb`
+
 ```ruby
 Mime::Type.register "application/xls", :xls
 ```
@@ -100,7 +105,9 @@ SlashAdmin::Admin.create!(
 [Read the docs](https://github.com/nicovak/slash_admin/tree/master/docs/index.md)
 
 ## Contributing
+
 Coming soon.
 
 ## License
+
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
