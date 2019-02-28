@@ -69,7 +69,7 @@ fr:
       username: Nom d'utilisateur
       password: Mot de passe
       delete_image: Supprimer l'image
-      website_hompage: Accueil du site
+      website_homepage: Accueil du site
       sign_out: Se déconnecter
     sessions:
       login_required: Vous devez êtres connecté pour accéder à cette page.
