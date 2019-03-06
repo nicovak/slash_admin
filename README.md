@@ -50,7 +50,7 @@ gem 'slash_admin'
 
 And then execute:  
 ```bash
-$ bundle
+$ bundle install
 ```
 
 Or install it yourself as:  
@@ -65,9 +65,9 @@ gem 'carrierwave'
 
 Then:  
 ```bash
-rails g slash_admin:install
-rails slash_admin:install:migrations
-rails db:migrate
+$ rails g slash_admin:install
+$ rails slash_admin:install:migrations
+$ rails db:migrate
 ```
 
 `config/initializers/mime_types.rb`
@@ -109,8 +109,12 @@ SlashAdmin::Admin.create!(
 
 ## Contributing
 
-Coming soon.
+Bug reports and pull requests are welcome on GitHub at https://github.com/nicovak/slash_admin. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+## Code of Conduct
+
+Everyone interacting in the slash_admin project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/nicovak/slash_admin/tree/master/CODE_OF_CONDUCT.md).

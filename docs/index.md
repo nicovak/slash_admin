@@ -8,7 +8,7 @@
 - [X] Charts
 - [X] Easy widget system
 - [X] I18n
-- [X] Globalize and local based model
+- [X] `Globalize` and local based model
 - [ ] Global search
 - [X] Integration of roles and permission with [cancancan](https://github.com/CanCanCommunity/cancancan)
 
@@ -28,7 +28,7 @@
 ### Miscellaneous
 
 - [ ] Tests
-- [ ] Heroku Demo
+- [X] Heroku Demo
 - [ ] Wiki
 - [X] Docs
 
@@ -40,7 +40,7 @@
 - [X] Override `admin` model
 - [ ] Views
 - [ ] Custom fields
-- [ ] Custom JS & CSS file
+- [X] Custom JS & CSS files
 
 ### Fields form
 
