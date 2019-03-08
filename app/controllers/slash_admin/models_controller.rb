@@ -57,9 +57,10 @@ module SlashAdmin
     def after_save_on_create; end
     def create
       authorize! :new, @model_class
-      @model = @model_class.new(handle_specific_field(permit_params))
+      @model = @model_class.new(permit_params)
 
       before_validate_on_create
+      handle_specific_field
 
       if @model.valid?
         if @model.save!
@@ -75,6 +76,7 @@ module SlashAdmin
       else
         flash[:error] = t('slash_admin.controller.create.error', model_name: @model_name)
       end
+
       respond_to do |format|
         format.html { render :new }
         format.js { render json: { errors: @model.errors.full_messages } }
@@ -89,33 +91,40 @@ module SlashAdmin
     def before_validate_on_update; end
     def after_save_on_update; end
 
-    def handle_specific_field(params_passed)
-      params_update = params_passed
-      @model_class.columns_hash.each do |k,v|
-        if v.type == :json || v.type == :jsonb
-          params_update[k] = JSON.parse(params_update[k])
+    def handle_specific_field
+      # JSON
+      @model_class.columns_hash.each do |k, v|
+        if permit_params[k].is_a? String
+          if v.type == :json || v.type == :jsonb || helpers.serialized_json_field?(@model_class, k.to_s)
+            @model.send("#{k}=", JSON.parse(permit_params[k]))
+          end
         end
       end
-      params_update
+
+      # Other
     end
 
     def update
       authorize! :edit, @model_class
       @model = @model_class.find(params[:id])
+      @model.update(permit_params)
 
       before_validate_on_update
+      handle_specific_field
 
-      if @model.update(handle_specific_field(permit_params))
-        after_save_on_update
-        flash[:success] = t('slash_admin.controller.update.success', model_name: @model_name)
-        respond_to do |format|
-          format.html { redirect_to handle_redirect_after_submit and return }
-          format.js
+      if @model.valid?
+        if @model.save!
+          after_save_on_update
+          flash[:success] = t('slash_admin.controller.update.success', model_name: @model_name)
+          respond_to do |format|
+            format.html { redirect_to handle_redirect_after_submit and return }
+            format.js
+          end
         end
       else
         flash[:error] = t('slash_admin.controller.update.error', model_name: @model_name)
       end
-      render :edit and return
+      render :edit
     end
 
     def show

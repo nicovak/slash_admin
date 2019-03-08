@@ -4,6 +4,10 @@ class JsonValidator < ActiveModel::EachValidator
   end
 
   def valid_json?(string)
+    # handle parsed already string
+    if string.is_a? Hash
+      return true
+    end
     begin
       !!JSON.parse(string)
     rescue JSON::ParserError

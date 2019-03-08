@@ -4,11 +4,7 @@
   src="https://maps.googleapis.com/maps/api/js?key=<%= a[a.keys.first.to_sym][:google_api_key] %>&libraries=places&callback=initMap&language=<%= I18n.locale %>">
 </script>
 <div class="google-map-container" id="<%= f.options[:html][:id] %>_map" style="width:100%; min-height:350px"></div>
-<% if guess_field_type(f.object, a.keys.first.to_s) == 'json' || guess_field_type(f.object, a.keys.first.to_s) == 'jsonb' %>
-  <%= f.hidden_field a.keys.first, class: 'form-control', id: f.options[:html][:id] + '_' + a.keys.first.to_s, required: required?(f.object, a), value: f.object.send(a.keys.first.to_s).to_json %>
-<% else %>
-  <%= f.hidden_field a.keys.first, class: 'form-control', id: f.options[:html][:id] + '_' + a.keys.first.to_s, required: required?(f.object, a) %>
-<% end %>
+<%= f.hidden_field a.keys.first, class: 'form-control', id: f.options[:html][:id] + '_' + a.keys.first.to_s, required: required?(f.object, a), value: f.object.send(a.keys.first.to_s).to_json %>
 <script type="text/javascript">
   var map = {};
   var markers;
@@ -22,11 +18,7 @@
     };
     map = new google.maps.Map(document.getElementById("<%= f.options[:html][:id] %>_map"), myOptions);
     <% if f.object.send(a.keys.first.to_s).present? %>
-      <% if guess_field_type(f.object, a.keys.first.to_s) == 'json' || guess_field_type(f.object, a.keys.first.to_s) == 'jsonb' %>
-        document.getElementById("<%= f.options[:html][:id] %>_search").value = "<%= f.object.send(a.keys.first.to_s)['formatted_address'] %>";
-      <% else %>
-        document.getElementById("<%= f.options[:html][:id] %>_search").value = "<%= JSON.parse(f.object.send(a.keys.first.to_s))['formatted_address'] %>";
-      <% end %>
+      document.getElementById("<%= f.options[:html][:id] %>_search").value = "<%= f.object.send(a.keys.first.to_s)['formatted_address'] %>";
     <% else %>
       document.getElementById("<%= f.options[:html][:id] %>_search").value = '';
     <% end  %>

@@ -172,6 +172,28 @@ module SlashAdmin
       type
     end
 
+    # From shoulda-matchers https://github.com/thoughtbot/shoulda-matchers/blob/da4e6ddd06de54016e7c2afd953120f0f6529c70/lib/shoulda/matchers/rails_shim.rb
+    # @param model @model_class
+    def serialized_attributes_for(model)
+      serialized_columns = model.columns.select do |column|
+        model.type_for_attribute(column.name).is_a?(
+          ::ActiveRecord::Type::Serialized,
+          )
+      end
+
+      serialized_columns.inject({}) do |hash, column|
+        hash[column.name.to_s] = model.type_for_attribute(column.name).coder
+        hash
+      end
+    end
+
+    # @param model @model_class
+    # @param attribute String
+    def serialized_json_field?(model, attribute)
+      hash = serialized_attributes_for(model)
+      hash.key?(attribute) && hash[attribute] == ::ActiveRecord::Coders::JSON
+    end
+
     def admin_custom_field(form, attribute)
       type = attribute[attribute.keys.first][:type].to_s
       render partial: "slash_admin/custom_fields/#{type}", locals: { f: form, a: attribute }
