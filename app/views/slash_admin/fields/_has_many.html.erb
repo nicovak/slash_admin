@@ -5,7 +5,7 @@ object_label(class_name_from_association(f.object, a)),
 {include_blank: true},
 {
   class: 'selectize-model-multiple',
-  multiple: 'multiple',
+  multiple: true,
   'data-model': class_name_from_association(f.object, a).constantize.model_name.to_s.underscore,
   'data-fields': "SlashAdmin::Models::#{class_name_from_association(f.object, a).classify.pluralize}Controller".constantize.new.autocomplete_params.join(' '),
   required: required?(f.object, a)

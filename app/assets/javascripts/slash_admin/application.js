@@ -204,7 +204,7 @@ function init() {
   $(".selectize-multiple").selectize({
     allowEmptyOption: true,
     persist: false,
-    plugins: ['remove_button'],
+    plugins: ['remove_button']
   });
 
   $(".selectize-model-single").selectize({
