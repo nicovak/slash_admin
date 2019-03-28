@@ -96,7 +96,14 @@ module SlashAdmin
       @model_class.columns_hash.each do |k, v|
         if permit_params[k].is_a? String
           if v.type == :json || v.type == :jsonb || helpers.serialized_json_field?(@model_class, k.to_s)
-            @model.send("#{k}=", JSON.parse(permit_params[k]))
+            begin
+              @model.send("#{k}=", JSON.parse(permit_params[k]))
+            rescue
+              binding.pry
+              # Handle case when single string passed, we transform it into array to have a valid json
+              json = permit_params[k].split(',').to_json
+              @model.send("#{k}=", JSON.parse(json))
+            end
           end
         end
       end
