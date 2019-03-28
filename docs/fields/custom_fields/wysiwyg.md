@@ -92,6 +92,8 @@ Finally, in your `app/assets/javascripts/slash_admin/custom.js`
 
 Don't forget `//= stub slash_admin/custom` at the end of your `app/assets/javascripts/application.js`
 
+With rails uploader :
+
 ```javascript
 $(document).on("turbolinks:load", initCustom);
 
@@ -172,4 +174,91 @@ function initCustom() {
     });
   }
 }
+```
+
+With S3 upload
+
+add `gem 'aws-sdk-s3'` and configurer it.
+add `gem 'froala-editor-sdk'`
+
+Rename your `custom.js` to `custom.js.erb` 
+
+Create in your `ApplicationHelper` a method `froala_s3`
+
+```ruby
+def froala_s3
+  # Configuration object.
+  options = {
+    bucket: ENV['S3_BUCKET'],
+    region: ENV['AWS_REGION'],
+    keyStart: 'uploads',
+    acl: 'public-read',
+    accessKey: ENV['AWS_ACCESS_KEY_ID'],
+    secretKey: ENV['AWS_SECRET_ACCESS_KEY']
+  }
+
+  # Compute the signature.
+  FroalaEditorSDK::S3.data_hash(options)
+end
+```
+
+```erb
+<% environment.context_class.instance_eval { include ApplicationHelper } %>
+
+$(document).on("turbolinks:load", initCustom);
+
+function initCustom() {
+  if ($.FroalaEditor) {
+    $(".froala-editor").froalaEditor({
+      // iconsTemplate: 'font_awesome_5',
+      height: 250,
+      enter: $.FroalaEditor.ENTER_BR,
+      toolbarButtons: [
+        "fullscreen",
+        "bold",
+        "italic",
+        "underline",
+        "strikeThrough",
+        "subscript",
+        "superscript",
+        "|",
+        "fontFamily",
+        "fontSize",
+        "color",
+        "inlineStyle",
+        "paragraphStyle",
+        "|",
+        "paragraphFormat",
+        "align",
+        "formatOL",
+        "formatUL",
+        "outdent",
+        "indent",
+        "quote",
+        "-",
+        "insertLink",
+        "insertImage",
+        "insertVideo",
+        "insertFile",
+        "insertTable",
+        "|",
+        "emoticons",
+        "specialCharacters",
+        "insertHR",
+        "selectAll",
+        "clearFormatting",
+        "|",
+        "print",
+        "help",
+        "html",
+        "|",
+        "undo",
+        "redo"
+      ],
+      pluginsEnabled: null,
+      imageMove: true,
+      imageDefaultDisplay: true,
+      imageUploadToS3: <%= froala_s3.to_json.html_safe %>
+    });
+  }
 ```
