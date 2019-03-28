@@ -99,7 +99,6 @@ module SlashAdmin
             begin
               @model.send("#{k}=", JSON.parse(permit_params[k]))
             rescue
-              binding.pry
               # Handle case when single string passed, we transform it into array to have a valid json
               json = permit_params[k].split(',').to_json
               @model.send("#{k}=", JSON.parse(json))
