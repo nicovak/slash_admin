@@ -1,6 +1,7 @@
 <%= f.label a.to_sym, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
 
-<% extension = f.object.send(a).file.try(:extension).try(:downcase) %>
+<% extension = f.object.send(a).file.try(:extension).try(:downcase) || f.object.send(a).file.try(:format).try(:downcase)  %>
+
 <div class="row row-end">
   <div class="col-3">
     <% if extension.present? %>
@@ -15,7 +16,7 @@
           </a>
         <% end %>
       <% else %>
-        <a href="<%= f.object.send(a) %>" target="_blank"><%= f.object.send(a) %></a>
+        <a href="<%= f.object.send(a) %>" target="_blank" class="remote-asset-link"><%= f.object.send(a) %></a>
       <% end %>
     <% else %>
       <%= t('slash_admin.view.no_image') %>
