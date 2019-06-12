@@ -1,12 +1,10 @@
 AllCops:
-  TargetRubyVersion: 2.4
-  # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
-  # to ignore them, so only the ones explicitly set in this file are enabled.
+  TargetRubyVersion: 2.6.3
   DisabledByDefault: true
   Exclude:
-  - '**/templates/**/*'
-  - '**/vendor/**/*'
-  - 'actionpack/lib/action_dispatch/journey/parser.rb'
+    - '**/templates/**/*'
+    - '**/vendor/**/*'
+    - 'actionpack/lib/action_dispatch/journey/parser.rb'
 
 # Prefer &&/|| over and/or.
 Style/AndOr:
@@ -87,19 +85,19 @@ Style/FrozenStringLiteralComment:
   Enabled: true
   EnforcedStyle: always
   Include:
-  - 'activesupport/**/*'
-  - 'activemodel/**/*'
-  - 'actioncable/**/*'
-  - 'activejob/**/*'
-  - 'activerecord/**/*'
-  - 'actionmailer/**/*'
-  - 'actionview/**/*'
-  - 'actionpack/**/*'
+    - 'activesupport/**/*'
+    - 'activemodel/**/*'
+    - 'actioncable/**/*'
+    - 'activejob/**/*'
+    - 'activerecord/**/*'
+    - 'actionmailer/**/*'
+    - 'actionview/**/*'
+    - 'actionpack/**/*'
   Exclude:
-  - 'actionview/test/**/*.builder'
-  - 'actionview/test/**/*.ruby'
-  - 'actionpack/test/**/*.builder'
-  - 'actionpack/test/**/*.ruby'
+    - 'actionview/test/**/*.builder'
+    - 'actionview/test/**/*.ruby'
+    - 'actionpack/test/**/*.builder'
+    - 'actionpack/test/**/*.ruby'
 
 # Use `foo {}` not `foo{}`.
 Layout/SpaceBeforeBlockBraces:

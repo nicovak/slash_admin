@@ -190,8 +190,12 @@ module SlashAdmin
             attr = "#{@model_class.name.singularize.underscore}_translations.#{attr}"
           end
           case attr_type
-          when 'belongs_to', 'has_one'
+          when 'belongs_to'
+            search = search.eager_load(attr.to_s)
             search = search.where(attr.to_s + '_id IN (' + query.join(',') + ')')
+          when 'has_one'
+            search = search.eager_load(attr.to_s)
+            search = search.where(attr.to_s.pluralize + '.id IN (' + query.join(',') + ')')
           when 'string', 'text'
             query.strip! unless query.strip!.nil?
             attributes = @model_class.new.attributes.keys
@@ -237,6 +241,8 @@ module SlashAdmin
             end
           when 'boolean'
             search = search.where("#{attr} = :query", query: to_boolean(query))
+          else
+            raise Exception.new("Unable to query for attribute_type : #{attr_type}")
           end
         end
       end
