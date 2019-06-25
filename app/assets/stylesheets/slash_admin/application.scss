@@ -119,6 +119,10 @@ i {
     }
   }
 
+  .no-break {
+    word-break: normal;
+  }
+
   .grey-block-form > {
     .form-group {
       background: #f9f9f9;
