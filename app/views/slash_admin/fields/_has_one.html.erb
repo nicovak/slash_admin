@@ -1,23 +1,9 @@
-<%= f.label a, class: 'form-control-label label-has-one' %>
-
-<% if f.object.send(a).blank? %>
-  <% f.object.send("#{a.to_s}=", a.to_s.classify.constantize.new) %>
-<% end %>
-
-<%= f.fields_for a do |association_form| %>
-  <% if f.object.id.blank? %>
-    <% method = 'create_params' %>
-  <% else %>
-    <% method = 'update_params' %>
-  <% end %>
-
-  <% if a.is_a?(Hash) %>
-    <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.send(method, from: @model_class) %>
-  <% else %>
-    <% params_assoc = "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.send(method, from: @model_class) %>
-  <% end %>
-
-  <% params_assoc.each do |attribute| %>
-    <%= render 'slash_admin/fields/form_group', f: association_form, a: attribute %>
-  <% end %>
-<% end %>
+<%= f.label a, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
+<%= f.select a.to_s,
+class_name_from_association(f.object, a).constantize.all.order(f.object.send(a).present? ? "CASE WHEN id = #{f.object.send(a).try(:id)} THEN 1 ELSE 0 END DESC" : "id DESC").limit(20).collect { |assoc| [assoc.send(object_label(class_name_from_association(f.object, a))), assoc.id] },
+{
+  prompt: t('slash_admin.view.select_model', model_name: class_name_from_association(f.object, a).constantize.model_name.human.downcase),
+},
+'data-model': class_name_from_association(f.object, a).constantize.model_name.to_s.underscore,
+'data-fields': "SlashAdmin::Models::#{class_name_from_association(f.object, a).classify.pluralize}Controller".constantize.new.autocomplete_params.join(' '),
+class: 'selectize-model-single', required: required?(f.object, a).present? %>

@@ -57,10 +57,12 @@ module SlashAdmin
     def after_save_on_create; end
     def create
       authorize! :new, @model_class
+      handle_has_one
+
       @model = @model_class.new(permit_params)
 
       before_validate_on_create
-      handle_specific_field
+      handle_specific_fields
 
       if @model.valid?
         if @model.save!
@@ -88,35 +90,16 @@ module SlashAdmin
       @model = @model_class.find(params[:id])
     end
 
-    def before_validate_on_update; end
-    def after_save_on_update; end
-
-    def handle_specific_field
-      # JSON
-      @model_class.columns_hash.each do |k, v|
-        if permit_params[k].is_a? String
-          if v.type == :json || v.type == :jsonb || helpers.serialized_json_field?(@model_class, k.to_s)
-            begin
-              @model.send("#{k}=", JSON.parse(permit_params[k]))
-            rescue
-              # Handle case when single string passed, we transform it into array to have a valid json
-              json = permit_params[k].split(',').to_json
-              @model.send("#{k}=", JSON.parse(json))
-            end
-          end
-        end
-      end
-
-      # Other
-    end
-
     def update
       authorize! :edit, @model_class
       @model = @model_class.find(params[:id])
-      @model.update(permit_params)
+
+      handle_has_one
+
+      @model.assign_attributes(permit_params)
 
       before_validate_on_update
-      handle_specific_field
+      handle_specific_fields
 
       if @model.valid?
         if @model.save!
@@ -150,6 +133,49 @@ module SlashAdmin
         format.html { redirect_to main_app.polymorphic_url([:slash_admin, @model_class]) }
         format.js
       end
+    end
+
+    def before_validate_on_update; end
+    def after_save_on_update; end
+
+    def handle_has_one
+      @has_one = {}
+      Array.wrap(update_params + create_params).uniq.each do |p|
+        if helpers.guess_field_type(@model_class.new, p) == 'has_one'
+          @has_one[p] = permit_params[p]
+          permit_params.delete(p)
+        end
+      end
+    end
+
+    def handle_specific_fields
+      # has_one
+      if @has_one.present?
+        @has_one.each do |k, v|
+          if v.present?
+            @model.send("#{k}=", helpers.class_name_from_association(@model, k).constantize.find(v))
+          else
+            @model.send("#{k}=", nil)
+          end
+        end
+      end
+
+      # JSON
+      @model_class.columns_hash.each do |k, v|
+        if permit_params[k].is_a? String
+          if v.type == :json || v.type == :jsonb || helpers.serialized_json_field?(@model_class, k.to_s)
+            begin
+              @model.send("#{k}=", JSON.parse(permit_params[k]))
+            rescue
+              # Handle case when single string passed, we transform it into array to have a valid json
+              json = permit_params[k].split(',').to_json
+              @model.send("#{k}=", JSON.parse(json))
+            end
+          end
+        end
+      end
+
+      # Other
     end
 
     def nestable

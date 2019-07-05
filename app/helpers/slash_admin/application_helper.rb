@@ -152,6 +152,8 @@ module SlashAdmin
       has_many_fields = object_class.reflect_on_all_associations(:has_many).map(&:name)
       has_one_fields = object_class.reflect_on_all_associations(:has_one).map(&:name)
 
+      return if attr.is_a? Hash
+
       type = if object_class&.uploaders&.key?(attr.to_sym)
         'image'
       elsif belongs_to_fields.include?(attr.to_sym)
@@ -223,7 +225,11 @@ module SlashAdmin
           render partial: 'slash_admin/fields/has_many', locals: { f: form, a: attribute }
         end
       elsif has_one_fields.include?(attribute.to_sym)
-        render partial: 'slash_admin/fields/has_one', locals: { f: form, a: attribute }
+        if form.object.class.nested_attributes_options.key?(attribute.to_sym)
+          render partial: 'slash_admin/fields/nested_has_one', locals: { f: form, a: attribute }
+        else
+          render partial: 'slash_admin/fields/has_one', locals: { f: form, a: attribute }
+        end
       elsif form.object.class&.uploaders&.key?(attribute.to_sym)
         render partial: 'slash_admin/fields/carrierwave', locals: { f: form, a: attribute }
       else
