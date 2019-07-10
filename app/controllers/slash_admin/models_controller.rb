@@ -141,7 +141,7 @@ module SlashAdmin
     def handle_has_one
       @has_one = {}
       Array.wrap(update_params + create_params).uniq.each do |p|
-        if helpers.guess_field_type(@model_class.new, p) == 'has_one'
+        if helpers.guess_field_type(@model_class.new, p) == 'has_one' && !@model_class.nested_attributes_options.key?(p.to_sym)
           @has_one[p] = permit_params[p]
           permit_params.delete(p)
         end
