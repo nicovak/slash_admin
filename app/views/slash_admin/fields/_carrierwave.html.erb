@@ -1,38 +1,112 @@
 <%= f.label a.to_sym, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
 
-<% extension = f.object.send(a).file.try(:extension).try(:downcase) || f.object.send(a).file.try(:format).try(:downcase)  %>
+<% if f.object.send(a).is_a? Array %>
+  <% multiple_files = true %>
+<% else %>
+  <% multiple_files = false %>
+<% end %>
 
 <div class="row row-end">
   <div class="col-3">
-    <% if extension.present? %>
-      <% if %w{jpg png jpg gif bmp}.include?(extension) %>
-        <% if f.object.send(a).try(:url).present? %>
-          <a href="#" class="image-link-modal" data-toggle="modal" data-target="#imageModal" data-src="<%= f.object.send(a) %>">
-            <div class="block cover-image" style="background: url(<%= f.object.send(a) %>) no-repeat center center;">
-              <div class="image-overlay">
-                <i class="fa-2x icon-magnifier icon-zoom-image"></i>
+    <% if multiple_files %>
+      <% f.object.send(a).each_with_index do |file, i| %>
+        <% extension = file.try(:extension).try(:downcase) || file.try(:format).try(:downcase) || file.try(:file).try(:extension) %>
+        <% if extension.present? %>
+          <% if %w{jpg png jpeg gif bmp}.include?(extension) %>
+            <% if file.try(:url).present? %>
+              <a href="#" class="image-link-modal" data-toggle="modal" data-target="#imageModal_<%= f.object.class.name + '_' + a + '_' + i.to_s %>" data-src="<%= file.url %>">
+                <div class="block cover-image" style="background: url(<%= file.url %>) no-repeat center center;">
+                  <div class="image-overlay">
+                    <i class="fa-2x icon-magnifier icon-zoom-image"></i>
+                  </div>
+                </div>
+              </a>
+              <div id="imageModal_<%= f.object.class.name + '_' + a + '_' + i.to_s %>" class="modal">
+                <div class="modal-dialog modal-xl">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <img class="modal-content img-fluid" id="image_container_<%= f.object.class.name + '_' + a + '_' + i.to_s %>"/>
+                </div>
               </div>
-            </div>
-          </a>
+              <script type="text/javascript">
+                var excluder_<%= f.object.class.name + '_' + a + '_' + i.to_s %> = "<%= f.object.class.name + '_' + a + '_' + i.to_s %>";
+                var target_<%= f.object.class.name + '_' + a + '_' + i.to_s %> = "imageModal_" + excluder_<%= f.object.class.name + '_' + a + '_' + i.to_s %>;
+                $('a[data-target="#'+ target_<%= f.object.class.name + '_' + a + '_' + i.to_s %> +'"]').on('click', function(e) {
+                  e.preventDefault();
+
+                  var container = $('#image_container_' + excluder_<%= f.object.class.name + '_' + a + '_' + i.to_s %>);
+                  container.attr('src', '');
+
+                  var src = $(this).attr('data-src');
+
+                  container.attr('src', src);
+                });
+              </script>
+            <% else %>
+              <a href="<%= file %>" target="_blank" class="remote-asset-link"><%= file.url %></a>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= t('slash_admin.view.no_image') %>
         <% end %>
-      <% else %>
-        <a href="<%= f.object.send(a) %>" target="_blank" class="remote-asset-link"><%= f.object.send(a) %></a>
       <% end %>
     <% else %>
-      <%= t('slash_admin.view.no_image') %>
+      <% extension = f.object.send(a).file.try(:extension).try(:downcase) || f.object.send(a).file.try(:format).try(:downcase) || f.object.send(a).file.try(:file).try(:extension)  %>
+      <% if extension.present? %>
+        <% if %w{jpg png jpeg gif bmp}.include?(extension) %>
+          <% if f.object.send(a).try(:url).present? %>
+            <a href="#" class="image-link-modal" data-toggle="modal" data-target="#imageModal_<%= f.object.class.name + '_' + a %>" data-src="<%= f.object.send(a) %>">
+              <div class="block cover-image" style="background: url(<%= f.object.send(a) %>) no-repeat center center;">
+                <div class="image-overlay">
+                  <i class="fa-2x icon-magnifier icon-zoom-image"></i>
+                </div>
+              </div>
+            </a>
+            <div id="imageModal_<%= f.object.class.name + '_' + a %>" class="modal">
+              <div class="modal-dialog modal-xl">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <img class="modal-content img-fluid" id="image_container_<%= f.object.class.name + '_' + a %>"/>
+              </div>
+            </div>
+            <script type="text/javascript">
+              var excluder_<%= f.object.class.name + '_' + a %> = "<%= f.object.class.name + '_' + a %>";
+              var target_<%= f.object.class.name + '_' + a %> = "imageModal_" + excluder_<%= f.object.class.name + '_' + a %>;
+              $('a[data-target="#'+ target_<%= f.object.class.name + '_' + a %> +'"]').on('click', function(e) {
+                e.preventDefault();
+
+                var container = $('#image_container_' + excluder_<%= f.object.class.name + '_' + a %>);
+                container.attr('src', '');
+
+                var src = $(this).attr('data-src');
+
+                container.attr('src', src);
+              });
+            </script>
+          <% end %>
+        <% else %>
+          <a href="<%= f.object.send(a) %>" target="_blank" class="remote-asset-link"><%= f.object.send(a) %></a>
+        <% end %>
+      <% else %>
+        <%= t('slash_admin.view.no_image') %>
+      <% end %>
     <% end %>
   </div>
   <div class="col-9">
     <%= f.hidden_field (a.to_s + '_cache').to_sym %>
-    <%= f.file_field a %>
+    <%= f.file_field a, multiple: multiple_files %>
   </div>
 </div>
 
-<% if f.object.send(a).try(:url).present? && required?(f.object, a).blank? %>
-  <div class="form-check image-delete">
-    <%= f.check_box ('remove_' + a.to_s).to_sym, class: 'form-check-input' %>
-    <label class="form-check-label" for="<%= f.object.model_name.param_key + '_remove_' + a.to_s %>">
-      <%= t('slash_admin.view.delete_image') %>
-    </label>
-  </div>
+<% unless multiple_files %>
+  <% if f.object.send(a).try(:url).present? && required?(f.object, a).blank? %>
+    <div class="form-check image-delete">
+      <%= f.check_box ('remove_' + a.to_s).to_sym, class: 'form-check-input' %>
+      <label class="form-check-label" for="<%= f.object.model_name.param_key + '_remove_' + a.to_s %>">
+        <%= t('slash_admin.view.delete_image') %>
+      </label>
+    </div>
+  <% end %>
 <% end %>
