@@ -19,10 +19,14 @@ module SlashAdmin
         end
       end
 
-      # Direct Link temp TODO
       if s[:path].present?
-        access = true
+        if s[:role].present?
+          if can? s[:role], s[:role]
+            access = true
+          end
+        end
       end
+
       access
     end
 
