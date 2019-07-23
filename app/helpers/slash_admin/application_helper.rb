@@ -20,6 +20,9 @@ module SlashAdmin
       end
 
       if s[:path].present?
+        if can? s[:role], s[:role]
+          access = true
+        end
         if s[:role].present?
           if can? s[:role], s[:role]
             access = true
