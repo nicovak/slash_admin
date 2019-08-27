@@ -56,28 +56,28 @@
       <% if extension.present? %>
         <% if %w{jpg png jpeg gif bmp}.include?(extension) %>
           <% if f.object.send(a).try(:url).present? %>
-            <a href="#" class="image-link-modal" data-toggle="modal" data-target="#imageModal_<%= f.object.class.name + '_' + a %>" data-src="<%= f.object.send(a) %>">
+            <a href="#" class="image-link-modal" data-toggle="modal" data-target="#imageModal_<%= f.object.class.name + '_' + a.to_s %>" data-src="<%= f.object.send(a) %>">
               <div class="block cover-image" style="background: url(<%= f.object.send(a) %>) no-repeat center center;">
                 <div class="image-overlay">
                   <i class="fa-2x icon-magnifier icon-zoom-image"></i>
                 </div>
               </div>
             </a>
-            <div id="imageModal_<%= f.object.class.name + '_' + a %>" class="modal">
+            <div id="imageModal_<%= f.object.class.name + '_' + a.to_s %>" class="modal">
               <div class="modal-dialog modal-xl">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-                <img class="modal-content img-fluid" id="image_container_<%= f.object.class.name + '_' + a %>"/>
+                <img class="modal-content img-fluid" id="image_container_<%= f.object.class.name + '_' + a.to_s %>"/>
               </div>
             </div>
             <script type="text/javascript">
-              var excluder_<%= f.object.class.name + '_' + a %> = "<%= f.object.class.name + '_' + a %>";
-              var target_<%= f.object.class.name + '_' + a %> = "imageModal_" + excluder_<%= f.object.class.name + '_' + a %>;
-              $('a[data-target="#'+ target_<%= f.object.class.name + '_' + a %> +'"]').on('click', function(e) {
+              var excluder_<%= f.object.class.name + '_' + a.to_s %> = "<%= f.object.class.name + '_' + a.to_s %>";
+              var target_<%= f.object.class.name + '_' + a.to_s %> = "imageModal_" + excluder_<%= f.object.class.name + '_' + a.to_s %>;
+              $('a[data-target="#'+ target_<%= f.object.class.name + '_' + a.to_s %> +'"]').on('click', function(e) {
                 e.preventDefault();
 
-                var container = $('#image_container_' + excluder_<%= f.object.class.name + '_' + a %>);
+                var container = $('#image_container_' + excluder_<%= f.object.class.name + '_' + a.to_s %>);
                 container.attr('src', '');
 
                 var src = $(this).attr('data-src');

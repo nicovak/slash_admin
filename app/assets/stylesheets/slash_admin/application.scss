@@ -1355,8 +1355,11 @@ i {
   }
 
   #toast-container {
+    box-shadow: none;
+
     > div {
       opacity: 1;
+      box-shadow: none;
 
       &hover {
         box-shadow: none;
