@@ -8,7 +8,7 @@ require 'slash_admin/version'
 Gem::Specification.new do |s|
   s.name        = 'slash_admin'
   s.version     = SlashAdmin::VERSION
-  s.required_ruby_version = '>= 2.4.0'
+  s.required_ruby_version = '>= 2.5.0'
   s.authors     = ['KOVACS Nicolas']
   s.email       = ['pro.nicovak@gmail.com']
   s.homepage    = 'http://slashadmin.github.io'
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib,vendor}/**/*', 'README.md', 'LICENSE.md']
 
-  s.add_dependency 'rails', '~> 5.0'
+  s.add_dependency 'rails', '~> 6.0'
   s.add_dependency 'http_accept_language'
   s.add_dependency 'kaminari'
   s.add_dependency 'cancancan'
