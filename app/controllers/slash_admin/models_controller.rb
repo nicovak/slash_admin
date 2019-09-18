@@ -43,7 +43,7 @@ module SlashAdmin
       respond_to do |format|
         format.html
         format.csv { stream_csv_report }
-        format.xls { send_data render_to_string, filename: "#{@model_name.pluralize.upcase}_#{Date.today}.xls" }
+        format.xls { send_data render_to_string, filename: "#{@model_class.model_name.plural.upcase}_#{Date.today}.xls" }
         format.js { @models }
       end
     end
@@ -433,7 +433,7 @@ module SlashAdmin
       query = @models_export.limit(5000).to_sql
       query_options = 'WITH CSV HEADER'
 
-      stream_file("#{@model_name.pluralize.underscore.gsub!(/( )/, '_').upcase}_#{Date.today}", 'csv') do |stream|
+      stream_file("#{@model_class.model_name.plural.upcase}_#{Date.today}", 'csv') do |stream|
         stream_query_rows(query, query_options) do |row_from_db|
           stream.write row_from_db
         end
