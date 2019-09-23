@@ -35,7 +35,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'cocoon'
   s.add_dependency 'datetime_picker_rails'
   s.add_dependency 'jquery-rails'
-  s.add_dependency 'bootstrap-datepicker-rails'
   s.add_dependency 'jquery-minicolors-rails'
   s.add_dependency 'momentjs-rails'
   s.add_dependency 'tether-rails'

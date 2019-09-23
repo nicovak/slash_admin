@@ -13,7 +13,8 @@
 //= require Chart.min
 //= require highcharts
 //= require chartkick
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker.min
+//= require bootstrap-datepicker.fr.min
 //= require sweetalert
 //= require cocoon
 //= require toastr
