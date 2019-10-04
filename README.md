@@ -4,19 +4,20 @@
 
 # SlashAdmin
 
+[![Gem Version](https://badge.fury.io/rb/slash_admin.svg)](https://badge.fury.io/rb/slash_admin)
 [![Code Climate](https://codeclimate.com/github/nicovak/slash_admin/badges/gpa.svg)](https://codeclimate.com/github/nicovak/slash_admin)
 [![CircleCI](https://circleci.com/gh/nicovak/slash_admin/tree/master.svg?style=svg&circle-token=6e9ebd7fef3ebc881c75a769b0970808024a2ae9)](https://circleci.com/gh/nicovak/slash_admin/tree/master)
 
 A modern and fully overridable admin, just the rails way.
 Embeded admin user and authentication system, devise is not needed.
 
-❤️ [Demo repository](https://github.com/nicovak/slash_admin_demo)  
+❤️ [Demo repository](https://github.com/nicovak/slash_admin_demo)
 🚀 [Live running](https://slashadmin.herokuapp.com/admin)
 
-User  
+User
 `admin`
 
-Password  
+Password
 `admin@admin`
 
 #### Motivation:
@@ -43,27 +44,27 @@ Design inspired from the awesome metronic admin theme:
 
 ### Installation
 
-Add this line to your application's Gemfile:  
+Add this line to your application's Gemfile:
 ```ruby
 gem 'slash_admin'
 ```
 
-And then execute:  
+And then execute:
 ```bash
 $ bundle install
 ```
 
-Or install it yourself as:  
+Or install it yourself as:
 ```bash
 $ gem install slash_admin
 ```
 
-Gemfile  
+Gemfile
 ```
 gem 'carrierwave'
 ```
 
-Then:  
+Then:
 ```bash
 $ rails g slash_admin:install
 $ rails slash_admin:install:migrations
