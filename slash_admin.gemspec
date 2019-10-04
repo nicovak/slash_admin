@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.5.0'
   s.authors     = ['KOVACS Nicolas']
   s.email       = ['pro.nicovak@gmail.com']
-  s.homepage    = 'http://slashadmin.github.io'
+  s.homepage    = 'https://github.com/nicovak/slash_admin'
   s.summary     = 'A modern and overridable admin gem, just the rails way.'
   s.description = 'A modern and overridable admin gem, just the rails way.'
   s.license     = 'MIT'
