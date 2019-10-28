@@ -8,10 +8,10 @@ module SlashAdmin
   class SelectizeController < SlashAdmin::BaseController
     def search
       model_class = model
-      if model_class.respond_to? :translated_attribute_names
-        results = model_class.with_translations(I18n.locale).all
+      results = if model_class.respond_to? :translated_attribute_names
+        model_class.with_translations(I18n.locale).all
       else
-        results = model_class.all
+        model_class.all
       end
 
       duplicate_for_orwhere = results
@@ -48,11 +48,9 @@ module SlashAdmin
         end
       end
 
-
-
       formatted_result = []
       results.each do |r|
-        formatted_result << { id: r.id, name: helpers.show_object(r) }
+        formatted_result << {id: r.id, name: helpers.show_object(r)}
       end
 
       render json: formatted_result
