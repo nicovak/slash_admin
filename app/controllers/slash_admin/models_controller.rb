@@ -215,10 +215,13 @@ module SlashAdmin
           if @model_class.respond_to?(:translated_attribute_names) && @model_class.translated_attribute_names.include?(attr.to_sym)
             attr = "#{@model_class.name.singularize.underscore}_translations.#{attr}"
           end
+          attr_prefixed = model.table_name + '.' + attr
           case attr_type
+          # TODO : Should be rewritten
           when 'belongs_to'
             search = search.eager_load(attr.to_s)
             search = search.where(attr.to_s + '_id IN (' + query.join(',') + ')')
+          # TODO : Should be rewritten
           when 'has_one'
             search = search.eager_load(attr.to_s)
             search = search.where(attr.to_s.pluralize + '.id IN (' + query.join(',') + ')')
@@ -229,33 +232,33 @@ module SlashAdmin
               virtual_fields << attr.to_s
             else
               begin
-                search = search.where("unaccent(lower(#{attr})) LIKE unaccent(lower(:query))", query: "%#{query}%")
+                search = search.where("unaccent(lower(#{attr_prefixed})) LIKE unaccent(lower(:query))", query: "%#{query}%")
               rescue
-                search = search.where("lower(#{attr}) LIKE lower(:query)", query: "%#{query}%")
+                search = search.where("lower(#{attr_prefixed}) LIKE lower(:query)", query: "%#{query}%")
               end
             end
           when 'date', 'datetime'
             if query.is_a?(String)
-              search = search.where("#{attr} = :query", query: query)
+              search = search.where("#{attr_prefixed} = :query", query: query)
             else
               if query['from'].present? || query['to'].present?
                 if query['from'].to_date != query['to'].to_date
                   if query['from'].present?
-                    search = search.where("#{attr} >= :query", query: query['from'].to_date)
+                    search = search.where("#{attr_prefixed} >= :query", query: query['from'].to_date)
                   end
                   if query['to'].present?
-                    search = search.where("#{attr} <= :query", query: query['to'].to_date)
+                    search = search.where("#{attr_prefixed} <= :query", query: query['to'].to_date)
                   end
                 else
-                  search = search.where("#{attr} = :query", query: query['from'].to_date)
+                  search = search.where("#{attr_prefixed} = :query", query: query['from'].to_date)
                 end
               end
             end
           when 'decimal', 'number', 'integer'
             if query.instance_of?(ActionController::Parameters)
               if query['from'].present? || query['to'].present?
-                search = search.where("#{attr} >= :query", query: query['from']) if query['from'].present?
-                search = search.where("#{attr} <= :query", query: query['to']) if query['to'].present?
+                search = search.where("#{attr_prefixed} >= :query", query: query['from']) if query['from'].present?
+                search = search.where("#{attr_prefixed} <= :query", query: query['to']) if query['to'].present?
               end
             else
               if attr_type == 'decimal' || attr_type == 'number'
@@ -263,10 +266,10 @@ module SlashAdmin
               elsif attr_type == 'integer'
                 query = query.to_i
               end
-              search = search.where("#{attr} = :query", query: query)
+              search = search.where("#{attr_prefixed} = :query", query: query)
             end
           when 'boolean'
-            search = search.where("#{attr} = :query", query: to_boolean(query))
+            search = search.where("#{attr_prefixed} = :query", query: to_boolean(query))
           else
             raise Exception.new("Unable to query for attribute_type : #{attr_type}")
           end
