@@ -17,43 +17,52 @@
           <input type="checkbox" class="toggle-all"/>
         </th>
         <th
-        data-order-field="id"
-        <% if params[:order_field].to_s == 'id' %>
-        class="ordered <%= params[:order].downcase %>"
-        data-order="<%= params[:order] %>"
-        <% else %>
-        class="ordered"
-        <% end %>
-        >#
+          data-order-field="id"
+          <% if params[:order_field].to_s == 'id' %>
+          class="ordered <%= params[:order].downcase %>"
+          data-order="<%= params[:order] %>"
+          <% else %>
+          class="ordered"
+          <% end %>
+          >#
         </th>
         <% list_params.each do |attr| %>
           <% if attr.is_a?(Hash) %>
-            <th><%= @model_class.human_attribute_name(attr.keys.first) %></th>
+            <th>
+              <%= @model_class.human_attribute_name(attr.keys.first) %>
+              <% if tooltips.key? attr.keys.first %>
+                <a href="#" data-toggle="tooltip" data-placement="top" title="<%= tooltips[attr] %>"><i class="fas fa-question-circle"></i></a>
+              <% end %>
+            </th>
           <% else %>
             <th
-            <% if orderable?(@model_class, attr) %>
-            data-order-field="<%= attr %>"
-            <% if params[:order_field].to_s == attr.to_s %>
-            class="ordered <%= params[:order].downcase %>"
-            data-order="<%= params[:order] %>"
-            <% else %>
-            class="ordered"
-            <% end %>
-            <% end %>>
+              <% if orderable?(@model_class, attr) %>
+              data-order-field="<%= attr %>"
+              <% if params[:order_field].to_s == attr.to_s %>
+              class="ordered <%= params[:order].downcase %>"
+              data-order="<%= params[:order] %>"
+              <% else %>
+              class="ordered"
+              <% end %>
+              <% end %>>
               <%= @model_class.human_attribute_name(attr) %>
+              <% if tooltips.key? attr %>
+                <a href="#" data-toggle="tooltip" data-placement="top" title="<%= tooltips[attr] %>"><i class="fas fa-question-circle"></i></a>
+            <% end %>
             </th>
           <% end %>
         <% end %>
         <th class="text-center"><%= t('slash_admin.view.actions') %></th>
       </tr>
 
-        <%= render 'filters', model: @model_class %>
+      <%= render 'filters', model: @model_class %>
       </thead>
 
       <tbody>
       <% @models.each do |m| %>
         <tr>
-          <td class="fit"><input type="checkbox" name="<%= @model_name.pluralize.downcase %>[] %>" value="<%= m.id %>"></td>
+          <td class="fit"><input type="checkbox" name="<%= @model_name.pluralize.downcase %>[] %>" value="<%= m.id %>">
+          </td>
           <td class="fit"><%= m.id %></td>
           <% list_params.each do |attr| %>
             <% if attr.is_a?(Hash) %>
@@ -65,7 +74,7 @@
                     <em><%= t('slash_admin.view.no_image') %></em>
                   <% end %>
                 </td>
-                <% else %>
+              <% else %>
                 <td class="<%= attr.to_s.parameterize.underscore.downcase %>"><%= render attr.keys.first.to_s, model: m %></td>
               <% end %>
             <% else %>
@@ -88,7 +97,8 @@
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel"><%= t('slash_admin.view.associations') %> <strong>(<%= m.send(attr).length %>)</strong></h5>
+                          <h5 class="modal-title" id="exampleModalLabel"><%= t('slash_admin.view.associations') %>
+                            <strong>(<%= m.send(attr).length %>)</strong></h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
@@ -99,7 +109,7 @@
                           <% else %>
                             <% m.send(attr).each do |a| %>
                               <%= link_to(edit_polymorphic_url([:slash_admin, a]), class: 'link', target: '_blank') do %>
-                                <%= show_object(a) %><br />
+                                <%= show_object(a) %><br/>
                               <% end rescue show_object(a) %>
                             <% end %>
                           <% end %>
@@ -145,7 +155,7 @@
 <%= render 'slash_admin/shared/better_paginate' %>
 
 <script type="text/javascript">
-  $(document).on('turbolinks:load', function() {
+  $(document).on('turbolinks:load', function () {
     $('.bootstrap-datepicker').datepicker({
       language: '<%= I18n.locale.to_s %>',
       format: "YYYY-MM-DD",
@@ -156,7 +166,7 @@
     });
 
     // handle Sort
-    $('.ordered').on('click', function() {
+    $('.ordered').on('click', function () {
       var field = $(this).data('order-field');
 
       if (field) {
@@ -170,13 +180,13 @@
 
         // change order field should reset pagination
         $('.admin-pagination input').val(1);
-        $('.admin-pagination option:first').prop('selected',true);
+        $('.admin-pagination option:first').prop('selected', true);
         handleFiltersAndLocation();
       }
     });
 
     function toggle_order(order_direction) {
-      return order_direction == 'DESC' ? 'ASC' : 'DESC';
+      return order_direction === 'DESC' ? 'ASC' : 'DESC';
     }
 
     function handle_form(field, order_direction) {
@@ -240,11 +250,11 @@
       }
     });
 
-    $('#reset-filters').on('click', function(e) {
+    $('#reset-filters').on('click', function (e) {
       e.preventDefault();
 
       $("input[name*='filters']").val('');
-      $("select[name*='filters'] option:first").prop('selected',true);
+      $("select[name*='filters'] option:first").prop('selected', true);
 
       $('#filters').trigger('submit');
     });
@@ -258,9 +268,9 @@
       var paginationParams = $('.admin-pagination').first().serialize();
       var orderParams = $('#order').serialize();
 
-      parameters = '';
-      $.each([filtersParams, paginationParams, orderParams], function(index, params) {
-        if (index != 0) {
+      var parameters = '';
+      $.each([filtersParams, paginationParams, orderParams], function (index, params) {
+        if (index !== 0) {
           parameters += '&' + params;
         } else {
           parameters += params;

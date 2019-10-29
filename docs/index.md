@@ -5,6 +5,7 @@
 - Ruby >= 2.4.0
 
 ### Dashboard
+
 - [X] Charts
 - [X] Easy widget system
 - [X] I18n
@@ -13,10 +14,12 @@
 - [X] Integration of roles and permission with [cancancan](https://github.com/CanCanCommunity/cancancan)
 
 ### Create / Edit
+
 - [X] Default params for create
 - [X] Handling form and helpers
 
 ### List
+
 - [X] Default export of model (excel and csv)
 - [X] Filter system + search based on data type
 - [X] Batch action
@@ -24,6 +27,7 @@
 - [X] Handle `has_one`, `belongs_to`, `has_many`
 - [X] Sortable and nested list
 - [X] Better handling of field type
+- [X] Add tooltip to attribute th
 
 ### Miscellaneous
 

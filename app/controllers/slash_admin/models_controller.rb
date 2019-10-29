@@ -9,7 +9,7 @@ module SlashAdmin
     before_action :handle_default_params
     before_action :handle_assocations
 
-    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_translatable?, :translatable_params
+    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_translatable?, :translatable_params, :tooltips
 
     def index
       authorize! :index, @model_class
@@ -145,6 +145,16 @@ module SlashAdmin
     def after_save_on_update
     end
 
+    # Add tooltip to th list view
+    # {
+    #   attr: 'Value',
+    #   title: 'The title of my model',
+    # }
+    #
+    def tooltips
+      {}
+    end
+
     def handle_has_one
       @has_one = {}
       Array.wrap(update_params + create_params).uniq.each do |p|
@@ -224,11 +234,11 @@ module SlashAdmin
           end
           attr_prefixed = model.table_name + "." + attr
           case attr_type
-          # TODO : Should be rewritten
+            # TODO : Should be rewritten
           when "belongs_to"
             search = search.eager_load(attr.to_s)
             search = search.where(attr.to_s + "_id IN (" + query.join(",") + ")")
-          # TODO : Should be rewritten
+            # TODO : Should be rewritten
           when "has_one"
             search = search.eager_load(attr.to_s)
             search = search.where(attr.to_s.pluralize + ".id IN (" + query.join(",") + ")")

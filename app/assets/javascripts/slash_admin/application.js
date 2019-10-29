@@ -33,6 +33,7 @@ $(document).on("turbolinks:load", init);
 
 function init() {
   Turbolinks.clearCache();
+  $('[data-toggle="tooltip"]').tooltip();
 
   $('.page-sidebar a[href$="#"]').on("click", function(e) {
     e.preventDefault();

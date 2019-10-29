@@ -9,10 +9,7 @@ namespace :slash_admin, path: '/admin' do
     post   'froala_manage' => 'froala#manage'
     delete 'froala_delete' => 'froala#delete'
 
-    ...
-
     scope module: 'models' do
-      ...
     end
 ```
 

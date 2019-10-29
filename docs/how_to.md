@@ -6,7 +6,7 @@ You can define `except` and `only` on ressources.
 You can use `cancancan` for roles and permission [docs](https://github.com/nicovak/slash_admin/blob/master/docs/security.md)
 
 ```ruby
-namespace :slash_admin, path: 'admin' do
+namespace :slash_admin, path: "/admin" do
   scope module: 'models' do
     resources :pages
   end
@@ -74,6 +74,8 @@ end
 
 In controller:
 
+#### Change default config ####
+
 ```ruby
 def handle_default
   @sub_title = nil
@@ -85,13 +87,21 @@ def handle_default
 end
 ```
 
-Eg: I wanna change the @per values:
+```ruby
+def handle_default
+  super # call super method to keep other instance variables
+  @per = 20
+end
+```
+
+#### Add Tooltip ####
 
 ```ruby
-  def handle_default
-    super # call super method to keep other instance variables
-    @per = 20
-  end
+def tooltips
+{
+  my_attr: "My Content",
+}
+end
 ```
 
 Filters in list view for `belongs_to` and `has_one relations`, In the target controller:
@@ -166,7 +176,7 @@ module SlashAdmin
 end
 ```
 
-Relax admin will use the first locale in your `I18n.available_locales` as default.
+SlashAdmin will use the first locale in your `I18n.available_locales` as default.
 
 In `config/application.rb`
 
