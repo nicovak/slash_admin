@@ -96,6 +96,10 @@ i {
   }
 }
 
+p[data-f-id="pbf"] {
+  display: none !important;
+}
+
 #admin-dashboard {
   background: $tertiary;
   padding-top: 68px;

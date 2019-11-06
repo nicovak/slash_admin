@@ -22,7 +22,8 @@ module SlashAdmin
       column = @model_class.arel_table[params[:order_field].to_sym]
       order = params[:order].downcase
       if %w[asc desc].include?(order)
-        if @models_export.is_a? Array
+        attributes = @model_class.new.attributes.keys
+        if (!attributes.include?(params[:order_field]) && @model_class.method_defined?(params[:order_field])) || @models_export.is_a?(Array)
           @models = if order == "asc"
             @models_export.sort { |m1, m2| m1.send(params[:order_field]) <=> m2.send(params[:order_field]) }
           else
@@ -296,7 +297,7 @@ module SlashAdmin
       params[:filters].each do |attr, query|
         unless query.blank?
           if virtual_fields.present? && virtual_fields.include?(attr.to_s)
-            search = search.select { |s| s.send(attr).present? ? s.send(attr).downcase.include?(query.downcase) : nil }
+            search = search.select { |s| s.send(attr).present? ? s.send(attr).to_s.downcase.include?(query.downcase) : nil }
           end
         end
       end
