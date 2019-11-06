@@ -22,8 +22,7 @@ module SlashAdmin
       column = @model_class.arel_table[params[:order_field].to_sym]
       order = params[:order].downcase
       if %w[asc desc].include?(order)
-        attributes = @model_class.new.attributes.keys
-        if (!attributes.include?(params[:order_field]) && @model_class.method_defined?(params[:order_field])) || @models_export.is_a?(Array)
+        if @models_export.is_a?(Array)
           @models = if order == "asc"
             @models_export.sort { |m1, m2| m1.send(params[:order_field]) <=> m2.send(params[:order_field]) }
           else
@@ -233,6 +232,7 @@ module SlashAdmin
           if @model_class.respond_to?(:translated_attribute_names) && @model_class.translated_attribute_names.include?(attr.to_sym)
             attr = "#{@model_class.name.singularize.underscore}_translations.#{attr}"
           end
+          # aggregate_reflections ?
           attr_prefixed = model.table_name + "." + attr
           case attr_type
             # TODO : Should be rewritten
