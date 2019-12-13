@@ -1,4 +1,5 @@
 <%= f.label a.to_sym, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
+<%= render 'slash_admin/shared/tooltip', a: a %>
 
 <% if f.object.send(a).is_a? Array %>
   <% multiple_files = true %>

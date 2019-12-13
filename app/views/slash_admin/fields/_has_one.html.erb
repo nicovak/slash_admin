@@ -1,4 +1,5 @@
 <%= f.label a, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
+<%= render 'slash_admin/shared/tooltip', a: a %>
 <%= f.select a.to_s,
 class_name_from_association(f.object, a).constantize.all.order(f.object.send(a).present? ? "CASE WHEN id = #{f.object.send(a).try(:id)} THEN 1 ELSE 0 END DESC" : "id DESC").limit(20).collect { |assoc| [assoc.send(object_label(class_name_from_association(f.object, a))), assoc.id] },
 {

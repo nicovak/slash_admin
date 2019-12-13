@@ -1,4 +1,5 @@
 <%= f.label a, class: 'form-control-label label-has-one' %>
+<%= render 'slash_admin/shared/tooltip', a: a %>
 
 <% if f.object.send(a).blank? %>
   <% f.object.send("#{a.to_s}=", a.to_s.classify.constantize.new) %>

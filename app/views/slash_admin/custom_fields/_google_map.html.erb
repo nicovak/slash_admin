@@ -1,4 +1,6 @@
 <%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a).present? ? 'required' : ''}" %>
+<%= render 'slash_admin/shared/tooltip', a: a %>
+
 <input type="text" class="form-control" id="<%= f.options[:html][:id] %>_search" />
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=<%= a[a.keys.first.to_sym][:google_api_key] %>&libraries=places&callback=initMap&language=<%= I18n.locale %>">

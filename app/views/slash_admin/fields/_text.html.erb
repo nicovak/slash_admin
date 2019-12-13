@@ -1,2 +1,3 @@
 <%= f.label a, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
+<%= render 'slash_admin/shared/tooltip', a: a %>
 <%= f.text_area a, class: 'form-control', rows: '5', required: required?(f.object, a) %>

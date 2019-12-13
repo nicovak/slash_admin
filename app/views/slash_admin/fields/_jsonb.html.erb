@@ -1,5 +1,6 @@
 <%= f.label a, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}"%>
-<%= f.text_area a, class: "form-control #{'jsonarea_' + f.object.class.to_s + '_' + a.to_s}", required: required?(f.object, a) %>
+<%= render 'slash_admin/shared/tooltip', a: a %>
+<%= f.text_area a, class: "form-control #{'jsonarea_' + f.object.class.to_s + '_' + a.to_s}", required: required?(f.object, a), value: f.object.send(a).to_json  %>
 
 <script src="https://rawgithub.com/zaach/jsonlint/79b553fb65c192add9066da64043458981b3972b/lib/jsonlint.js"></script>
 <script type="text/javascript">

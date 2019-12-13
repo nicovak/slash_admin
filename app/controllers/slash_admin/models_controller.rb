@@ -145,7 +145,7 @@ module SlashAdmin
     def after_save_on_update
     end
 
-    # Add tooltip to th list view
+    # Add tooltip to th list view & edit/create view
     # {
     #   attr: 'Value',
     #   title: 'The title of my model',
