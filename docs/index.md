@@ -62,6 +62,8 @@
 - [X] `integer`
 - [X] `number`
 - [X] `json`
+- [X] `jsonb`
+- [X] `inet`
 
 ### Custom fields form
 
