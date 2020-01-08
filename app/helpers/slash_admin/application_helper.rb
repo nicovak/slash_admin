@@ -42,7 +42,7 @@ module SlashAdmin
     def class_name_from_association(obj, field_name)
       [:belongs_to, :has_many, :has_one].each do |relation|
         obj.class.reflect_on_all_associations(relation).each do |association|
-          return association.active_record.name if association.name == field_name.to_sym
+          return association.class_name if association.name == field_name.to_sym
         end
       end
 
