@@ -3,7 +3,7 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.6.3
+  TargetRubyVersion: 2.7.0
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
   DisabledByDefault: true
@@ -79,7 +79,7 @@ Layout/EmptyLinesAroundModuleBody:
 Style/HashSyntax:
   Enabled: true
 
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   Enabled: true
 
 # Method definitions after `private` or `protected` isolated calls need one
@@ -168,7 +168,7 @@ Layout/Tab:
   Enabled: true
 
 # Blank lines should not have any spaces.
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Enabled: true
 
 # No trailing whitespace.
@@ -195,7 +195,7 @@ Lint/RequireParentheses:
 Lint/ShadowingOuterLocalVariable:
   Enabled: true
 
-Lint/StringConversionInInterpolation:
+Lint/RedundantStringCoercion:
   Enabled: true
 
 Lint/UriEscapeUnescape:
