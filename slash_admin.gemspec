@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 6.0"
   s.add_dependency "http_accept_language"
-  s.add_dependency "kaminari"
+  s.add_dependency "pagy"
   s.add_dependency "cancancan"
   s.add_dependency "groupdate"
   s.add_dependency "ruby_identicon"

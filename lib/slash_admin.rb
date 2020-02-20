@@ -2,7 +2,7 @@
 
 require "slash_admin/engine"
 require "cancancan"
-require "kaminari"
+require "pagy"
 require "groupdate"
 require "ruby_identicon"
 require "bcrypt"

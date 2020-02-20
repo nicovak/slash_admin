@@ -1,3 +1,10 @@
+<% froala_id = f.object.model_name.route_key + '_' + a.keys.first.to_s %>
 <%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
 <%= render 'slash_admin/shared/tooltip', a: a %>
-<%= f.text_area a.keys.first, class: 'form-control froala-editor', rows: '5', required: required?(f.object, a) %>
+<%= f.text_area a.keys.first, id: froala_id, class: 'form-control', rows: '5', required: required?(f.object, a) %>
+
+<script type="text/javascript">
+  new FroalaEditor('#<%= froala_id %>', {
+    iconsTemplate: 'font_awesome_5'
+  })
+</script>

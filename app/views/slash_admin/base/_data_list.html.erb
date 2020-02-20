@@ -197,52 +197,17 @@
     // Pagination
     var delimiter = false;
 
-    // Only integer in text field for page number
-    $('.integer').keypress(function (e) {
-      var a = [];
-      var k = e.which;
-      var val = $(this).val();
-
-      // Allow Backspace
-      a.push(8);
-
-      // Allow Enter
-      a.push(13);
-
-      // Allow number
-      for (i = 48; i < 58; i++)
-        a.push(i);
-
-      if (!(a.indexOf(k) >= 0)) {
-        e.preventDefault();
-      }
-    });
-
     // Select range value per
     $('select[name="per"]').on('change', function () {
       $('select[name="per"]').val($(this).val());
-      $('input[name="page"]').val(1);
-    });
-
-    $('.prev-page, .next-page').on('click', function (e) {
-      e.preventDefault();
-      var disabled = $(this).attr('disabled');
-      if (!disabled) {
-        var page = parseInt(<%= params[:page] %>);
-        if ($(this).hasClass('prev-page')) {
-          page--;
-        } else {
-          page++;
-        }
-        $('.admin-pagination').find('input[name="page"]').val(page).change();
-      }
+      $('input[type="number"]').val(1);
     });
 
     $('.admin-pagination').on('change', function () {
       if (!delimiter) {
         delimiter = true;
-        var last_page = parseInt(<%= @models.total_pages %>);
-        var val = $(this).find('input[name="page"]').val();
+        var last_page = 10;
+        var val = $(this).find('input[type="number"]').val();
 
         if (val > 0 && val <= last_page) {
           handleFiltersAndLocation();

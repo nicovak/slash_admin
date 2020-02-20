@@ -25,6 +25,7 @@
 //= require codemirror/mode/javascript
 //= require jquery.nestable
 //= require jquery.minicolors
+//= require pagy
 //= require turbolinks
 //= require slash_admin/custom
 //= require_tree .
@@ -32,7 +33,7 @@
 $(document).on("turbolinks:load", init);
 
 function init() {
-  Turbolinks.clearCache();
+  Pagy.init();
   $('[data-toggle="tooltip"]').tooltip();
 
   $('.page-sidebar a[href$="#"]').on("click", function(e) {

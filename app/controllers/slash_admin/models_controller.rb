@@ -2,6 +2,8 @@ require "csv"
 
 module SlashAdmin
   class ModelsController < SlashAdmin::BaseController
+    include Pagy::Backend
+
     skip_before_action :verify_authenticity_token, only: :nestable
     before_action :handle_internal_default
     before_action :handle_default
@@ -28,9 +30,9 @@ module SlashAdmin
           else
             @models_export.sort { |m1, m2| m2.send(params[:order_field]) <=> m1.send(params[:order_field]) }
           end
-          @models = Kaminari.paginate_array(@models).page(params[:page]).per(params[:per])
+          @pagy_models, @models = pagy(@models, items: params[:per])
         else
-          @models = @models_export.order(column.send(params[:order].downcase)).page(params[:page]).per(params[:per])
+          @pagy_models, @models = pagy(@models_export.order(column.send(params[:order].downcase)), items: params[:per])
         end
       end
 
