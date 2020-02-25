@@ -14,7 +14,7 @@
  *= require toastr
  *= require jquery.nestable
  *= require sweetalert
- *= require selectize
+ *= require select2.min
  *= require bootstrap-datepicker.min
  *= require bootstrap-material-datetimepicker
  *= require jquery.tagsinput-revisited.min
@@ -141,6 +141,40 @@ p[data-f-id="pbf"] {
   .btn-add-assoc {
     border-radius: 0;
     padding: 8px 10px;
+  }
+
+  .select2-results__option[aria-disabled="true"] {
+    background: $lightgrey !important;
+  }
+
+  .select2-container .select2-results__option--highlighted,
+  .select2-container .select2-results__option--highlighted.select2-results__option[aria-selected=true] {
+    background-color: $primary;
+    color: white;
+  }
+
+  .select2-container--default.select2-container--focus .select2-selection--multiple,
+  .select2-container--default.select2-container--focus .select2-selection--single {
+    border: 1px solid #c2cad8;
+  }
+
+  .select2-container--default .select2-selection--multiple,
+  .select2-container--default .select2-selection--single {
+    border: 1px solid #c2cad8;
+    border-radius: 0;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__rendered,
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered, {
+    padding: 0;
+    line-height: 24px;
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__arrow,
+  .select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 32px;
   }
 
   .nested-fields {
@@ -695,18 +729,6 @@ p[data-f-id="pbf"] {
     }
   }
 
-  .selectize-input {
-    box-shadow: none;
-    border: 1px solid #c2cad8;
-    display: flex;
-    flex-wrap: wrap;
-
-    > input {
-      width: auto !important;
-      flex: 1;
-    }
-  }
-
   .page-container {
     display: flex;
     table-layout: fixed;
@@ -1040,41 +1062,6 @@ p[data-f-id="pbf"] {
     }
   }
 
-  .selectize-control.multi .selectize-input [data-value] {
-    background: #f2f2f2;
-    color: #333;
-    border: 0;
-    border-radius: 0;
-    text-shadow: none;
-    box-shadow: none;
-    margin-bottom: 3px;
-  }
-
-  .selectize-dropdown {
-    padding: 5px 8px;
-  }
-
-  .selectize-dropdown [data-selectable],
-  .selectize-dropdown .optgroup-header {
-    min-height: 28px;
-  }
-
-  .selectize-control.plugin-remove_button [data-value] .remove {
-    border-color: #d4d4d4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .selectize-control.multi .selectize-input > div {
-    margin-bottom: 0;
-  }
-
-  .selectize-dropdown [data-selectable],
-  .selectize-dropdown .optgroup-header {
-    min-height: 28px;
-  }
-
   .table-data-list {
     border-color: rgba(121,133,166,0.1) !important;
     margin-top: 1rem;
@@ -1084,10 +1071,6 @@ p[data-f-id="pbf"] {
     .fit {
       white-space: nowrap;
       width: 1px;
-    }
-
-    .selectize-input {
-      max-width: 150px;
     }
 
     tr.filters {
@@ -1113,17 +1096,27 @@ p[data-f-id="pbf"] {
         font-weight: 300;
       }
 
-      .selectize-input {
-        padding: 5px 8px;
-        border-radius: 0;
-      }
-
       .input-group + .input-group {
         margin-top: 0.5rem;
       }
 
+      .select2-container--default .select2-selection--multiple,
+      .select2-container--default .select2-selection--single {
+        height: initial;
+        padding: 0 4px;
+      }
+      .select2-container--default .select2-selection--single .select2-selection__arrow,
+      .select2-container--default .select2-selection--single .select2-selection__arrow{
+        height: initial;
+      }
+
+      .select2-container--default .select2-selection--single .select2-selection__arrow,
+      .select2-container--default .select2-selection--single .select2-selection__arrow{
+        height: initial;
+      }
+
       .form-control {
-        height: 30px;
+        height: 33px;
         border-radius: 0;
 
         &.fix-id-search {

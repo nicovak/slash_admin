@@ -29,7 +29,6 @@ Gem::Specification.new do |s|
   s.add_dependency "chartkick"
   s.add_dependency "chart-js-rails"
   s.add_dependency "highcharts-rails"
-  s.add_dependency "selectize-rails"
   s.add_dependency "js-routes"
   s.add_dependency "i18n-js"
   s.add_dependency "bootstrap", "~> 4.3"

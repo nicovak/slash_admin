@@ -5,7 +5,7 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap
-//= require selectize
+//= require select2.min
 //= require moment
 //= require moment/fr
 //= require bootstrap-material-datetimepicker
@@ -199,86 +199,27 @@ function init() {
     }
   });
 
-  $(".selectize-single").selectize({
-    plugins: ['remove_button'],
-    allowEmptyOption: true
-  });
+  $('.select2-single, .select2-multiple').select2({});
 
-  $(".selectize-multiple").selectize({
-    allowEmptyOption: true,
-    persist: false,
-    plugins: ['remove_button']
-  });
-
-  $(".selectize-model-single").selectize({
-    allowEmptyOption: true,
-    plugins: ['remove_button'],
-    valueField: "id",
-    labelField: "name",
-    searchField: "name",
-    create: false,
-    load: function(query, callback) {
-      if (!query.length) return callback();
-      var model = $(this)[0].$input[0].getAttribute("data-model");
-      var fields = $(this)[0].$input[0].getAttribute("data-fields");
-      $.ajax({
-        url: Routes.slash_admin_remote_selectize_path({
-          format: "json"
-        }),
-        dataType: "json",
-        data: {
+  $(".select2-model-multiple, .select2-model-single").select2({
+    ajax: {
+      url: Routes.slash_admin_remote_select_path({
+        format: "json"
+      }),
+      dataType: "json",
+      data: function (params) {
+        var model = $(this).attr("data-model");
+        var fields = $(this).attr("data-fields");
+        return {
           model_class: model,
-          q: query,
-          fields: fields.split(" ")
-        },
-        error: function() {
-          callback();
-        },
-        success: function(res) {
-          callback(res);
-        }
-      });
-    },
-    render: {
-      option: function(item, escape) {
-        return "<div>" + escape(item.name) + "</div>";
-      }
-    }
-  });
-
-  $(".selectize-model-multiple").selectize({
-    allowEmptyOption: true,
-    plugins: ['remove_button'],
-    persist: false,
-    valueField: "id",
-    labelField: "name",
-    searchField: "name",
-    create: false,
-    load: function(query, callback) {
-      if (!query.length) return callback();
-      var model = $(this)[0].$input[0].getAttribute("data-model");
-      var fields = $(this)[0].$input[0].getAttribute("data-fields");
-      $.ajax({
-        url: Routes.slash_admin_remote_selectize_path({
-          format: "json"
-        }),
-        dataType: "json",
-        data: {
-          model_class: model,
-          q: query,
-          fields: fields.split(" ")
-        },
-        error: function() {
-          callback();
-        },
-        success: function(res) {
-          callback(res);
-        }
-      });
-    },
-    render: {
-      option: function(item, escape) {
-        return "<div>" + escape(item.name) + "</div>";
+          q: params.term,
+          fields: fields.split(" "),
+        };
+      },
+      processResults: function (data) {
+        return {
+          results: data
+        };
       }
     }
   });

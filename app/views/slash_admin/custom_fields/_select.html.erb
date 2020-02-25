@@ -1,7 +1,7 @@
 <%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
 <%= render 'slash_admin/shared/tooltip', a: a %>
 <% if a[a.keys.first][:multiple].present? && a[a.keys.first][:multiple] == true %>
-  <%= f.select(a.keys.first, a[a.keys.first][:choices], { include_blank: a[a.keys.first][:include_blank], required: required?(f.object, a) }, class: 'selectize-multiple', multiple: true) %>
+  <%= f.select(a.keys.first, a[a.keys.first][:choices], { include_blank: a[a.keys.first][:include_blank], required: required?(f.object, a) }, class: 'form-control select2-multiple', multiple: true) %>
 <% else %>
-  <%= f.select(a.keys.first, a[a.keys.first][:choices], { include_blank: a[a.keys.first][:include_blank], required: required?(f.object, a) }, class: 'selectize-single') %>
+  <%= f.select(a.keys.first, a[a.keys.first][:choices], { include_blank: a[a.keys.first][:include_blank], required: required?(f.object, a) }, class: 'form-control select2-single') %>
 <% end %>

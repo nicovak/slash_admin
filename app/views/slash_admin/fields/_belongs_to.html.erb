@@ -7,4 +7,4 @@ class_name_from_association(f.object, a).constantize.all.order(f.object.send(a).
 },
 'data-model': class_name_from_association(f.object, a).constantize.model_name.to_s.underscore,
 'data-fields': "SlashAdmin::Models::#{class_name_from_association(f.object, a).classify.pluralize}Controller".constantize.new.autocomplete_params.join(' '),
-class: 'selectize-model-single', required: required?(f.object, a).present? %>
+class: 'form-control select2-model-single', required: required?(f.object, a).present? %>

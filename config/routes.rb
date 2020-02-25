@@ -6,7 +6,7 @@ SlashAdmin::Engine.routes.draw do
     get "logout" => "security/sessions#destroy"
     get "dashboard/toggle" => "dashboard#toggle", :as => "toggle_dashboard"
 
-    get "search" => "selectize#search", :as => "remote_selectize"
+    get "search" => "remote_select#search", :as => "remote_select"
 
     # Batch actions
 

@@ -5,7 +5,7 @@
 # :field
 # :q
 module SlashAdmin
-  class SelectizeController < SlashAdmin::BaseController
+  class RemoteSelectController < SlashAdmin::BaseController
     def search
       model_class = model
       results = if model_class.respond_to? :translated_attribute_names
@@ -50,7 +50,7 @@ module SlashAdmin
 
       formatted_result = []
       results.each do |r|
-        formatted_result << {id: r.id, name: helpers.show_object(r)}
+        formatted_result << {id: r.id, text: helpers.show_object(r)}
       end
 
       render json: formatted_result

@@ -8,7 +8,7 @@ class_name_from_association.constantize.all.order(f.object.send(a).present? ? "C
 },
 'data-model': class_name_from_association.constantize.model_name.to_s.underscore,
 'data-fields': "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' '),
-class: "selectize-model-single #{a.to_s}_id", required: required?(f.object, a).present? %>
+class: "form-control select2-model-single #{a.to_s}_id", required: required?(f.object, a).present? %>
 
 <a href="#" class="add-belongs-to" style="font-size: .9em;"><%= t('slash_admin.view.add', model_name: class_name_from_association.constantize.model_name.human.downcase) %></a>
 
@@ -47,10 +47,9 @@ class: "selectize-model-single #{a.to_s}_id", required: required?(f.object, a).p
           toastr.success("<%= t('slash_admin.view.create_success', model_name: class_name_from_association(f.object, a).constantize.model_name.human) %>");
           $(id).trigger("reset");
           closeModals();
-          var select = $('.<%= a.to_s + '_id' %>')[0].selectize;
-          select.addOption({value: data.id, text: data.name});
-          select.refreshOption();
-          select.addItem(data.id);
+          var select = $('.<%= a.to_s + '_id' %>')[0];
+          var newOption = new Option(data.name, data.id, false, true);
+          select.prepend(newOption).trigger('change');
         }
       });
     });
