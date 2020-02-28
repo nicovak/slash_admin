@@ -30,7 +30,7 @@ module SlashAdmin
           else
             @models_export.sort { |m1, m2| m2.send(params[:order_field]) <=> m1.send(params[:order_field]) }
           end
-          @pagy_models, @models = pagy(@models, items: params[:per])
+          @pagy_models, @models = pagy_array(@models, items: params[:per])
         else
           @pagy_models, @models = pagy(@models_export.order(column.send(params[:order].downcase)), items: params[:per])
         end

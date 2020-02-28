@@ -30,6 +30,10 @@
 //= require slash_admin/custom
 //= require_tree .
 
+$(document).on("turbolinks:before-cache", function () {
+  $(".select2-single, .select2-multiple, .select2-model-multiple, .select2-model-single").select2('destroy');
+});
+
 $(document).on("turbolinks:load", init);
 
 function init() {
@@ -199,7 +203,7 @@ function init() {
     }
   });
 
-  $('.select2-single, .select2-multiple').select2({});
+  $(".select2-single, .select2-multiple").select2({});
 
   $(".select2-model-multiple, .select2-model-single").select2({
     ajax: {
