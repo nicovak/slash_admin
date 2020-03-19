@@ -48,12 +48,10 @@ function initCustom() {
                 height: 200,
                 callbacks: {
                     onImageUpload: function(files) {
-                        var img;
-                        return img = sendFile(this, files[0]);
+                        return sendFile(this, files[0]);
                     },
                     onMediaDelete: function(target, editor, editable) {
-                        var image_id;
-                        image_id = target[0].id;
+                        var image_id = target[0].id;
                         if (!!image_id) {
                             deleteFile(image_id);
                         }

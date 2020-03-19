@@ -39,11 +39,12 @@ $border-radius: 0.15rem !default;
 @import "bootstrap";
 
 @import url("https://use.fontawesome.com/releases/v5.12.1/css/all.css");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.16/summernote.css");
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css");
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+@import url("https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.css");
 
 body {
   font-family: "Open Sans", sans-serif;
@@ -119,6 +120,11 @@ p[data-f-id="pbf"] {
     &:hover {
       background: $lightgrey;
     }
+  }
+
+  .card-header {
+    margin: 0;
+    padding: 0 0 5px 5px;
   }
 
   .no-break {
@@ -230,10 +236,6 @@ p[data-f-id="pbf"] {
     &:not(:empty) {
       margin-bottom: 10px;
     }
-  }
-
-  a[href="https://www.froala.com/wysiwyg-editor?k=u"] {
-    display: none !important;
   }
 
   .field_with_errors {
@@ -479,12 +481,7 @@ p[data-f-id="pbf"] {
   }
 
   .dropdown-toggle {
-    font-size: 0.95em;
     white-space: normal;
-
-    &::after {
-      border: 0;
-    }
   }
 
   .dropdown {
@@ -503,7 +500,6 @@ p[data-f-id="pbf"] {
       a.dropdown-item {
         padding: 8px 16px;
         color: #555;
-        font-size: 0.95em;
 
         &:hover {
           background: #f6f6f6;

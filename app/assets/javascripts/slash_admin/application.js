@@ -263,30 +263,6 @@ function init() {
     $("#filters").trigger("submit");
   });
 
-  // Handle Both form
-  function handleFiltersAndLocation() {
-    var url = window.location.href.split("?")[0];
-
-    var filtersParams = $("#filters").serialize();
-    var paginationParams = $(".admin-pagination")
-      .first()
-      .serialize();
-    var orderParams = $("#order").serialize();
-
-    parameters = "";
-    $.each([filtersParams, paginationParams, orderParams], function(
-      index,
-      params
-    ) {
-      if (index !== 0) {
-        parameters += "&" + params;
-      } else {
-        parameters += params;
-      }
-    });
-
-    window.location.href = url + "?" + parameters;
-  }
 
   // Handle create belongs to
   $("#create-belongs-to-form")

@@ -1,4 +1,3 @@
-<% froala_id = f.object.model_name.route_key + '_' + a.keys.first.to_s %>
 <%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
 
 <%= render 'slash_admin/shared/tooltip', a: a %>
