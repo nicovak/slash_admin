@@ -1,0 +1,15 @@
+<%= f.label a, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}"%>
+<%= render 'slash_admin/shared/tooltip', a: a %>
+<%= f.text_area a, class: "form-control #{'jsonarea_' + f.object.class.to_s + '_' + a.to_s}", required: required?(f.object, a), value: f.object.send(a).to_json  %>
+
+<script src="https://rawgithub.com/zaach/jsonlint/79b553fb65c192add9066da64043458981b3972b/lib/jsonlint.js"></script>
+<script type="text/javascript">
+  var jsonarea_<%= f.object.class.to_s + '_' + a.to_s %> = document.getElementsByClassName("jsonarea_<%= f.object.class.to_s + '_' + a.to_s %>")[0];
+  var editor_jsonarea_<%= f.object.class.to_s + '_' + a.to_s %> = CodeMirror.fromTextArea(jsonarea_<%= f.object.class.to_s + '_' + a.to_s %>, {
+    lineNumbers: true,
+    theme: 'relax-seti',
+    mode: "application/json",
+    gutters: ["CodeMirror-lint-markers"],
+    lint: true
+  });
+</script>

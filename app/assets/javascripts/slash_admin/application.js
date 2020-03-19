@@ -5,7 +5,7 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap
-//= require selectize
+//= require select2.min
 //= require moment
 //= require moment/fr
 //= require bootstrap-material-datetimepicker
@@ -13,7 +13,8 @@
 //= require Chart.min
 //= require highcharts
 //= require chartkick
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker.min
+//= require bootstrap-datepicker.fr.min
 //= require sweetalert
 //= require cocoon
 //= require toastr
@@ -24,21 +25,27 @@
 //= require codemirror/mode/javascript
 //= require jquery.nestable
 //= require jquery.minicolors
+//= require pagy
 //= require turbolinks
 //= require slash_admin/custom
 //= require_tree .
 
+$(document).on("turbolinks:before-cache", function () {
+  $(".select2-single, .select2-multiple, .select2-model-multiple, .select2-model-single").select2('destroy');
+});
+
 $(document).on("turbolinks:load", init);
 
 function init() {
-  Turbolinks.clearCache();
+  Pagy.init();
+  $('[data-toggle="tooltip"]').tooltip();
 
-  $('.page-sidebar a[href$="#"]').on('click', function(e) {
-    e.preventDefault()
+  $('.page-sidebar a[href$="#"]').on("click", function(e) {
+    e.preventDefault();
   });
 
   $(".tags").tagsInput({
-    placeholder: I18n.t('slash_admin.view.add_tag'),
+    placeholder: I18n.t("slash_admin.view.add_tag"),
     delimiter: [",", ";", " "]
   });
 
@@ -58,9 +65,11 @@ function init() {
 
   // Automatic hide alert
   window.setTimeout(function() {
-    $(".alert").fadeTo(500, 0).slideUp(500, function() {
-      $(this).remove();
-    });
+    $(".alert")
+      .fadeTo(500, 0)
+      .slideUp(500, function() {
+        $(this).remove();
+      });
   }, 1500);
 
   // clearForm
@@ -98,7 +107,10 @@ function init() {
   });
 
   // MENU
-  $(".sub-menu").has(".active").parent().addClass("active");
+  $(".sub-menu")
+    .has(".active")
+    .parent()
+    .addClass("active");
 
   // BULK ACTIONS
   $(".toggle-all").on("change", function() {
@@ -125,15 +137,16 @@ function init() {
 
     swal(
       {
-        title: I18n.t('slash_admin.view.confirm'),
-        text: I18n.t('slash_admin.view.no_back'),
+        title: I18n.t("slash_admin.view.confirm"),
+        text: I18n.t("slash_admin.view.no_back"),
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
         cancelButtonClass: "btn-primary",
-        confirmButtonText: I18n.t('slash_admin.view.yes_delete'),
-        cancelButtonText: I18n.t('slash_admin.view.cancel'),
-        closeOnConfirm: false
+        confirmButtonText: I18n.t("slash_admin.view.yes_delete"),
+        cancelButtonText: I18n.t("slash_admin.view.cancel"),
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
       },
       function() {
         $.ajax({
@@ -164,15 +177,16 @@ function init() {
     if (ids.length > 0) {
       swal(
         {
-          title: I18n.t('slash_admin.view.confirm'),
+          title: I18n.t("slash_admin.view.confirm"),
           text: message,
           type: "warning",
           showCancelButton: true,
           confirmButtonClass: "btn-danger",
           cancelButtonClass: "btn-primary",
-          confirmButtonText: I18n.t('slash_admin.view.yes_delete'),
-          cancelButtonText: I18n.t('slash_admin.view.cancel'),
-          closeOnConfirm: false
+          confirmButtonText: I18n.t("slash_admin.view.yes_delete"),
+          cancelButtonText: I18n.t("slash_admin.view.cancel"),
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true
         },
         function() {
           $.ajax({
@@ -189,88 +203,27 @@ function init() {
     }
   });
 
-  $(".selectize-single").selectize({
-    allowEmptyOption: true
-  });
+  $(".select2-single, .select2-multiple").select2({});
 
-  $(".selectize-multiple").selectize({
-    allowEmptyOption: true,
-    persist: false,
-    plugins: {
-      remove_button: {}
-    }
-  });
-
-  $(".selectize-model-single").selectize({
-    allowEmptyOption: true,
-    valueField: "id",
-    labelField: "name",
-    searchField: "name",
-    create: false,
-    load: function(query, callback) {
-      if (!query.length) return callback();
-      var model = $(this)[0].$input[0].getAttribute("data-model");
-      var fields = $(this)[0].$input[0].getAttribute("data-fields");
-      $.ajax({
-        url: Routes.slash_admin_remote_selectize_path({
-          format: "json"
-        }),
-        dataType: "json",
-        data: {
+  $(".select2-model-multiple, .select2-model-single").select2({
+    ajax: {
+      url: Routes.slash_admin_remote_select_path({
+        format: "json"
+      }),
+      dataType: "json",
+      data: function (params) {
+        var model = $(this).attr("data-model");
+        var fields = $(this).attr("data-fields");
+        return {
           model_class: model,
-          q: query,
-          fields: fields.split(" ")
-        },
-        error: function() {
-          callback();
-        },
-        success: function(res) {
-          callback(res);
-        }
-      });
-    },
-    render: {
-      option: function(item, escape) {
-        return "<div>" + escape(item.name) + "</div>";
-      }
-    }
-  });
-
-  $(".selectize-model-multiple").selectize({
-    allowEmptyOption: true,
-    persist: false,
-    plugins: {
-      remove_button: {}
-    },
-    valueField: "id",
-    labelField: "name",
-    searchField: "name",
-    create: false,
-    load: function(query, callback) {
-      if (!query.length) return callback();
-      var model = $(this)[0].$input[0].getAttribute("data-model");
-      var fields = $(this)[0].$input[0].getAttribute("data-fields");
-      $.ajax({
-        url: Routes.slash_admin_remote_selectize_path({
-          format: "json"
-        }),
-        dataType: "json",
-        data: {
-          model_class: model,
-          q: query,
-          fields: fields.split(" ")
-        },
-        error: function() {
-          callback();
-        },
-        success: function(res) {
-          callback(res);
-        }
-      });
-    },
-    render: {
-      option: function(item, escape) {
-        return "<div>" + escape(item.name) + "</div>";
+          q: params.term,
+          fields: fields.split(" "),
+        };
+      },
+      processResults: function (data) {
+        return {
+          results: data
+        };
       }
     }
   });
@@ -315,7 +268,9 @@ function init() {
     var url = window.location.href.split("?")[0];
 
     var filtersParams = $("#filters").serialize();
-    var paginationParams = $(".admin-pagination").first().serialize();
+    var paginationParams = $(".admin-pagination")
+      .first()
+      .serialize();
     var orderParams = $("#order").serialize();
 
     parameters = "";

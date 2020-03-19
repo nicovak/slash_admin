@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 module SlashAdmin
   RSpec.describe Admin, type: :model do

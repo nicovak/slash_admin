@@ -18,18 +18,17 @@
             <img src="data:image/png;base64,<%= current_admin.identicon %>" class="rounded-circle"/>
           <% end %>
           <span class=""><%= current_admin.login %></span>
-          <!--<i class="fa fa-angle-down"></i>-->
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/" title="Accueil du site" target="_blank">
+        <a class="nav-link" href="/" title="<%= t('slash_admin.view.website_homepage') %>" target="_blank">
           <i class="icon-screen-desktop"></i>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="<%= slash_admin.logout_url %>" title="Se déconnecter">
+        <a class="nav-link" href="<%= slash_admin.logout_url %>" title="<%= t('slash_admin.view.sign_out') %>">
           <i class="icon-logout"></i>
         </a>
       </li>

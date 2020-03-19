@@ -3,18 +3,21 @@
     <div class="row">
       <div class="col-sm-12 content bckg-dark-light">
         <h2 class="text-center title-login"><%= t('slash_admin.view.administration') %></h2>
+        <div align="center">
+          <img src="<%= asset_path('slash_admin/logo.png') %>" class="img-fluid" style="max-width: 250px;"/>
+        </div>
         <%= form_for(:admin, url: '') do |f| %>
           <span class="failed-login">
             <%= @error_messages %>
           </span>
           <div class="input-group">
-            <span class="input-group-addon">
+            <span class="input-group-prepend">
               <i class="fa fa-user"></i>
             </span>
             <%= f.text_field :login, required: false, autofocus: true, label: false, placeholder: t('slash_admin.view.username'), class: 'form-control' %>
           </div>
           <div class="input-group">
-            <span class="input-group-addon">
+            <span class="input-group-prepend">
               <i class="fa fa-lock"></i>
             </span>
             <%= f.password_field :password, required: false, label: false, placeholder: t('slash_admin.view.password'), class: 'form-control' %>

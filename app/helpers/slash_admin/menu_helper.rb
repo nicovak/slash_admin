@@ -1,12 +1,13 @@
 # frozen_string_literal: true
+
 module SlashAdmin
   module MenuHelper
     def menu_entries
       [
         {
-          title: 'Dashboard',
+          title: "Dashboard",
           path: slash_admin.dashboard_path,
-          icon: 'icon-home',
+          icon: "icon-home",
         },
       ]
     end

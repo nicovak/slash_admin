@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= I18n.locale %>">
 <head>
   <title><%= yield(:page_title) ? yield(:page_title) : t('slash_admin.view.administration') %></title>
-  <%= stylesheet_link_tag    "slash_admin/application", media: "all", 'data-turbolinks-track' => true %>
+  <meta charset="utf-8">
+  <%= stylesheet_link_tag "slash_admin/application", media: "all", 'data-turbolinks-track' => true %>
   <%= javascript_include_tag "slash_admin/application", 'data-turbolinks-track' => true %>
   <%= favicon_link_tag 'slash_admin/favicon.png' %>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,30 +11,31 @@
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
   </script>
+  <script type="text/javascript" src=""https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.16/summernote.min.js"></script>
   <%= csrf_meta_tags %>
 </head>
-<body id="admin-dashboard" class="<% if session[:compact].present? %>page-sidebar-closed<% end %>">
-  <noscript>
-    <%= t('slash_admin.view.enable_javascript_html') %>
-  </noscript>
+<body id="admin-dashboard" class="
+  <% if session[:compact].present? %>page-sidebar-closed
+  <% end %>">
+<noscript>
+  <%= t('slash_admin.view.enable_javascript_html') %>
+</noscript>
 
-  <%= render 'slash_admin/shared/header' %>
+<%= render 'slash_admin/shared/header' %>
 
-  <div class="page-container">
-    <%= render 'slash_admin/shared/menu' %>
-    <div class="page-content">
-      <%= render 'slash_admin/shared/sub_header' %>
-      <%= render 'slash_admin/shared/breadcrumb' %>
-      <%= yield %>
-    </div>
+<div class="page-container">
+  <%= render 'slash_admin/shared/menu' %>
+  <div class="page-content">
+    <%= render 'slash_admin/shared/sub_header' %>
+    <%= render 'slash_admin/shared/breadcrumb' %>
+    <%= yield %>
   </div>
+</div>
 
-  <div class="scroll-to-top">
-    <i class="icon-arrow-up"></i>
-  </div>
+<div class="scroll-to-top">
+  <i class="icon-arrow-up"></i>
+</div>
 
-  <%= toastr_bootstrap %>
-</body>
-
+<%= toastr_bootstrap %>
 </body>
 </html>

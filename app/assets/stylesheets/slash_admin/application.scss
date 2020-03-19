@@ -10,13 +10,12 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require font-awesome
  *= require animate
  *= require toastr
  *= require jquery.nestable
  *= require sweetalert
- *= require selectize
- *= require bootstrap-datepicker
+ *= require select2.min
+ *= require bootstrap-datepicker.min
  *= require bootstrap-material-datetimepicker
  *= require jquery.tagsinput-revisited.min
  *= require jquery.minicolors
@@ -38,7 +37,9 @@ $pagination-border-width: 0 !default;
 $border-radius: 0.15rem !default;
 
 @import "bootstrap";
-@import "font-awesome";
+
+@import url("https://use.fontawesome.com/releases/v5.12.1/css/all.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.16/summernote.css");
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css");
@@ -46,6 +47,7 @@ $border-radius: 0.15rem !default;
 
 body {
   font-family: "Open Sans", sans-serif;
+  transition: all ease 0.6s;
 }
 
 h1,
@@ -58,8 +60,21 @@ h6 {
 }
 
 .turbolinks-progress-bar {
-  background-color: $primary;
+  background-color: $pink;
   height: 3px;
+}
+
+a {
+  transition: all ease 0.6s;
+  color: $pink;
+
+  &:hover {
+    color: darken($primary, 5%);
+  }
+}
+
+i {
+  transition: all ease 0.6s;
 }
 
 .btn {
@@ -79,8 +94,12 @@ h6 {
   }
 }
 
+p[data-f-id="pbf"] {
+  display: none !important;
+}
+
 #admin-dashboard {
-  background: $secondary;
+  background: $tertiary;
   padding-top: 68px;
   margin: 0;
 
@@ -102,6 +121,10 @@ h6 {
     }
   }
 
+  .no-break {
+    word-break: normal;
+  }
+
   .grey-block-form > {
     .form-group {
       background: #f9f9f9;
@@ -109,9 +132,47 @@ h6 {
     }
   }
 
+  .remote-asset-link {
+    word-break: break-all;
+  }
+
   .btn-add-assoc {
     border-radius: 0;
     padding: 8px 10px;
+  }
+
+  .select2-results__option[aria-disabled="true"] {
+    background: $lightgrey !important;
+  }
+
+  .select2-container .select2-results__option--highlighted,
+  .select2-container .select2-results__option--highlighted.select2-results__option[aria-selected=true] {
+    background-color: $primary;
+    color: white;
+  }
+
+  .select2-container--default.select2-container--focus .select2-selection--multiple,
+  .select2-container--default.select2-container--focus .select2-selection--single {
+    border: 1px solid #c2cad8;
+  }
+
+  .select2-container--default .select2-selection--multiple,
+  .select2-container--default .select2-selection--single {
+    border: 1px solid #c2cad8;
+    border-radius: 0;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__rendered,
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered, {
+    padding: 0;
+    line-height: 24px;
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__arrow,
+  .select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 32px;
   }
 
   .nested-fields {
@@ -171,6 +232,10 @@ h6 {
     }
   }
 
+  a[href="https://www.froala.com/wysiwyg-editor?k=u"] {
+    display: none !important;
+  }
+
   .field_with_errors {
     label {
       color: $red;
@@ -203,14 +268,16 @@ h6 {
     }
 
     .navbar .page-logo {
-      width: 54px;
+      width: 58px;
     }
 
     .page-container {
       .page-sidebar {
-        width: 54px;
+        width: 58px;
 
         ul.nav {
+          display: flex;
+
           li.nav-item {
             &.active::after,
             &:hover::after {
@@ -218,7 +285,7 @@ h6 {
             }
 
             a.nav-link {
-              min-height: 54px;
+              min-height: 58px;
 
               [class^="icon-"] {
                 margin: 0;
@@ -230,14 +297,10 @@ h6 {
             }
 
             ul.sub-menu {
-              margin-left: 54px;
+              margin-left: 58px;
             }
           }
         }
-      }
-
-      .page-content {
-        margin-left: 54px;
       }
     }
   }
@@ -284,12 +347,45 @@ h6 {
     }
   }
 
-  .image {
-    width: 300px;
-    min-width: 300px;
-    display: inline-block;
-    margin-right: 25px;
-    background: #fff;
+  .row-end {
+    align-items: flex-end;
+  }
+
+  .image-delete {
+    margin-top: 5px;
+  }
+
+  .cover-image {
+    background-size: cover;
+    position: relative;
+    height: 80px;
+    width: 100%;
+    transition: all ease .6s;
+  }
+
+  .image-overlay {
+    transition: all ease .6s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba($primary, .0);
+
+    .icon-zoom-image {
+      transition: all ease .6s;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      opacity: 0;
+    }
+
+    &:hover {
+      background: rgba($primary, .4);
+      .icon-zoom-image {
+        opacity: 1;
+      }
+    }
   }
 
   .image-field {
@@ -372,7 +468,7 @@ h6 {
   }
 
   a.menu-toggler {
-    color: #eee !important;
+    color: $pink !important;
     transition: all 0.6s;
     float: right;
     margin: 23px 0 0;
@@ -393,12 +489,10 @@ h6 {
 
   .dropdown {
     .dropdown-menu {
-      width: 195px;
       padding: 0;
       border-radius: 0;
       box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
       border: 1px solid #eee;
-      right: 0;
       margin-top: -6px;
       left: initial;
 
@@ -443,8 +537,7 @@ h6 {
   .navbar {
     padding: 0;
     margin: 0;
-    box-shadow: 0 1px 10px 0 rgba(50, 50, 50, 0.2);
-    color: #7f96ac;
+    background: #fff;
     transition: all 0.6s ease;
 
     .right-nav-fix {
@@ -527,6 +620,7 @@ h6 {
     }
 
     .navbar-collapse {
+      background: #fff;
       width: auto;
       flex: 1;
       padding: 0 15px;
@@ -539,6 +633,10 @@ h6 {
       top: 50%;
       font-weight: 200;
 
+      .icon-menu {
+        color: $pink;
+      }
+
       &:hover {
         color: #fff;
       }
@@ -546,7 +644,7 @@ h6 {
 
     .page-logo {
       position: relative;
-      background: $primary;
+      background: $sidebar;
       float: left;
       display: block;
       width: 195px;
@@ -558,8 +656,9 @@ h6 {
 
   .dashboard-panel {
     background: #fff;
-    border: 1px solid #e7ecf1;
+    border-radius: 10px;
     padding: 15px 15px 30px;
+    box-shadow: 0px 1px 15px 1px rgba(69,65,78,0.08);
   }
 
   .line-show {
@@ -605,7 +704,6 @@ h6 {
       float: left;
 
       small {
-        font-size: 14px;
         color: #aab5bc;
         font-weight: 600;
         text-transform: uppercase;
@@ -629,34 +727,34 @@ h6 {
     }
   }
 
-  .selectize-input {
-    box-shadow: none;
-    border: 1px solid #c2cad8;
-  }
-
   .page-container {
-    display: table;
+    display: flex;
     table-layout: fixed;
     overflow: hidden;
     width: 100%;
 
     .page-sidebar {
       width: 195px;
+      background: $sidebar;
       position: relative;
-      display: table-cell;
+      display: flex;
+
+      ul {
+        flex: 1;
+      }
 
       ul.nav > {
         li.nav-item {
           position: relative;
 
           &.active {
-            background: #1f2b3d;
+            background: darken($sidebar, 8%);
 
-            a.nav-link {
+            > a.nav-link {
               color: #fff;
 
               i {
-                color: $primary;
+                color: $pink !important;
               }
             }
 
@@ -678,18 +776,34 @@ h6 {
           }
 
           &:hover {
-            background: #232f44;
+            a.nav-link {
+              color: #fff;
+
+              i {
+                color: $pink;
+              }
+            }
 
             > ul.sub-menu {
               display: inline-block;
+
+              a.nav-link {
+                &:hover {
+                  color: #fff;
+
+                  i {
+                    color: $pink;
+                  }
+                }
+              }
             }
 
             &::after {
               content: "";
               float: right;
               position: absolute;
+              top: 30px;
               right: 0;
-              top: 26px;
               background: 0 0;
               width: 0;
               height: 0;
@@ -697,7 +811,7 @@ h6 {
               border-top: 12px double transparent;
               border-bottom: 12px double transparent;
               border-left: 0;
-              border-right: 8px solid #1c2637;
+              border-right: 8px solid $pink;
             }
           }
 
@@ -712,8 +826,7 @@ h6 {
             font-size: 13px;
             font-weight: 300;
             text-align: center;
-            color: #c3cee0;
-            border-top: 1px solid #2b3b55;
+            color: $textColor;
             overflow: hidden;
             border-radius: 0;
 
@@ -727,48 +840,49 @@ h6 {
               top: 2px;
               font-size: 24px;
               text-shadow: none;
-              font-weight: 300;
               text-align: center;
-              color: #4d5d7c;
+              color: $blueIcon;
             }
           }
 
           ul.sub-menu {
             width: 195px;
             margin-left: 195px;
-            background: #1c2637;
+            background: darken($sidebar, 8%);
             top: 0;
             z-index: 9999;
             position: absolute;
             padding: 0;
             list-style: none;
             display: none;
-            box-shadow: 5px 5px rgba(48, 48, 48, 0.2);
 
             li.nav-item {
               background: none;
-              color: #c3cee0;
+              color: $textColor;
 
               &::after {
                 border: 0;
               }
 
               a.nav-link.active {
-                background: #212d41;
+                background: darken($sidebar, 8%);
+
+                i {
+                  color: $pink !important;
+                }
               }
 
               &:hover {
                 a.nav-link {
-                  background: #212d41;
+                  background: darken($sidebar, 8%);
                 }
               }
 
               a.nav-link {
                 min-height: inherit;
                 padding: 9px 15px;
-                margin: 3px;
                 border: 0;
-                color: #c3cee0;
+                color: $textColor;
 
                 &.active {
                   color: #fff;
@@ -779,9 +893,8 @@ h6 {
                   font-size: 16px;
                   line-height: 16px;
                   text-shadow: none;
-                  font-weight: 300;
                   text-align: center;
-                  color: #5d7bad;
+                  color: $blueIcon;
                   float: left;
                 }
 
@@ -805,18 +918,18 @@ h6 {
     }
 
     .page-content {
-      margin-left: 195px;
-      display: table-cell;
+      flex: 1;
       margin-top: 0;
-      height: 100vh;
+      min-height: 100vh;
       padding: 25px 20px 10px;
-      background: $tertiary;
+      overflow: auto;
     }
   }
 
   .breadcrumb {
     padding: 10px 15px;
-    border: 1px solid #e7ecf1;
+    border: 1px solid rgba(121,133,166,0.1);
+    box-shadow: 0px 1px 15px 1px rgba(69,65,78,0.08);
     background-color: #fff;
     margin: 20px 0;
     border-radius: 0;
@@ -837,7 +950,8 @@ h6 {
   .portlet {
     background: #fff;
     margin-bottom: 25px;
-    border: 1px solid #e7ecf1;
+    border: 1px solid rgba(121,133,166,0.1);
+    box-shadow: 0px 1px 15px 1px rgba(69,65,78,0.08);
   }
 
   .btn-circle {
@@ -859,7 +973,7 @@ h6 {
   }
 
   .portlet-title {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(121,133,166,0.1);
     padding: 10px 20px;
     margin-bottom: 10px;
     display: flex;
@@ -867,7 +981,7 @@ h6 {
     justify-content: space-between;
 
     .caption {
-      color: $primary;
+      color: $pink;
       text-transform: uppercase;
       font-weight: bold;
       padding: 10px 0;
@@ -938,7 +1052,6 @@ h6 {
     * {
       border-radius: 0 !important;
       margin: 0 5px;
-      font-size: 14px;
       text-transform: capitalize;
     }
 
@@ -947,49 +1060,15 @@ h6 {
     }
   }
 
-  .selectize-control.multi .selectize-input [data-value] {
-    background: #f2f2f2;
-    color: #333;
-    border: 0;
-    border-radius: 0;
-    text-shadow: none;
-    box-shadow: none;
-    margin-bottom: 3px;
-  }
-
-  .selectize-dropdown [data-selectable],
-  .selectize-dropdown .optgroup-header {
-    min-height: 28px;
-  }
-
-  .selectize-control.plugin-remove_button [data-value] .remove {
-    border-color: #d4d4d4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .selectize-control.multi .selectize-input > div {
-    margin-bottom: 0;
-  }
-
-  .selectize-dropdown [data-selectable],
-  .selectize-dropdown .optgroup-header {
-    min-height: 28px;
-  }
-
   .table-data-list {
-    border-color: #e7ecf1 !important;
+    border-color: rgba(121,133,166,0.1) !important;
     margin-top: 1rem;
-    font-size: 0.95em;
+    background: #fff;
+    font-size: .9em;
 
     .fit {
       white-space: nowrap;
       width: 1px;
-    }
-
-    .selectize-input {
-      max-width: 150px;
     }
 
     tr.filters {
@@ -1015,23 +1094,27 @@ h6 {
         font-weight: 300;
       }
 
-      th,
-      td {
-        border-bottom-width: 3px;
-      }
-
-      .selectize-input {
-        margin-top: 5px;
-        padding: 5px 8px;
-        border-radius: 0;
-      }
-
       .input-group + .input-group {
         margin-top: 0.5rem;
       }
 
+      .select2-container--default .select2-selection--multiple,
+      .select2-container--default .select2-selection--single {
+        height: initial;
+        padding: 0 4px;
+      }
+      .select2-container--default .select2-selection--single .select2-selection__arrow,
+      .select2-container--default .select2-selection--single .select2-selection__arrow{
+        height: initial;
+      }
+
+      .select2-container--default .select2-selection--single .select2-selection__arrow,
+      .select2-container--default .select2-selection--single .select2-selection__arrow{
+        height: initial;
+      }
+
       .form-control {
-        height: 30px;
+        height: 33px;
         border-radius: 0;
 
         &.fix-id-search {
@@ -1055,7 +1138,7 @@ h6 {
         height: auto;
       }
 
-      .input-group-addon {
+      .input-group-prepend {
         height: 30px;
         border-radius: 0;
         background: #ececec;
@@ -1070,7 +1153,6 @@ h6 {
     td {
       padding: 8px 10px;
       vertical-align: middle;
-      font-size: 14px;
       border-color: #e7ecf1;
     }
 
@@ -1084,7 +1166,6 @@ h6 {
 
     tr.heading th {
       background: #fbfcfd;
-      font-size: 14px;
       font-weight: 600;
       border-bottom: 0;
     }
@@ -1102,7 +1183,7 @@ h6 {
 
       &::after {
         content: "\f0dc";
-        font-family: "FontAwesome";
+        font-family: "Font Awesome 5 Free";
         color: $lightgrey;
         float: right;
       }
@@ -1111,7 +1192,7 @@ h6 {
     .asc {
       &::after {
         content: "\f0dd";
-        font-family: "FontAwesome";
+        font-family: "Font Awesome 5 Free";
         color: $blue;
         float: right;
       }
@@ -1120,7 +1201,7 @@ h6 {
     .desc {
       &::after {
         content: "\f0de";
-        font-family: "FontAwesome";
+        font-family: "Font Awesome 5 Free";
         color: $blue;
         float: right;
       }
@@ -1133,7 +1214,7 @@ h6 {
     align-items: center;
 
     *:not(i) {
-      margin-right: 5px;
+      margin-right: 0 !important;
     }
 
     .btn,
@@ -1189,21 +1270,15 @@ h6 {
     }
   }
 
-  .admin-pagination {
-    display: inline-block;
-  }
-
   .pagination-panel-total,
   .pagination-panel-total-count {
     font-weight: bold;
   }
 
   .head-data-list {
+    display: flex;
+    justify-content: space-between;
     overflow: visible;
-  }
-
-  .fix-block-head {
-    display: inline-block;
   }
 
   .block-batch {
@@ -1248,7 +1323,6 @@ h6 {
     border-radius: 2px;
 
     .btn {
-      font-size: 14px;
       padding: 8px 14px;
       border-radius: 2px;
     }
@@ -1274,8 +1348,11 @@ h6 {
   }
 
   #toast-container {
+    box-shadow: none;
+
     > div {
       opacity: 1;
+      box-shadow: none;
 
       &hover {
         box-shadow: none;
@@ -1347,7 +1424,7 @@ h6 {
   }
 
   .container-fluid-admin {
-    height: 100vh;
+    min-height: 100vh;
   }
 
   .bckg-dark {
@@ -1368,34 +1445,33 @@ h6 {
   }
 
   .login-form {
-    background: #1c2c41;
+    background: $sidebar;
     color: #fff;
     width: 25%;
-    margin: 0 auto;
-    margin-bottom: 25px;
+    margin: 0 auto 25px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
     h2 {
-      margin-bottom: 25px;
+      color: #fff;
     }
 
     .links-form {
       a {
-        color: #47566c;
+        color: $blueIcon;
         text-decoration: none;
 
         &:hover {
-          color: #47566c;
+          color: darken($blueIcon, 5%);
         }
       }
     }
 
     i {
       font-size: 1.5em;
-      color: $primary;
+      color: $blueIcon;
     }
 
     .form-control {
@@ -1403,7 +1479,7 @@ h6 {
     }
 
     .input-group {
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
 
     .content {
@@ -1414,14 +1490,14 @@ h6 {
       padding: inherit;
     }
 
-    .input-group-addon {
+    .input-group-prepend {
       border-radius: 0;
       padding-bottom: 15px;
     }
 
     input[type="submit"] {
       cursor: pointer;
-      background: #304158;
+      background: $pink;
       color: #fff;
       border-radius: 3px;
       border: 0;
@@ -1431,7 +1507,7 @@ h6 {
       margin-top: 35px;
 
       &:hover {
-        background: darken(#304158, 5%);
+        background: darken($pink, 5%);
       }
     }
 
@@ -1440,6 +1516,7 @@ h6 {
     input[type="password"] {
       background-color: transparent;
       border: 0;
+      border-radius: 0;
       border-bottom: 1px solid #47566c;
       color: #fff;
       padding: 8px 12px 8px 35px;
@@ -1449,13 +1526,11 @@ h6 {
       caret-color: $primary;
     }
 
-    .input-group-addon {
+    .input-group-prepend {
       background-color: transparent;
       border: 0;
-      border-bottom: 1px solid #47566c;
       color: #fff;
-      padding-bottom: 15px;
-      padding-top: 12px;
+      padding-top: 5px;
     }
   }
 }
@@ -1498,7 +1573,7 @@ h6 {
 @media (min-width: 1600px) {
   #admin-user {
     .login-form {
-      width: 15%;
+      width: 20%;
 
       input[type="submit"] {
         width: 100%;

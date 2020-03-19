@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-sm-12">
-    <div class="portlet">
+    <div class="portlet" id="portlet-<%= @model_class.model_name.human(count: 2).parameterize.underscore.downcase %>">
       <div class="portlet-title">
         <div class="caption">
           <% if @is_nestable %>
@@ -27,7 +27,7 @@
               <i class="fa fa-angle-down fix-dropdown"></i>
             </a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="<%= polymorphic_url([:slash_admin, @model_class], format: 'csv') %>"><%= t('slash_admin.view.export_csv') %></a>
+              <a class="dropdown-item" href="<%= polymorphic_url([:slash_admin, @model_class], filters: params[:filters].present? ? params[:filters].permit! : [], format: 'csv') %>"><%= t('slash_admin.view.export_csv') %></a>
               <!-- <a class="dropdown-item" href="<%= polymorphic_url([:slash_admin, @model_class], format: 'xls') %>"><%= t('slash_admin.view.export_xls') %></a> -->
             </div>
           </div>

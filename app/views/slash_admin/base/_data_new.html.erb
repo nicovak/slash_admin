@@ -1,16 +1,18 @@
 <%= form_for [:slash_admin, @model] do |f| %>
   <%#= render 'slash_admin/shared/debug', params: params %>
+  <%= render 'slash_admin/shared/new_form_buttons' %>
+  <div class="separator"></div>
 
   <%= render 'slash_admin/shared/errors_data_new' %>
 
   <% params.each do |a| %>
-    <%# <strong><%= @model_class.type_for_attribute(a).type.to_s </strong> %>
     <%= render 'slash_admin/fields/form_group', f: f, a: a %>
   <% end %>
 
   <%= render 'slash_admin/base/translatable_fields', f: f %>
 
-  <%= render 'slash_admin/shared/new_form_buttons' %>
+  <div class="separator"></div>
+  <%= render'slash_admin/shared/new_form_buttons' %>
 <% end %>
 
 <div class="modal-belongs-to modal"></div>

@@ -1,4 +1,5 @@
 <%= f.label a, class: 'form-control-label' %>
+<%= render 'slash_admin/shared/tooltip', a: a %>
 
 <%= f.fields_for a do |association_model| %>
   <%= render 'slash_admin/fields/has_many_row', f: association_model, model_ref: a.to_sym %>

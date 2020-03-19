@@ -1,19 +1,15 @@
 Custom action: (eg a menu builder section) without a linked existing model
 
 ```ruby
-...
 sub_menu: [
   {path: slash_admin_menu_builder_path, icon: 'icon-organization', title: 'Menu'},
-...
 ```
 
 Route in `app/config/routes.rb`
 
 ```ruby
-...
 get 'menu' => 'menus#builder', as: 'menu_builder'
 post 'menu' => 'menus#builder', as: 'menu_builder_action'
-...
 ```
 
 Controller in `app/controllers/slash_admin/models/menus_controller.rb`

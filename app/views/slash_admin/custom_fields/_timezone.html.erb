@@ -1,0 +1,3 @@
+<%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
+<%= render 'slash_admin/shared/tooltip', a: a %>
+<%= f.select(a.keys.first, ActiveSupport::TimeZone::MAPPING.values, { include_blank: true, required: required?(f.object, a) }, class: 'form-control select2-single') %>

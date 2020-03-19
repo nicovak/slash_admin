@@ -1,6 +1,6 @@
 #### TAGS
 
-string delimited with ';', ',', '.', ' '
+string delimited with `;` `,` `.` ` `
 
 ```ruby
 def create_params

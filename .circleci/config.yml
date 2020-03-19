@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-       - image: circleci/ruby:2.5.0-node-browsers
+      - image: circleci/ruby:2.7.0-node-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -40,24 +40,3 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:migrate
-
-      # run tests!
-      - run:
-          name: run tests
-          command: |
-            mkdir /tmp/test-results
-            bundle exec rspec --format progress \
-                            --format RspecJunitFormatter \
-                            --out /tmp/test-results/rspec.xml \
-                            --format progress \
-
-      # collect reports
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results

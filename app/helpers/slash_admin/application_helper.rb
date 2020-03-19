@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SlashAdmin
   module ApplicationHelper
     def page_title(content)
@@ -18,10 +19,17 @@ module SlashAdmin
         end
       end
 
-      # Direct Link temp TODO
       if s[:path].present?
-        access = true
+        if can? s[:role], s[:role]
+          access = true
+        end
+        if s[:role].present?
+          if can? s[:role], s[:role]
+            access = true
+          end
+        end
       end
+
       access
     end
 
@@ -79,6 +87,7 @@ module SlashAdmin
       return true unless object.errors.messages[field_name].blank?
     end
 
+    # Type must be 'warning' or 'success' or 'error'
     def toastr_bootstrap
       flash_messages = []
       flash.each do |type, message|
@@ -91,7 +100,7 @@ module SlashAdmin
     # Default available field_type handeled
     def orderable?(object, attr)
       field_type = guess_field_type(object, attr)
-      %w(boolean integer number decimal string text date datetime).include?(field_type)
+      %w[boolean integer number decimal string text date datetime].include?(field_type)
     end
 
     # By default all sortable fields are orderable
@@ -106,17 +115,17 @@ module SlashAdmin
     # Default label for object to string, title and name
     # can be an attribute, a string or the model_class
     def object_label(a)
-      if a.is_a? Hash
-        constantized_model = a.keys.first.to_s.singularize.classify.constantize
+      constantized_model = if a.is_a? Hash
+        a.keys.first.to_s.singularize.classify.constantize
       elsif a.is_a? ActiveRecord::Base
-        constantized_model = a
+        a
       else
-        constantized_model = a.to_s.singularize.classify.constantize
+        a.to_s.singularize.classify.constantize
       end
 
       constantized_model = constantized_model.new
 
-      method = 'to_s'
+      method = "to_s"
       object_label_methods.each do |m|
         method = m if constantized_model.respond_to?(m)
       end
@@ -125,7 +134,7 @@ module SlashAdmin
     end
 
     def show_object(a)
-      method = 'to_s'
+      method = "to_s"
 
       unless a.blank?
         object_label_methods.each do |m|
@@ -140,39 +149,62 @@ module SlashAdmin
     # object params can be a Model Class or a Model Instance
     # boolean integer number decimal string text date datetime has_many belongs_to
     def guess_field_type(object, attr)
-      if object.class === Class
-        object_class = object
+      object_class = if object.class === Class
+        object
       else
-        object_class = object.class
+        object.class
       end
 
       belongs_to_fields = object_class.reflect_on_all_associations(:belongs_to).map(&:name)
       has_many_fields = object_class.reflect_on_all_associations(:has_many).map(&:name)
       has_one_fields = object_class.reflect_on_all_associations(:has_one).map(&:name)
 
+      return if attr.is_a? Hash
+
       type = if object_class&.uploaders&.key?(attr.to_sym)
-        'image'
+        "image"
       elsif belongs_to_fields.include?(attr.to_sym)
-        'belongs_to'
+        "belongs_to"
       elsif has_many_fields.include?(attr.to_sym)
-        'has_many'
+        "has_many"
       elsif has_one_fields.include?(attr.to_sym)
-        'has_one'
+        "has_one"
       else
         object_class.type_for_attribute(attr.to_s).type.to_s
       end
 
       # Virtual field default string eg password
-      return 'string' if object_class.new.respond_to?(attr) && type.blank?
+      return "string" if object_class.new.respond_to?(attr) && type.blank?
 
       # Raise exception if no type fouded
       raise Exception.new("Unable to guess field_type for attribute: #{attr} in model: #{object_class}") if type.blank?
       type
     end
 
+    # From shoulda-matchers https://github.com/thoughtbot/shoulda-matchers/blob/da4e6ddd06de54016e7c2afd953120f0f6529c70/lib/shoulda/matchers/rails_shim.rb
+    # @param model @model_class
+    def serialized_attributes_for(model)
+      serialized_columns = model.columns.select { |column|
+        model.type_for_attribute(column.name).is_a?(
+          ::ActiveRecord::Type::Serialized,
+        )
+      }
+
+      serialized_columns.each_with_object({}) do |column, hash|
+        hash[column.name.to_s] = model.type_for_attribute(column.name).coder
+      end
+    end
+
+    # @param model @model_class
+    # @param attribute String
+    def serialized_json_field?(model, attribute)
+      hash = serialized_attributes_for(model)
+      hash.key?(attribute) && hash[attribute] == ::ActiveRecord::Coders::JSON
+    end
+
     def admin_custom_field(form, attribute)
       type = attribute[attribute.keys.first][:type].to_s
-      render partial: "slash_admin/custom_fields/#{type}", locals: { f: form, a: attribute }
+      render partial: "slash_admin/custom_fields/#{type}", locals: {f: form, a: attribute}
     end
 
     # Form helper for generic field
@@ -187,28 +219,32 @@ module SlashAdmin
         admin_custom_field(form, attribute)
       elsif belongs_to_fields.include?(attribute.to_sym)
         if form.object.class.nested_attributes_options.key?(attribute.to_sym)
-          render partial: 'slash_admin/fields/nested_belongs_to', locals: { f: form, a: attribute }
+          render partial: "slash_admin/fields/nested_belongs_to", locals: {f: form, a: attribute}
         else
-          render partial: 'slash_admin/fields/belongs_to', locals: { f: form, a: attribute }
+          render partial: "slash_admin/fields/belongs_to", locals: {f: form, a: attribute}
         end
       elsif has_many_fields.include?(attribute.to_sym)
         # if has nested_attributes_options for has_many field
         if form.object.class.nested_attributes_options.key?(attribute.to_sym)
-          render partial: 'slash_admin/fields/nested_has_many', locals: { f: form, a: attribute }
+          render partial: "slash_admin/fields/nested_has_many", locals: {f: form, a: attribute}
         else
-          render partial: 'slash_admin/fields/has_many', locals: { f: form, a: attribute }
+          render partial: "slash_admin/fields/has_many", locals: {f: form, a: attribute}
         end
       elsif has_one_fields.include?(attribute.to_sym)
-        render partial: 'slash_admin/fields/has_one', locals: { f: form, a: attribute }
+        if form.object.class.nested_attributes_options.key?(attribute.to_sym)
+          render partial: "slash_admin/fields/nested_has_one", locals: {f: form, a: attribute}
+        else
+          render partial: "slash_admin/fields/has_one", locals: {f: form, a: attribute}
+        end
       elsif form.object.class&.uploaders&.key?(attribute.to_sym)
-        render partial: 'slash_admin/fields/carrierwave', locals: { f: form, a: attribute }
+        render partial: "slash_admin/fields/carrierwave", locals: {f: form, a: attribute}
       else
         type = form.object.class.type_for_attribute(attribute.to_s).type.to_s
-        if type == 'date' || type == 'datetime'
-          render partial: 'slash_admin/fields/date', locals: { f: form, a: attribute }
+        if type == "date" || type == "datetime"
+          render partial: "slash_admin/fields/date", locals: {f: form, a: attribute}
         else
           raise Exception.new("Unable to guess field_type for attribute: #{attribute} in model: #{object_class}") if type.blank?
-          render partial: "slash_admin/fields/#{type}", locals: { f: form, a: attribute }
+          render partial: "slash_admin/fields/#{type}", locals: {f: form, a: attribute}
         end
       end
     end

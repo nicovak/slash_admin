@@ -1,0 +1,24 @@
+<%= f.label a, class: 'form-control-label label-has-one' %>
+<%= render 'slash_admin/shared/tooltip', a: a %>
+
+<% if f.object.send(a).blank? %>
+  <% f.object.send("#{a.to_s}=", a.to_s.classify.constantize.new) %>
+<% end %>
+
+<%= f.fields_for a do |association_form| %>
+  <% if f.object.id.blank? %>
+    <% method = 'create_params' %>
+  <% else %>
+    <% method = 'update_params' %>
+  <% end %>
+
+  <% if a.is_a?(Hash) %>
+    <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.send(method, from: @model_class) %>
+  <% else %>
+    <% params_assoc = "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.send(method, from: @model_class) %>
+  <% end %>
+
+  <% params_assoc.each do |attribute| %>
+    <%= render 'slash_admin/fields/form_group', f: association_form, a: attribute %>
+  <% end %>
+<% end %>

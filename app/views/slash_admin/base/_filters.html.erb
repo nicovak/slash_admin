@@ -1,66 +1,68 @@
-<tr role="row" class="filters">
-    <td>&nbsp;</td>
-    <td class="fit">
-      <input type="text" name="filters[id]" value="<%= params[:filters]['id'] rescue nil %>" class="form-control form-control-sm fix-id-search"/>
-    </td>
-    <% list_params.each do |attr| %>
-      <% if !attr.is_a?(Hash) && sortable?(model, attr) %>
-        <td>
-          <% case guess_field_type(model, attr)
-               when 'string', 'text' %>
-            <input type="text" name="filters[<%= attr %>]" value="<%= params[:filters][attr] rescue nil %>" class="form-control form-control-sm"/>
-          <% when 'integer', 'number', 'decimal' %>
-            <input type="text" name="filters[<%= attr %>][from]" value="<%= params[:filters][attr]['from'] rescue nil %>" class="form-control form-control-sm" placeholder="De"/>
-            <input type="text" name="filters[<%= attr %>][to]" value="<%= params[:filters][attr]['to'] rescue nil %>" class="form-control form-control-sm" placeholder="À"/>
-          <% when 'date', 'datetime' %>
-            <div class="input-group">
-              <input type="text" name="filters[<%= attr %>][from]" value="<%= params[:filters][attr]['from'] rescue nil %>" class="form-control form-control-sm bootstrap-datepicker" placeholder="Du"/>
-              <span class="input-group-addon"><i class="icon-calendar"></i></span>
-            </div>
-            <div class="input-group">
-              <input type="text" name="filters[<%= attr %>][to]" value="<%= params[:filters][attr]['to'] rescue nil %>" class="form-control form-control-sm bootstrap-datepicker" placeholder="Au"/>
-              <span class="input-group-addon"><i class="icon-calendar"></i></span>
-            </div>
-          <% when 'boolean' %>
-            <select name="filters[<%= attr %>]" class="form-control form-control-sm">
-              <option value="" <%= params[:filters][attr] == '' ? 'selected' : nil rescue nil %>></option>
-              <option value="true" <%= params[:filters][attr] == 'true' ? 'selected' : nil rescue nil %>>Oui</option>
-              <option value="false" <%= params[:filters][attr] == 'false' ? 'selected' : nil rescue nil %>>Non</option>
-            </select>
-          <% end %>
-        </td>
-      <% elsif @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr) %>
-          <% if "SlashAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.present? %>
+<div data-turbolinks="false">
+  <tr role="row" class="filters">
+      <td>&nbsp;</td>
+      <td class="fit">
+        <input type="text" name="filters[id]" value="<%= params[:filters]['id'] rescue nil %>" class="form-control form-control-sm fix-id-search"/>
+      </td>
+      <% list_params.each do |attr| %>
+        <% if !attr.is_a?(Hash) && sortable?(model, attr) %>
           <td>
-            <select name="filters[<%= attr %>][]" class="selectize-model-multiple" multiple data-model="<%= attr.to_s.classify.constantize.model_name.to_s.underscore %>" data-fields='<%= "SlashAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' ') %>' placeholder="<%= t('slash_admin.view.select_model', model_name: attr.to_s.classify.constantize.model_name.human.downcase) %>">
-              <% if params[:filters].present? && params[:filters][attr].present? %>
-                <% params[:filters][attr].each do |value| %>
-                  <option value="<%= value %>" selected><%= attr.to_s.classify.constantize.find(value).name %></option>
-                <% end %>
-              <% else %>
-                <% attr.to_s.classify.constantize.all.limit(20).each do |model_row| %>
-                  <% if params[:filter].present? %>
-                    <% if params[:filters][attr]&.include? model_row.id.to_s %>
-                      <option value="<%= model_row.id %>" selected><%= show_object(model_row) %></option>
+            <% case guess_field_type(model, attr)
+            when 'string', 'text' %>
+              <input type="text" name="filters[<%= attr %>]" value="<%= params[:filters][attr] rescue nil %>" class="form-control form-control-sm"/>
+            <% when 'integer', 'number', 'decimal' %>
+              <input type="text" name="filters[<%= attr %>][from]" value="<%= params[:filters][attr]['from'] rescue nil %>" class="form-control form-control-sm" placeholder="De"/>
+              <input type="text" name="filters[<%= attr %>][to]" value="<%= params[:filters][attr]['to'] rescue nil %>" class="form-control form-control-sm" placeholder="À"/>
+            <% when 'date', 'datetime' %>
+              <div class="input-group">
+                <input type="text" name="filters[<%= attr %>][from]" value="<%= params[:filters][attr]['from'] rescue nil %>" class="form-control form-control-sm bootstrap-datepicker" placeholder="Du"/>
+                <span class="input-group-prepend"><i class="icon-calendar"></i></span>
+              </div>
+              <div class="input-group">
+                <input type="text" name="filters[<%= attr %>][to]" value="<%= params[:filters][attr]['to'] rescue nil %>" class="form-control form-control-sm bootstrap-datepicker" placeholder="Au"/>
+                <span class="input-group-prepend"><i class="icon-calendar"></i></span>
+              </div>
+            <% when 'boolean' %>
+              <select name="filters[<%= attr %>]" class="form-control form-control-sm">
+                <option value="" <%= params[:filters][attr] == '' ? 'selected' : nil rescue nil %>></option>
+                <option value="true" <%= params[:filters][attr] == 'true' ? 'selected' : nil rescue nil %>>Oui</option>
+                <option value="false" <%= params[:filters][attr] == 'false' ? 'selected' : nil rescue nil %>>Non</option>
+              </select>
+            <% end %>
+          </td>
+        <% elsif @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr) %>
+            <% if "SlashAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.present? %>
+            <td>
+              <select name="filters[<%= attr %>][]" class="select2-model-multiple form-control-sm" multiple data-model="<%= attr.to_s.classify.constantize.model_name.to_s.underscore %>" data-fields='<%= "SlashAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' ') %>' placeholder="<%= t('slash_admin.view.select_model', model_name: attr.to_s.classify.constantize.model_name.human.downcase) %>">
+                <% if params[:filters].present? && params[:filters][attr].present? %>
+                  <% params[:filters][attr].each do |value| %>
+                    <option value="<%= value %>" selected><%= attr.to_s.classify.constantize.find(value).name %></option>
+                  <% end %>
+                <% else %>
+                  <% attr.to_s.classify.constantize.all.limit(20).each do |model_row| %>
+                    <% if params[:filter].present? %>
+                      <% if params[:filters][attr]&.include? model_row.id.to_s %>
+                        <option value="<%= model_row.id %>" selected><%= show_object(model_row) %></option>
+                      <% else %>
+                        <option value="<%= model_row.id %>"><%= show_object(model_row) %></option>
+                      <% end %>
                     <% else %>
                       <option value="<%= model_row.id %>"><%= show_object(model_row) %></option>
                     <% end %>
-                  <% else %>
-                    <option value="<%= model_row.id %>"><%= show_object(model_row) %></option>
                   <% end %>
                 <% end %>
-              <% end %>
-            </select>
-          </td>
-          <% else %>
-            <td>&nbsp;</td>
-          <% end %>
-      <% else %>
-        <td>&nbsp;</td>
+              </select>
+            </td>
+            <% else %>
+              <td>&nbsp;</td>
+            <% end %>
+        <% else %>
+          <td>&nbsp;</td>
+        <% end %>
       <% end %>
-    <% end %>
-    <td>
-      <button type="submit" class="btn btn-sm btn-block btn-primary"><i class='fa fa-filter'></i> <%= t('slash_admin.view.filter') %></button>
-      <button id="reset-filters" class="btn btn-sm btn-block btn-secondary"><i class='fa fa-times'></i> <%= t('slash_admin.view.reset') %></button>
-    </td>
-</tr>
+      <td>
+        <button type="submit" class="btn btn-sm btn-block btn-primary no-break"><i class='fa fa-filter'></i> <%= t('slash_admin.view.filter') %></button>
+        <button id="reset-filters" class="btn btn-sm btn-block btn-secondary no-break"><i class='fa fa-times'></i> <%= t('slash_admin.view.reset') %></button>
+      </td>
+  </tr>
+</div>

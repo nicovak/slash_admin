@@ -1,10 +1,24 @@
+<p align="center">
+  <img width="250" src="https://i.imgur.com/Rok5Ocf.png" />
+</p>
+
+# SlashAdmin
+
+[![Gem Version](https://badge.fury.io/rb/slash_admin.svg)](https://badge.fury.io/rb/slash_admin)
 [![Code Climate](https://codeclimate.com/github/nicovak/slash_admin/badges/gpa.svg)](https://codeclimate.com/github/nicovak/slash_admin)
 [![CircleCI](https://circleci.com/gh/nicovak/slash_admin/tree/master.svg?style=svg&circle-token=6e9ebd7fef3ebc881c75a769b0970808024a2ae9)](https://circleci.com/gh/nicovak/slash_admin/tree/master)
 
-# [W.I.P] SlashAdmin
-
-A modern and overridable admin, just the rails way.
+A modern and fully overridable admin, just the rails way.
 Embeded admin user and authentication system, devise is not needed.
+
+❤️ [Demo repository](https://github.com/nicovak/slash_admin_demo)
+🚀 [Live running](https://slashadmin.herokuapp.com/admin)
+
+User
+`admin`
+
+Password
+`admin@admin`
 
 #### Motivation:
 - Provide to rails the admin it deserves without DSL or obscure logic.
@@ -19,20 +33,25 @@ Design inspired from the awesome metronic admin theme:
 
 #### Screenshots
 
-![Image of Login screen](http://i.imgur.com/HFQ9hfw.jpg)
-![Image of List](http://i.imgur.com/p34HUU5.png)
-![Image of Create / Edit](http://i.imgur.com/TzOx3i8.png)
+##### Login
+![Image of Login screen](https://i.imgur.com/MJerQSR.jpg)
+##### Dashboard
+![Image of Dashboard](https://i.imgur.com/0g3wSjw.png)
+##### List
+![Image of List](https://i.imgur.com/s1egSS3.png)
+##### Edit / Create
+![Image of Create / Edit](https://i.imgur.com/wf72pZz.png)
 
 ### Installation
-Add this line to your application's Gemfile:
 
+Add this line to your application's Gemfile:
 ```ruby
 gem 'slash_admin'
 ```
 
 And then execute:
 ```bash
-$ bundle
+$ bundle install
 ```
 
 Or install it yourself as:
@@ -47,12 +66,13 @@ gem 'carrierwave'
 
 Then:
 ```bash
-rails g slash_admin:install
-rails slash_admin:install:migrations
-rails db:migrate
+$ rails g slash_admin:install
+$ rails slash_admin:install:migrations
+$ rails db:migrate
 ```
 
 `config/initializers/mime_types.rb`
+
 ```ruby
 Mime::Type.register "application/xls", :xls
 ```
@@ -89,7 +109,13 @@ SlashAdmin::Admin.create!(
 [Read the docs](https://github.com/nicovak/slash_admin/tree/master/docs/index.md)
 
 ## Contributing
-Coming soon.
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/nicovak/slash_admin. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
+
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+## Code of Conduct
+
+Everyone interacting in the slash_admin project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/nicovak/slash_admin/tree/master/CODE_OF_CONDUCT.md).

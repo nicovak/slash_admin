@@ -1,4 +1,4 @@
-<div class="modal-dialog modal-lg" role="document">
+<div class="modal-dialog modal-xl" role="document">
   <div class="modal-content">
     <%= form_for [:slash_admin, class_name_from_association(f.object, a).constantize.new], remote: true, html: {'data-type': 'json'} do |fs| %>
       <div class="modal-header">
@@ -16,7 +16,6 @@
         <% else %>
           <% method = 'update_params' %>
         <% end %>
-
         <% if a.is_a?(Hash) %>
           <% params_assoc = "SlashAdmin::Models::#{class_name_from_association(f.object, a).pluralize}Controller".constantize.new.send(method, from: @model_class) %>
         <% else %>
@@ -29,7 +28,7 @@
       </div>
       <div class="modal-footer">
         <a href="#" data-dismiss="modal"><%= t('slash_admin.view.cancel') %></a>
-        <button type="submit" class="btn btn-primary pull-right"><%= t('slash_admin.view.save') %></button>
+        <button type="submit" class="btn btn-primary float-right"><%= t('slash_admin.view.save') %></button>
       </div>
     <% end %>
   </div>
