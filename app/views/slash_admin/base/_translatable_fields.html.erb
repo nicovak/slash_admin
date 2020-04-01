@@ -5,7 +5,6 @@
         <a class="nav-item nav-link <%= I18n.available_locales.first == locale ? 'active' : '' %>" id="nav-language-<%= locale %>" data-toggle="tab" href="#language-<%= locale %>" role="tab" aria-controls="language-<%= locale %>">
           <img src='<%= image_path("slash_admin/#{locale.to_s}.png") %>' style="margin-right: 5px; max-width: 25px;">
         </a>
-      </li>
     <% end %>
   </nav>
   <div class="tab-content">
@@ -15,7 +14,7 @@
           <% translatable_params.each do |a| %>
             <%= render 'slash_admin/fields/form_group', f: g, a: a %>
           <% end %>
-        <% end  %>
+        <% end %>
       </div>
     <% end %>
   </div>
