@@ -19,42 +19,62 @@
             <span class="title"><%= s[:title] %></span>
           </a>
           <% if s[:sub_menu] %>
-            <ul class="sub-menu">
-              <% s[:sub_menu].each do |sub| %>
-                <% if sub[:path].present? %>
-                  <li class="nav-item">
-                    <a class="nav-link <%= request.fullpath == sub[:path] ? 'active' : '' %>"
-                       <%= sub.key?(:turbolinks) ? "data-turbolinks=" + boolean_to_string(sub[:turbolinks]) + "" : '' %>
-                       <% s[:blank].present? ? 'target="_blank"' : '' %>
-                       href="<%= sub[:path] %>">
-                    <% if sub[:icon] %>
-                      <i class="<%= sub[:icon] %>"></i>
-                    <% end %>
-                    <span class="title"><%= sub[:title] %></span>
-                    </a>
-                  </li>
-                <% else %>
-                  <% if access_model?(sub) %>
-                    <li class="nav-item">
-                      <a class="nav-link
-                              <%= controller.controller_name == sub[:model].name.split('::').last.tableize ? 'active' : '' %>"
-                         <%= sub.key?(:turbolinks) ? "data-turbolinks=" + boolean_to_string(sub[:turbolinks]) + "" : '' %>
-                         <% s[:blank].present? ? 'target="_blank"' : '' %>
-                         href="<%= polymorphic_url([:slash_admin, sub[:model]]) %>">
+            <div class="sub-menu">
+              <table class="table-sm">
+                <tbody>
+                <% s[:sub_menu].each do |sub| %>
+                  <% if sub[:path].present? %>
+                    <tr class="clickable-row <%= request.fullpath == sub[:path] ? 'active' : '' %>"
+                        data-href="<%= sub[:path] %>"
+                        data-blank="<%= s[:blank].present? ? 'true' : 'false' %>">
+                      <td>
                         <% if sub[:icon] %>
                           <i class="<%= sub[:icon] %>"></i>
                         <% end %>
-                        <span class="title"><%= sub[:model].model_name.human(count: 2) %></span>
-                        <%# <span class="badge badge-pill badge-success">1</span> %>
-                      </a>
-                    </li>
+                      </td>
+                      <td>
+                        <span class="title"><%= sub[:title] %></span>
+                      </td>
+                    </tr>
+                  <% else %>
+                    <% if access_model?(sub) %>
+                      <tr class="clickable-row <%= controller.controller_name == sub[:model].name.split('::').last.tableize ? 'active' : '' %>"
+                          data-href="<%= polymorphic_url([:slash_admin, sub[:model]]) %>"
+                          data-blank="<%= s[:blank].present? ? 'true' : 'false' %>">
+                        <td>
+                          <% if sub[:icon] %>
+                            <i class="<%= sub[:icon] %>"></i>
+                          <% end %>
+                        </td>
+                        <td>
+                          <span class="title"><%= sub[:model].model_name.human(count: 2) %></span>
+                        </td>
+                      </tr>
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
-            </ul>
+                </tbody>
+              </table>
+            </div>
           <% end %>
         </li>
       <% end %>
     <% end %>
   </ul>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    $(".clickable-row").click(function() {
+      let href = $(this).data("href");
+      let blank = $(this).data("blank");
+
+      if (blank === true) {
+        window.open = href;
+      }
+      else {
+        Turbolinks.visit(href);
+      }
+    });
+  });
+</script>

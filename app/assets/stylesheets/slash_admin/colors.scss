@@ -1,20 +1,20 @@
 // Bootstrap override
-$blue: #6798ff !default;
+$blue: #6280ec !default;
 $yellow: #fad961 !default;
 $green: #57ca85 !default;
-$red: #F36265 !default;
-$pink: #ff3466 !default;
+$red: #ff808b !default;
 
-$info: #6798ff;
-$notice: #fad961;
-$success: #57ca85;
-$error: #F36265;
+$info: $blue;
+$notice: $yellow;
+$success: $green;
+$error: $red;
 
-$primary: #2e5bff;
-$blueIcon: #9ddbff;
-$secondary: #120731;
-$sidebar: #33375b;
-$textColor: #c5a6ee;
-$tertiary: #f8f8fd;
-$grey: #7985A6;
-$lightgrey: #e1e5ec;
+$primary: #6280ec;
+$secondary: #4e4cac;
+$background: #f6f3fc;
+
+$sidebar: #fefefe;
+$textColor: #afaec3;
+$textColorHover: #15152d;
+
+$border: rgba($textColor, .4);
