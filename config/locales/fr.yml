@@ -13,6 +13,7 @@ fr:
         error: Impossible de trier '%{model_name}'
         success: Opération réussi.
     view:
+      fill_login_and_password: "Merci d'entrer votre identifiant et mot de passe."
       administration: Administration
       home: Accueil
       welcome: Vous permet d'administrer votre application
