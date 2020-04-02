@@ -1,32 +1,33 @@
-<div class="container-fluid container-fluid-admin bckg-dark">
-  <div class="login-form">
-    <div class="row">
-      <div class="col-sm-12 content bckg-dark-light">
-        <h2 class="text-center title-login"><%= t('slash_admin.view.administration') %></h2>
-        <div align="center">
+<div class="devise">
+  <div class="row no-gutters row-center">
+    <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 fix-col">
+      <div class="login-form-user">
+        <div class="app-logo" align="center">
           <img src="<%= asset_path('slash_admin/logo.png') %>" class="img-fluid" style="max-width: 250px;"/>
         </div>
-        <%= form_for(:admin, url: '') do |f| %>
-          <span class="failed-login">
-            <%= @error_messages %>
-          </span>
-          <div class="input-group">
-            <span class="input-group-prepend">
-              <i class="fa fa-user"></i>
-            </span>
-            <%= f.text_field :login, required: false, autofocus: true, label: false, placeholder: t('slash_admin.view.username'), class: 'form-control' %>
-          </div>
-          <div class="input-group">
-            <span class="input-group-prepend">
-              <i class="fa fa-lock"></i>
-            </span>
-            <%= f.password_field :password, required: false, label: false, placeholder: t('slash_admin.view.password'), class: 'form-control' %>
-          </div>
-          <div class="form-actions">
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <%= f.submit t('slash_admin.view.login') %>
-          </div>
+        <div class="section-separator"></div>
+        <div class="section-separator"></div>
+        <h1 class="main-title">Administration</h1>
+        <span class="sub-title"><%= I18n.t('dol.fill_login_and_password') %></span>
+        <div class="section-separator"></div>
+        <div class="content-width content-login">
+          <%= form_for(:admin, url: '') do |f| %>
+            <div class="form-group">
+              <%= f.text_field :login, required: false, autofocus: true, label: false, placeholder: t('slash_admin.view.username'), class: 'form-control' %>
+            </div>
+
+            <div class="form-group">
+              <%= f.password_field :password, required: false, label: false, placeholder: t('slash_admin.view.password'), class: 'form-control' %>
+            </div>
+
+            <%= f.submit t('slash_admin.view.login'), class: 'btn btn-block btn-primary btn-submit' %>
         <% end %>
+        </div>
+        <div class="section-separator"></div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-4 d-none d-sm-none d-md-flex ">
+      <div class="container-fluid container-fluid-devise bckg-login" align="center" style="background: url(https://source.unsplash.com/1920x1080/?nature) no-repeat; background-size: cover;">
       </div>
     </div>
   </div>
