@@ -2,19 +2,18 @@
 <%= render 'slash_admin/shared/tooltip', a: a %>
 <% class_name_from_association = class_name_from_association(f.object, a) %>
 <%= f.collection_select a.to_s + '_id',
-class_name_from_association.constantize.all.order(f.object.send(a).present? ? "CASE WHEN id = #{f.object.send(a).try(:id)} THEN 1 ELSE 0 END DESC" : "id DESC").limit(20), :id, object_label(a),
-{
-  prompt: t('slash_admin.view.select_model', model_name: class_name_from_association.constantize.model_name.human.downcase),
-},
-'data-model': class_name_from_association.constantize.model_name.to_s.underscore,
-'data-fields': "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' '),
-class: "form-control select2-model-single #{a.to_s}_id", required: required?(f.object, a).present? %>
+                        class_name_from_association.constantize.all.order(f.object.send(a).present? ? "CASE WHEN id = #{f.object.send(a).try(:id)} THEN 1 ELSE 0 END DESC" : "id DESC").limit(20), :id, object_label(a),
+                        {},
+                        'data-placeholder': t('slash_admin.view.select_model', model_name: class_name_from_association.constantize.model_name.human.downcase),
+                        'data-model': class_name_from_association.constantize.model_name.to_s.underscore,
+                        'data-fields': "SlashAdmin::Models::#{a.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' '),
+                        class: "form-control select2-model-single #{a.to_s}_id", required: required?(f.object, a).present? %>
 
 <a href="#" class="add-belongs-to" style="font-size: .9em;"><%= t('slash_admin.view.add', model_name: class_name_from_association.constantize.model_name.human.downcase) %></a>
 
 <script type="text/javascript">
-  $(function() {
-    $('.add-belongs-to').on('click', function(e) {
+  $(function () {
+    $('.add-belongs-to').on('click', function (e) {
       e.preventDefault();
       $('.modal-belongs-to').html();
       $('.modal-belongs-to').html("<%= escape_javascript(render 'slash_admin/base/data_belongs_to', f: f, a: a) %>");
@@ -29,29 +28,29 @@ class: "form-control select2-model-single #{a.to_s}_id", required: required?(f.o
       }
 
       $(id)
-      .on('ajax:complete', function(xhr, status) {
-        // console.log(status);
-      })
-      .on('ajax:error', function(xhr, status, err) {
-        console.log(status);
-        console.log(err);
-      })
-      .on("ajax:success", function(xhr, data, status) {
-        if (data.errors) {
-          var errors_html = "";
-          data.errors.map(function(item, index) {
-            errors_html += item + '<br  />';
-          });
-          $('.errors-json').html(errors_html)
-        } else {
-          toastr.success("<%= t('slash_admin.view.create_success', model_name: class_name_from_association(f.object, a).constantize.model_name.human) %>");
-          $(id).trigger("reset");
-          closeModals();
-          var select = $('.<%= a.to_s + '_id' %>')[0];
-          var newOption = new Option(data.name, data.id, false, true);
-          select.prepend(newOption).trigger('change');
-        }
-      });
+        .on('ajax:complete', function (xhr, status) {
+          // console.log(status);
+        })
+        .on('ajax:error', function (xhr, status, err) {
+          console.log(status);
+          console.log(err);
+        })
+        .on("ajax:success", function (xhr, data, status) {
+          if (data.errors) {
+            var errors_html = "";
+            data.errors.map(function (item, index) {
+              errors_html += item + '<br  />';
+            });
+            $('.errors-json').html(errors_html)
+          } else {
+            toastr.success("<%= t('slash_admin.view.create_success', model_name: class_name_from_association(f.object, a).constantize.model_name.human) %>");
+            $(id).trigger("reset");
+            closeModals();
+            var select = $('.<%= a.to_s + '_id' %>')[0];
+            var newOption = new Option(data.name, data.id, false, true);
+            select.prepend(newOption).trigger('change');
+          }
+        });
     });
   });
 </script>

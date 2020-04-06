@@ -1,5 +1,5 @@
 //= require js-routes
-//= require i18n
+//= require i18n.js
 //= require i18n/translations
 //= require jquery3
 //= require jquery_ujs
@@ -40,7 +40,7 @@ function init() {
   Pagy.init();
   $('[data-toggle="tooltip"]').tooltip();
 
-  $('.page-sidebar a[href$="#"]').on("click", function(e) {
+  $('.page-sidebar a[href$="#"]').on("click", function (e) {
     e.preventDefault();
   });
 
@@ -51,7 +51,7 @@ function init() {
 
   // Scroll to top
   var offset = 250;
-  $(window).scroll(function() {
+  $(window).scroll(function () {
     if ($(this).scrollTop() > offset) {
       $(".scroll-to-top").fadeIn("slow");
     } else {
@@ -59,22 +59,22 @@ function init() {
     }
   });
 
-  $(".scroll-to-top").click(function(event) {
-    $("html, body").animate({ scrollTop: 0 }, 300);
+  $(".scroll-to-top").click(function (event) {
+    $("html, body").animate({scrollTop: 0}, 300);
   });
 
   // Automatic hide alert
-  window.setTimeout(function() {
+  window.setTimeout(function () {
     $(".alert")
       .fadeTo(500, 0)
-      .slideUp(500, function() {
+      .slideUp(500, function () {
         $(this).remove();
       });
   }, 1500);
 
   // clearForm
-  $.fn.clearForm = function() {
-    return this.each(function() {
+  $.fn.clearForm = function () {
+    return this.each(function () {
       var type = this.type,
         tag = this.tagName.toLowerCase();
       if (tag === "form") return $(":input", this).clearForm();
@@ -86,20 +86,20 @@ function init() {
   };
 
   // CounterUp plugin
-  $("[data-counter='counterup']").each(function() {
+  $("[data-counter='counterup']").each(function () {
     var $this = $(this),
       countTo = $this.attr("data-value");
-    $({ countNum: $this.text() }).animate(
+    $({countNum: $this.text()}).animate(
       {
         countNum: countTo
       },
       {
         duration: 1500,
         easing: "linear",
-        step: function() {
+        step: function () {
           $this.text(Math.floor(this.countNum));
         },
-        complete: function() {
+        complete: function () {
           $this.text(this.countNum);
         }
       }
@@ -113,9 +113,9 @@ function init() {
     .addClass("active");
 
   // BULK ACTIONS
-  $(".toggle-all").on("change", function() {
+  $(".toggle-all").on("change", function () {
     var checked = this.checked;
-    $('.table-data-list tbody input[type="checkbox"]').each(function(
+    $('.table-data-list tbody input[type="checkbox"]').each(function (
       index,
       item
     ) {
@@ -123,14 +123,14 @@ function init() {
     });
   });
 
-  $('.table-data-list input[type="checkbox"]').on("change", function() {
+  $('.table-data-list input[type="checkbox"]').on("change", function () {
     var length = $('.table-data-list tbody input[type="checkbox"]:checked')
       .length;
     $(".batch-current-selected").html(length);
   });
 
   // Delete button protection sweetalert
-  $(".single-delete").on("click", function(e) {
+  $(".single-delete").on("click", function (e) {
     e.preventDefault();
     var target = $(this).attr("href");
     var current = window.location.href;
@@ -148,11 +148,11 @@ function init() {
         closeOnConfirm: false,
         showLoaderOnConfirm: true
       },
-      function() {
+      function () {
         $.ajax({
           url: target,
           method: "DELETE"
-        }).done(function() {
+        }).done(function () {
           window.location.href = current;
         });
       }
@@ -160,14 +160,14 @@ function init() {
   });
 
   // Batch action
-  $(".batch-action").on("click", function(e) {
+  $(".batch-action").on("click", function (e) {
     e.preventDefault();
     var target = $(this).data("action");
     var message = $(this).data("message");
     var current = window.location.href;
     var ids = [];
 
-    $('.table-data-list tbody input[type="checkbox"]:checked').each(function(
+    $('.table-data-list tbody input[type="checkbox"]:checked').each(function (
       index,
       checkbox
     ) {
@@ -188,14 +188,14 @@ function init() {
           closeOnConfirm: false,
           showLoaderOnConfirm: true
         },
-        function() {
+        function () {
           $.ajax({
             url: target,
             method: "post",
             data: {
               ids: ids
             }
-          }).done(function() {
+          }).done(function () {
             window.location.href = current;
           });
         }
@@ -203,29 +203,68 @@ function init() {
     }
   });
 
-  $(".select2-single, .select2-multiple").select2({});
 
-  $(".select2-model-multiple, .select2-model-single").select2({
-    ajax: {
-      url: Routes.slash_admin_remote_select_path({
-        format: "json"
-      }),
-      dataType: "json",
-      data: function (params) {
-        var model = $(this).attr("data-model");
-        var fields = $(this).attr("data-fields");
-        return {
-          model_class: model,
-          q: params.term,
-          fields: fields.split(" "),
-        };
-      },
-      processResults: function (data) {
-        return {
-          results: data
-        };
+  $(".select2-single, .select2-multiple").each (function() {
+    let initialPlaceholder = $(this).attr('placeholder');
+    $(this).select2({
+      placeholder: initialPlaceholder,
+      allowClear: true,
+      theme: 'bootstrap4',
+      debug: true,
+    }).on("select2:unselecting", function (e) {
+      $(this).data('state', 'unselected');
+    }).on("select2:open", function (e) {
+      if ($(this).data('state') === 'unselected') {
+        $(this).removeData('state');
+
+        var self = $(this);
+        setTimeout(function () {
+          self.select2('close');
+        }, 1);
       }
-    }
+    });
+  });
+
+  $(".select2-model-multiple, .select2-model-single").each(function() {
+    let initialPlaceholder = $(this).attr('data-placeholder') || I18n.t('slash_admin.view.select');
+
+    $(this).select2({
+      placeholder: initialPlaceholder,
+      allowClear: true,
+      theme: 'bootstrap4',
+      debug: true,
+      ajax: {
+        url: Routes.slash_admin_remote_select_path({
+          format: "json"
+        }),
+        dataType: "json",
+        data: function (params) {
+          var model = $(this).attr("data-model");
+          var fields = $(this).attr("data-fields");
+          return {
+            model_class: model,
+            q: params.term,
+            fields: fields.split(" "),
+          };
+        },
+        processResults: function (data) {
+          return {
+            results: data
+          };
+        }
+      }
+    }).on("select2:unselecting", function (e) {
+      $(this).data('state', 'unselected');
+    }).on("select2:open", function (e) {
+      if ($(this).data('state') === 'unselected') {
+        $(this).removeData('state');
+
+        var self = $(this);
+        setTimeout(function () {
+          self.select2('close');
+        }, 1);
+      }
+    });
   });
 
   $(".bootstrap-datepicker").datepicker({
@@ -254,7 +293,7 @@ function init() {
 
   $(".colorpicker").minicolors();
 
-  $("#reset-filters").on("click", function(e) {
+  $("#reset-filters").on("click", function (e) {
     e.preventDefault();
 
     $("input[name*='filters']").val("");
@@ -266,10 +305,10 @@ function init() {
 
   // Handle create belongs to
   $("#create-belongs-to-form")
-    .on("ajax:success", function(e, data, status, xhr) {
+    .on("ajax:success", function (e, data, status, xhr) {
       $("#create-belongs-to-form").text("Done.");
     })
-    .on("ajax:error", function(e, xhr, status, error) {
+    .on("ajax:error", function (e, xhr, status, error) {
       $("#create-belongs-to-form").text("Failed.");
     });
 }

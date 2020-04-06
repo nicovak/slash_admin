@@ -48,6 +48,7 @@ en:
       filter: Filter
       reset: Reset
       select_model: "Select a %{model_name}"
+      select: "Select..."
       list: "%{model_name} list"
       return_to_list: Return to list
       no_image: No image

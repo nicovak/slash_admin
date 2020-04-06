@@ -37,7 +37,7 @@
         <% elsif @belongs_to_fields.include?(attr) || @has_one_fields.include?(attr) %>
             <% if "SlashAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.present? %>
             <td>
-              <select name="filters[<%= attr %>][]" class="select2-model-multiple form-control-sm" multiple data-model="<%= attr.to_s.classify.constantize.model_name.to_s.underscore %>" data-fields='<%= "SlashAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' ') %>' placeholder="<%= t('slash_admin.view.select_model', model_name: attr.to_s.classify.constantize.model_name.human.downcase) %>">
+              <select name="filters[<%= attr %>][]" class="select2-model-multiple form-control-sm" multiple data-model="<%= attr.to_s.classify.constantize.model_name.to_s.underscore %>" data-fields='<%= "SlashAdmin::Models::#{attr.to_s.classify.pluralize}Controller".constantize.new.autocomplete_params.join(' ') %>' data-placeholder="<%= t('slash_admin.view.select_model', model_name: attr.to_s.classify.constantize.model_name.human.downcase) %>">
                 <% if params[:filters].present? && params[:filters][attr].present? %>
                   <% params[:filters][attr].each do |value| %>
                     <option value="<%= value %>" selected><%= attr.to_s.classify.constantize.find(value).name %></option>

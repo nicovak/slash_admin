@@ -50,6 +50,7 @@ fr:
       filter: Filtrer
       reset: Réinit.
       select_model: "Sélectionner un(e) %{model_name}"
+      select: "Sélectionner..."
       list: "Liste des %{model_name}"
       return_to_list: Retour à la liste
       no_image: Aucune Image

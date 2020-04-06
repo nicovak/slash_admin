@@ -28,12 +28,16 @@
                         data-href="<%= sub[:path] %>"
                         data-blank="<%= s[:blank].present? ? 'true' : 'false' %>">
                       <td>
-                        <% if sub[:icon] %>
-                          <i class="<%= sub[:icon] %>"></i>
-                        <% end %>
+                        <a href="<%= sub[:path] %>" class="<%= request.fullpath == sub[:path] ? 'active' : '' %>" target="<%= s[:blank].present? ? '_blank' : '_self' %>">
+                          <% if sub[:icon] %>
+                            <i class="<%= sub[:icon] %>"></i>
+                          <% end %>
+                        </a>
                       </td>
                       <td>
-                        <span class="title"><%= sub[:title] %></span>
+                        <a href="<%= sub[:path] %>" class="<%= request.fullpath == sub[:path] ? 'active' : '' %>" target="<%= s[:blank].present? ? '_blank' : '_self' %>">
+                          <span class="title"><%= sub[:title] %></span>
+                        </a>
                       </td>
                     </tr>
                   <% else %>
@@ -42,12 +46,16 @@
                           data-href="<%= polymorphic_url([:slash_admin, sub[:model]]) %>"
                           data-blank="<%= s[:blank].present? ? 'true' : 'false' %>">
                         <td>
+                          <a class="<%= controller.controller_name == sub[:model].name.split('::').last.tableize ? 'active' : '' %>" href="<%= polymorphic_url([:slash_admin, sub[:model]]) %>" target="<%= s[:blank].present? ? '_blank' : '_self' %>">
                           <% if sub[:icon] %>
                             <i class="<%= sub[:icon] %>"></i>
                           <% end %>
+                          </a>
                         </td>
                         <td>
-                          <span class="title"><%= sub[:model].model_name.human(count: 2) %></span>
+                          <a class="<%= controller.controller_name == sub[:model].name.split('::').last.tableize ? 'active' : '' %>" href="<%= polymorphic_url([:slash_admin, sub[:model]]) %>" target="<%= s[:blank].present? ? 'true' : '_self' %>">
+                            <span class="title"><%= sub[:model].model_name.human(count: 2) %></span>
+                          </a>
                         </td>
                       </tr>
                     <% end %>
