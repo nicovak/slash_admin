@@ -5,7 +5,9 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap
-//= require select2.min
+//= require select2/select2.min
+//= require select2/i18n/fr
+//= require select2/i18n/en
 //= require moment
 //= require moment/fr
 //= require bootstrap-material-datetimepicker
@@ -205,12 +207,12 @@ function init() {
 
 
   $(".select2-single, .select2-multiple").each (function() {
-    let initialPlaceholder = $(this).attr('placeholder');
+    let initialPlaceholder = $(this).attr('data-placeholder') || I18n.t('slash_admin.view.select');
+
     $(this).select2({
       placeholder: initialPlaceholder,
       allowClear: true,
       theme: 'bootstrap4',
-      debug: true,
     }).on("select2:unselecting", function (e) {
       $(this).data('state', 'unselected');
     }).on("select2:open", function (e) {
@@ -232,7 +234,6 @@ function init() {
       placeholder: initialPlaceholder,
       allowClear: true,
       theme: 'bootstrap4',
-      debug: true,
       ajax: {
         url: Routes.slash_admin_remote_select_path({
           format: "json"

@@ -1,3 +1,6 @@
 <%= f.label a.keys.first, class: "form-control-label #{required?(f.object, a) ? 'required' : ''}" %>
 <%= render 'slash_admin/shared/tooltip', a: a %>
-<%= f.select(a.keys.first, ActiveSupport::TimeZone::MAPPING.values, { include_blank: true, required: required?(f.object, a) }, class: 'form-control select2-single') %>
+<%= f.select(a.keys.first, ActiveSupport::TimeZone::MAPPING.values,
+             { include_blank: true, required: required?(f.object, a) },
+             'data-placeholder': t('slash_admin.view.select_model', model_name: @model_class.human_attribute_name(a.keys.first).singularize.downcase),
+             class: 'form-control select2-single') %>

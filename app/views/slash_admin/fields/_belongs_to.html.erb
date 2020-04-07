@@ -3,7 +3,7 @@
 <%= f.collection_select a.to_s + '_id',
                         class_name_from_association(f.object, a).constantize.all.order(f.object.send(a).present? ? "CASE WHEN id = #{f.object.send(a).try(:id)} THEN 1 ELSE 0 END DESC" : "id DESC").limit(20), :id, object_label(class_name_from_association(f.object, a)),
                         {
-                          prompt: "",
+                          include_blank: true,
                         },
                         'data-placeholder': t('slash_admin.view.select_model', model_name: class_name_from_association(f.object, a).constantize.model_name.human.downcase),
                         'data-model': class_name_from_association(f.object, a).constantize.model_name.to_s.underscore,
