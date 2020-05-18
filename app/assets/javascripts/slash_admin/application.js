@@ -207,7 +207,7 @@ function init() {
 
 
   $(".select2-single, .select2-multiple").each (function() {
-    let initialPlaceholder = $(this).attr('data-placeholder') || I18n.t('slash_admin.view.select');
+    var initialPlaceholder = $(this).attr('data-placeholder') || I18n.t('slash_admin.view.select');
 
     $(this).select2({
       placeholder: initialPlaceholder,
@@ -228,7 +228,7 @@ function init() {
   });
 
   $(".select2-model-multiple, .select2-model-single").each(function() {
-    let initialPlaceholder = $(this).attr('data-placeholder') || I18n.t('slash_admin.view.select');
+    var initialPlaceholder = $(this).attr('data-placeholder') || I18n.t('slash_admin.view.select');
 
     $(this).select2({
       placeholder: initialPlaceholder,

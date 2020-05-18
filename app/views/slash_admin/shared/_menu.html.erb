@@ -74,8 +74,8 @@
 <script type="text/javascript">
   $(function() {
     $(".clickable-row").click(function() {
-      let href = $(this).data("href");
-      let blank = $(this).data("blank");
+      var href = $(this).data("href");
+      var blank = $(this).data("blank");
 
       if (blank === true) {
         window.open = href;
