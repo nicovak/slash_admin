@@ -2,6 +2,8 @@
 
 module SlashAdmin
   module ApplicationHelper
+    include Pagy::Frontend
+
     def page_title(content)
       content_for :page_title, content
     end
