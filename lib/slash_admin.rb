@@ -23,4 +23,20 @@ require "http_accept_language"
 require "batch_translation"
 
 module SlashAdmin
+  class << self
+    attr_accessor :configuration
+  end
+
+  def self.configure
+    self.configuration ||= Configuration.new
+    yield(configuration)
+  end
+
+  class Configuration
+    attr_accessor :available_locales
+
+    def initialize
+      @available_locales = I18n.available_locales
+    end
+  end
 end

@@ -177,17 +177,21 @@ end
 ```
 
 SlashAdmin will use the first locale in your `I18n.available_locales` as default.
+You can change this behavior in `config/initializers/slash_admin.rb`
+You can also override it for each model. For example, you can override the method available_locales in your model's controller :
+
+```ruby
+def available_locales
+  # By Default it uses SlashAdmin.available_locales
+  # Which is by default I18n.available_locales
+  %w(fr en ja zh)
+end
+```
 
 In `config/application.rb`
 
 ```ruby
 config.i18n.available_locales = %w(fr en)
 ```
-
-It will not use `I18n.default_locale` here is the explication :
-I'm french and my website is not entirely translated in all existing locales.
-The `default_locale` of my project is `:en` as it is the international locale (eg: spanish or german will mostly understand it).
-If the locale asked by the user is not available it will return the `:en` translation.
-In the back-end my main focus is `:fr` not `:en`
 
 You may want to use this [gem](https://github.com/iain/http_accept_language) to handle locale in front.

@@ -11,7 +11,7 @@ module SlashAdmin
     before_action :handle_default_params
     before_action :handle_assocations
 
-    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_translatable?, :translatable_params, :tooltips
+    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_translatable?, :translatable_params, :available_locales, :tooltips
 
     def index
       authorize! :index, @model_class
@@ -386,7 +386,7 @@ module SlashAdmin
     end
 
     def handle_default_translations
-      I18n.available_locales.reject { |key| key == :root }.each do |locale|
+      available_locales.reject { |key| key == :root }.each do |locale|
         translation = @model.translations.find_by_locale locale.to_s
         if translation.nil?
           @model.translations.build locale: locale
@@ -400,6 +400,10 @@ module SlashAdmin
       params[:order_field] ||= @order_field
       params[:order] ||= @order
       params[:filters] ||= []
+    end
+
+    def available_locales
+      SlashAdmin.configuration.available_locales
     end
 
     def handle_assocations

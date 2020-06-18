@@ -8,6 +8,8 @@ module SlashAdmin
       def install
         template "install.erb",
           "app/helpers/slash_admin/menu_helper.rb"
+        template "initializer.erb",
+                 "config/initializers/slash_admin.rb"
       end
     end
   end
