@@ -86,8 +86,8 @@ If your apps uses Sprockets 4+, you'll need to add SlashAdmin assets to your `ma
 `app/assets/config/manifest.js`
 
 ```
-//= link administrate/application.css
-//= link administrate/application.js
+//= link slash_admin/application.css
+//= link slash_admin/application.js
 ```
 
 `config/routes.rb`

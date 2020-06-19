@@ -91,7 +91,7 @@ p[data-f-id="pbf"] {
   margin: 0;
 
   label.form-control-label {
-    display: block;
+    display: inline-block;
     font-weight: 600;
   }
 
@@ -266,20 +266,6 @@ p[data-f-id="pbf"] {
     }
   }
 
-  .field_with_errors {
-    label {
-      color: $red;
-    }
-
-    input {
-      border-color: $red !important;
-    }
-
-    & + .form-control-feedback {
-      color: $red;
-    }
-  }
-
   .block-language {
     display: block;
     margin: 15px 0;
@@ -434,6 +420,16 @@ p[data-f-id="pbf"] {
 
   .label-has-one {
     color: $primary;
+  }
+
+  .has-danger {
+    .form-control, input, select, textarea {
+      border-color: $error !important;
+    }
+
+    label, .form-control-feedback {
+      color: $error !important;
+    }
   }
 
   .scroll-to-top {

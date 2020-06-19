@@ -75,7 +75,9 @@
                   <% end %>
                 </td>
               <% else %>
-                <td class="<%= attr.to_s.parameterize.underscore.downcase %>"><%= render attr.keys.first.to_s, model: m %></td>
+                <td class="<%= attr.to_s.parameterize.underscore.downcase %>">
+                  <%= render attr[attr.keys.first][:type].to_s, model: m, attr: attr.keys.first %>
+                </td>
               <% end %>
             <% else %>
               <% if m.send(attr).is_a?(TrueClass) || m.send(attr).is_a?(FalseClass) %>

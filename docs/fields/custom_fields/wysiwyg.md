@@ -111,6 +111,8 @@ module SlashAdmin
         format.json { render json: {status: 'OK'} }
       end
     end
+  end
+end
 ```
 
 In `app/uploaders/wysiwyg_uploader.rb`

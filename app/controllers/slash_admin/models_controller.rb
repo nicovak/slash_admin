@@ -9,7 +9,7 @@ module SlashAdmin
     before_action :handle_default
     before_action :nestable_config
     before_action :handle_default_params
-    before_action :handle_assocations
+    before_action :handle_associations
 
     helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_translatable?, :translatable_params, :available_locales, :tooltips
 
@@ -406,7 +406,7 @@ module SlashAdmin
       SlashAdmin.configuration.available_locales
     end
 
-    def handle_assocations
+    def handle_associations
       @belongs_to_fields = @model_class.reflect_on_all_associations(:belongs_to).map(&:name)
       @has_many_fields = @model_class.reflect_on_all_associations(:has_many).map(&:name)
       @has_one_fields = @model_class.reflect_on_all_associations(:has_one).map(&:name)
