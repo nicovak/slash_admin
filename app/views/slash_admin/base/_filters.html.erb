@@ -60,6 +60,13 @@
             <% else %>
               <td>&nbsp;</td>
             <% end %>
+        <% elsif attr.is_a?(Hash) && attr[:filter].present? %>
+            <td>
+              <% case attr[:filter] %>
+              <% when :text, :string %>
+                <input type="text" name="filters[<%= attr.keys.first %>]" value="<%= params[:filters][attr.keys.first] rescue nil %>" class="form-control form-control-sm"/>
+              <% end %>
+            </td>
         <% else %>
           <td>&nbsp;</td>
         <% end %>
