@@ -13,6 +13,7 @@ en:
         error: Impossible to create '%{model_name}'
         success: Operation successed.
     view:
+      edit_account: Edit my Account
       fill_login_and_password: "Please enter your credentials to proceed."
       administration: Administration
       home: Home

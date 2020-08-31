@@ -10,8 +10,12 @@
     <div class="navbar-nav mr-auto mt-2 mt-lg-0">
     </div>
     <ul class="nav right-nav-fix">
-      <li class="nav-item">
-        <a class="nav-link">
+      <li class="nav-item <%= can?(:update, current_admin) ? 'dropdown' : '' %>">
+        <% if can?(:update, current_admin) %>
+          <a class= "nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+        <% else %>
+          <a class="nav-link">
+        <% end %>
           <% if current_admin.avatar.present? %>
             <img src="<%= current_admin.avatar.url %>" class="rounded-circle"/>
           <% else %>
@@ -19,6 +23,13 @@
           <% end %>
           <span class=""><%= current_admin.login %></span>
         </a>
+        <% if can?(:update, current_admin) %>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a href="<%= edit_slash_admin_admin_path current_admin %>" class="dropdown-item">
+            <i class="fas fa-user-circle"></i> <%= t('slash_admin.view.edit_account') %>
+          </a>
+        </div>
+        <% end %>
       </li>
 
       <li class="nav-item">
