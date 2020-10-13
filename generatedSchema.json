@@ -1,0 +1,1 @@
+{"type":"object","properties":{"dev":{"type":"object","properties":{"id":{"type":"string"},"box":{"type":"string"},"type":{"type":"string"}}},"msgs":{"type":"array","items":{"type":"object"}}}}

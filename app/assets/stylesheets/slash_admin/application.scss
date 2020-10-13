@@ -252,7 +252,6 @@ p[data-f-id="pbf"] {
   }
 
   .tag-boolean {
-    width: 45px;
     text-align: center;
     display: inline-block;
   }
@@ -1240,9 +1239,12 @@ p[data-f-id="pbf"] {
   .datatable_wrapper {
     .tag {
       font-size: 13px;
-      padding: 2px 5px;
+      padding: 2px 8px;
       color: #fff;
       text-transform: uppercase;
+      a, a:hover, a:visited, a:active {
+        color: #fff;
+      }
     }
   }
 
