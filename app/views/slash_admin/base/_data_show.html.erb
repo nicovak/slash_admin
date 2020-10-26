@@ -19,7 +19,14 @@
         <span class="show-attr-title"><%= @model_class.human_attribute_name(a) %></span>
         <% if @model.send(a).present? %>
           <br/>
-          <img src="<%= @model.send(a) %>" class="img-fluid background-default"/>
+          <% extension = @model.send(a).file.try(:extension).try(:downcase) || @model.send(a).file.try(:format).try(:downcase) || file.try(:file).try(:extension) %>
+          <% if extension.present? %>
+            <% if %w{pdf doc docx xls xlsx ppt pptx}.include?(extension) %>
+            <iframe src="https://docs.google.com/gview?url=<%= @model.send(a) %>&embedded=true" style="width:100%; height:600px;" frameborder="0"></iframe>
+            <% else %>
+              <img src="<%= @model.send(a) %>" class="img-fluid background-default"/>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
     </div>
