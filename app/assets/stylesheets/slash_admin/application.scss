@@ -29,7 +29,7 @@ $border-radius: 0.15rem !default;
 
 @import "bootstrap";
 
-@import url("https://use.fontawesome.com/releases/v5.12.1/css/all.css");
+@import url("https://use.fontawesome.com/releases/v5.15.1/css/all.css");
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css");
@@ -763,6 +763,7 @@ p[data-f-id="pbf"] {
             > a.nav-link {
               color: $textColorHover;
               font-weight: bold;
+              background-color: $border;
             }
 
             &::after {
