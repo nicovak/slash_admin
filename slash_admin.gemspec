@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "README.md", "LICENSE.md"]
 
-  s.add_dependency "rails", "~> 6.0"
+  s.add_dependency "rails", "~> 6.1"
   s.add_dependency "http_accept_language"
   s.add_dependency "pagy"
   s.add_dependency "cancancan"

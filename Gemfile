@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.7.1"
+ruby "2.7.2"
 
 # Declare your gem's dependencies in slash_admin.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
@@ -18,6 +18,6 @@ group :development, :test do
   gem "byebug"
   gem "i18n-tasks"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.5.0"
+  gem "rspec-rails", "~> 3.9.1"
   gem "rspec_junit_formatter"
 end
