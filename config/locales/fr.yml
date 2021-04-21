@@ -29,6 +29,7 @@ fr:
       edit: "Édition: %{model_name}"
       show: "Affichage: %{model_name}"
       see: Voir
+      see_model: "Voir les %{model}"
       tools: Outils
       order: Trier
       erase: Effacer

@@ -92,8 +92,10 @@
                 </td>
               <% elsif @has_many_fields.include?(attr) %>
                 <td class="<%= attr.to_s.parameterize.underscore.downcase %>">
-                  <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-see-assoc-<%= attr.to_s %>-<%= m.id %>">
-                    <i class="fa fa-list"></i> <%= t('slash_admin.view.see') %>
+                  <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-see-assoc-<%= attr.to_s %>-<%= m.id %>"
+                    data-toggle="tooltip" data-placement="top" title="<%= t("slash_admin.view.see_model", model: attr.to_s.pluralize) %>"
+                  >
+                    <i class="fa fa-list"></i>
                   </button>
                   <div class="modal fade" id="modal-see-assoc-<%= attr.to_s %>-<%= m.id %>" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
                     <div class="modal-dialog" role="document">

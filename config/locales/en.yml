@@ -26,6 +26,7 @@ en:
       save: Save
       delete: Delete
       new: New
+      see_model: "View the %{model}"
       edit: "Edit: %{model_name}"
       show: "Show: %{model_name}"
       tools: Tools
