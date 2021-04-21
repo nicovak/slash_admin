@@ -94,6 +94,16 @@ def handle_default
 end
 ```
 
+#### Hide column title in list view ####
+
+Just add a `no_title` method in the model controller
+
+```ruby
+def no_title
+  [:name, :url] # will have an empty heading in the index list view
+end
+```
+
 #### Add Tooltip ####
 
 ```ruby

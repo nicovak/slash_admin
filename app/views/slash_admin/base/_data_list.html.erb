@@ -28,13 +28,20 @@
         </th>
         <% list_params.each do |attr| %>
           <% if attr.is_a?(Hash) %>
-            <th>
-              <%= @model_class.human_attribute_name(attr.keys.first) %>
-              <% if tooltips.key? attr.keys.first %>
-                <a href="#" data-toggle="tooltip" data-placement="top" title="<%= tooltips[attr.keys.first] %>"><i class="fas fa-question-circle"></i></a>
-              <% end %>
-            </th>
+            <% if no_title.include? attr.keys.first %>
+              <th></th>
+            <% else %>
+              <th>
+                <%= @model_class.human_attribute_name(attr.keys.first) %>
+                <% if tooltips.key? attr.keys.first %>
+                  <a href="#" data-toggle="tooltip" data-placement="top" title="<%= tooltips[attr.keys.first] %>"><i class="fas fa-question-circle"></i></a>
+                <% end %>
+              </th>
+            <% end %>
           <% else %>
+            <% if no_title.include? attr %>
+              <th></th>
+            <% else %>
             <th
               <% if orderable?(@model_class, attr) %>
               data-order-field="<%= attr %>"
@@ -50,6 +57,7 @@
                 <a href="#" data-toggle="tooltip" data-placement="top" title="<%= tooltips[attr] %>"><i class="fas fa-question-circle"></i></a>
               <% end %>
             </th>
+            <% end %>
           <% end %>
         <% end %>
         <th class="text-center"><%= t('slash_admin.view.actions') %></th>

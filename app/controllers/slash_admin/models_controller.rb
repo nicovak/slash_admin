@@ -11,7 +11,7 @@ module SlashAdmin
     before_action :handle_default_params
     before_action :handle_associations
 
-    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_translatable?, :translatable_params, :available_locales, :tooltips
+    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_translatable?, :translatable_params, :available_locales, :tooltips, :no_title
 
     def index
       authorize! :index, @model_class
@@ -155,6 +155,10 @@ module SlashAdmin
     #
     def tooltips
       {}
+    end
+
+    def no_title
+      []
     end
 
     def handle_has_one
