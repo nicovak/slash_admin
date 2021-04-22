@@ -104,6 +104,16 @@ def no_title
 end
 ```
 
+#### Add icon to has_many button in list view ####
+
+This will show up in the relation button in the list view, in place of the capital letter, and in the title of the related popup
+
+```ruby
+def icons
+  { comments: '<i class="fas fa-comments"></i>' } # or a material icon tag
+end
+```
+
 #### Add Tooltip ####
 
 ```ruby

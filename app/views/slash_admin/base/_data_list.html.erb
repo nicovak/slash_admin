@@ -101,15 +101,26 @@
               <% elsif @has_many_fields.include?(attr) %>
                 <td class="<%= attr.to_s.parameterize.underscore.downcase %>">
                   <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-see-assoc-<%= attr.to_s %>-<%= m.id %>"
-                    data-toggle="tooltip" data-placement="top" title="<%= t("slash_admin.view.see_model", model: attr.to_s.pluralize) %>"
+                    data-toggle="tooltip" data-placement="top" title="<%= t("slash_admin.view.see_model_of", model: attr.to_s.pluralize, of: m.name) %>"
                   >
-                    <i class="fa fa-list"></i>
+                    <span class="list-icon">
+                      <i class="fas fa-ellipsis-v"></i>
+                      <% if icons.key? attr %>
+                        &nbsp;<%= raw icons[attr.to_sym] %>
+                      <% else %>
+                        &nbsp;<%= attr.to_s.first.upcase %>
+                      <% end %>
+                    </span>
                   </button>
                   <div class="modal fade" id="modal-see-assoc-<%= attr.to_s %>-<%= m.id %>" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel"><%= t('slash_admin.view.associations') %>
+                          <h5 class="modal-title" id="exampleModalLabel">
+                            <% if icons.key? attr %>
+                              <%= raw icons[attr.to_sym] %>&nbsp;
+                            <% end %>
+                            <%= t("model.#{attr}") %>
                             <strong>(<%= m.send(attr).length %>)</strong></h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>

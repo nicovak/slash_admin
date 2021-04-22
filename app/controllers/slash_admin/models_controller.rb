@@ -11,7 +11,7 @@ module SlashAdmin
     before_action :handle_default_params
     before_action :handle_associations
 
-    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_translatable?, :translatable_params, :available_locales, :tooltips, :no_title
+    helper_method :list_params, :export_params, :create_params, :update_params, :show_params, :nested_params, :should_add_translatable?, :translatable_params, :available_locales, :tooltips, :no_title, :icons
 
     def index
       authorize! :index, @model_class
@@ -159,6 +159,10 @@ module SlashAdmin
 
     def no_title
       []
+    end
+
+    def icons
+      {}
     end
 
     def handle_has_one
