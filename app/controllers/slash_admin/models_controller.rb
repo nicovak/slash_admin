@@ -222,7 +222,7 @@ module SlashAdmin
 
         flash[:success] = t("slash_admin.controller.nestable.success")
 
-        redirect_to(main_app.polymorphic_url(["slash_admin", @model_class])) && return if params.key?(:submit_redirect)
+        redirect_to(main_app.polymorphic_url([:slash_admin, @model_class])) && return if params.key?(:submit_redirect)
         redirect_to main_app.polymorphic_url([:nestable, :slash_admin, @model_class])
       end
     end
@@ -350,9 +350,9 @@ module SlashAdmin
     end
 
     def handle_redirect_after_submit
-      path = main_app.edit_polymorphic_url(["slash_admin", @model])
-      path = main_app.polymorphic_url(["slash_admin", @model_class]) if params.key?(:submit_redirect)
-      path = main_app.new_polymorphic_url(["slash_admin", @model_class]) if params.key?(:submit_add)
+      path = main_app.edit_polymorphic_url([:slash_admin, @model])
+      path = main_app.polymorphic_url([:slash_admin, @model_class]) if params.key?(:submit_redirect)
+      path = main_app.new_polymorphic_url([:slash_admin, @model_class]) if params.key?(:submit_add)
 
       path
     end
