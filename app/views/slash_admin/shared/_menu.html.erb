@@ -22,11 +22,11 @@
             <div class="sub-menu">
               <table class="table-sm">
                 <tbody>
-                <% s[:sub_menu].each do |sub| %>
+                <% s[:sub_menu].each_with_index do |sub, idx| %>
                   <% if sub[:path].present? %>
-                    <tr class="clickable-row <%= request.fullpath == sub[:path] ? 'active' : '' %>"
-                        data-href="<%= sub[:path] %>"
-                        data-blank="<%= s[:blank].present? ? 'true' : 'false' %>">
+                    <tr class="clickable-row <%= request.fullpath == sub[:path] ? 'active' : '' %> <%= s.dig(:sub_menu, idx + 1, :layout) == 'divider' ? 'menu-divider-below' : '' %>"
+                      data-href="<%= sub[:path] %>"
+                      data-blank="<%= s[:blank].present? ? 'true' : 'false' %>">
                       <td>
                         <a href="<%= sub[:path] %>" class="<%= request.fullpath == sub[:path] ? 'active' : '' %>" target="<%= s[:blank].present? ? '_blank' : '_self' %>">
                           <% if sub[:icon] %>
@@ -41,8 +41,8 @@
                       </td>
                     </tr>
                   <% else %>
-                    <% if access_model?(sub) %>
-                      <tr class="clickable-row <%= controller.controller_name == sub[:model].name.split('::').last.tableize ? 'active' : '' %>"
+                    <% if access_model?(sub) && sub[:layout].blank? %>
+                      <tr class="clickable-row <%= controller.controller_name == sub[:model].name.split('::').last.tableize ? 'active' : '' %> <%= s.dig(:sub_menu, idx + 1, :layout) == 'divider' ? 'menu-divider-below' : '' %>"
                           data-href="<%= polymorphic_url([:slash_admin, sub[:model]]) %>"
                           data-blank="<%= s[:blank].present? ? 'true' : 'false' %>">
                         <td>
