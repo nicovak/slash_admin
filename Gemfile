@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.7.2"
+ruby "2.7.3"
 
 # Declare your gem's dependencies in slash_admin.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
