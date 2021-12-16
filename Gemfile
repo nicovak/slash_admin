@@ -18,6 +18,6 @@ group :development, :test do
   gem "byebug"
   gem "i18n-tasks"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.9.1"
+  gem "rspec-rails"
   gem "rspec_junit_formatter"
 end
